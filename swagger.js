@@ -1,13 +1,15 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const pjson = require('./package.json');
+const signale = require('./utils/signale');
 
 const swagger =  (app, config) => {
 
     const swaggerDefinition = {
         info: {
-            title: 'API Segmento - Swagger API',
-            version: '1.0.0',
-            description: 'API Segmento - Endpoints',
+            title: `${pjson.name}`,
+            version: `${pjson.version}`,
+            description: `Swagger - ${pjson.description}`,
         },
 
         basePath: config.context
@@ -23,7 +25,7 @@ const swagger =  (app, config) => {
         res.send(swaggerSpec);
     });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    console.log("Swagger is enabled in : /api-docs ");
+    signale.info("Swagger is enabled in : /api-docs ");
 }
 
 module.exports = swagger;

@@ -8,6 +8,15 @@
     "tz": "TZ",
     "showLogInterceptor": "SHOW_LOG_INTERCEPTOR"
   },
+  "params": {
+    "fbApiVersion": "FB_API_VERSION",
+    "verifyToken": "VERIFY_TOKEN",
+    "accessToken": "ACCESS_TOKEN",
+    "subscribedFields": "FB_SUBSCRIBED_FIELDS"
+  },
+  "services": {
+    "fbApiUrl": "FB_API_URL"
+  },
   "swagger":{
     "enabled":"SWAGGER_ENABLED"
   }

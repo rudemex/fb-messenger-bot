@@ -1,0 +1,72 @@
+# add btn get started
+curl -X POST -H "Content-Type: application/json" -d '{ "get_started": {"payload": "GET_STARTED_PAYLOAD"} }' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=EAAKiEPeMqIsBAEal8PjoBGczJuocaRc8K3gu3VfrWPk4aUh12wskbbobYt93pUf5PuFZCVUCszISZCIjhU8DZA6Kjs5zUqFK9XLSwvwrU2aUBA43hZCS1v9umaBan4ZBvU4lbaNRGb60GPW0qxZAEElTAlEOqnGM7AcmsBWiLIxAZDZD"
+
+# add btn get started
+curl -X POST -H "Content-Type: application/json" -d '{
+"greeting": [{
+  "locale": "default",
+  "text": "Hola {{user_first_name}} soy un bot!"
+}]
+}' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=EAAKiEPeMqIsBAEal8PjoBGczJuocaRc8K3gu3VfrWPk4aUh12wskbbobYt93pUf5PuFZCVUCszISZCIjhU8DZA6Kjs5zUqFK9XLSwvwrU2aUBA43hZCS1v9umaBan4ZBvU4lbaNRGb60GPW0qxZAEElTAlEOqnGM7AcmsBWiLIxAZDZD"
+
+
+# add persistent menu
+curl -X POST -H "Content-Type: application/json" -d '{
+   "persistent_menu":[
+      {
+         "locale":"default",
+         "composer_input_disabled":false,
+         "call_to_actions":[
+            {
+               "title":"Acerca",
+               "type":"postback",
+               "payload":"ABOUT_PAYLOAD"
+            },
+            {
+               "title":"Sucursales",
+               "type":"postback",
+               "payload":"LOCATIONS_PAYLOAD"
+            },
+            {
+               "title":"Ayuda",
+               "type":"postback",
+               "payload":"HELP_PAYLOAD"
+            },
+            {
+               "title":"Contacto",
+               "type":"postback",
+               "payload":"CONTACT_PAYLOAD"
+            },
+            {
+               "title":"Pizzas",
+               "type":"postback",
+               "payload":"PIZZAS_PAYLOAD"
+            },
+            {
+               "title":"Especialidades",
+               "type":"postback",
+               "payload":"SPECIALS_PAYLOAD"
+            },
+            {
+               "title":"Bebidas",
+               "type":"postback",
+               "payload":"DRINKS_PAYLOAD"
+            },
+            {
+               "title":"Promociones",
+               "type":"postback",
+               "payload":"PROMOTIONS_PAYLOAD"
+            },
+            {
+               "type":"web_url",
+               "title":"🐶 Pagina Web",
+               "url":"http://platzi.com/bots-messenger/",
+               "webview_height_ratio":"full"
+            }
+         ]
+      }
+   ]
+}' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=EAAKiEPeMqIsBAEal8PjoBGczJuocaRc8K3gu3VfrWPk4aUh12wskbbobYt93pUf5PuFZCVUCszISZCIjhU8DZA6Kjs5zUqFK9XLSwvwrU2aUBA43hZCS1v9umaBan4ZBvU4lbaNRGb60GPW0qxZAEElTAlEOqnGM7AcmsBWiLIxAZDZD"
+
+# Delete persistent menu
+curl -X DELETE -H "Content-Type: application/json" -d '{"fields":["persistent_menu"]}' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=EAAKiEPeMqIsBAEal8PjoBGczJuocaRc8K3gu3VfrWPk4aUh12wskbbobYt93pUf5PuFZCVUCszISZCIjhU8DZA6Kjs5zUqFK9XLSwvwrU2aUBA43hZCS1v9umaBan4ZBvU4lbaNRGb60GPW0qxZAEElTAlEOqnGM7AcmsBWiLIxAZDZD"

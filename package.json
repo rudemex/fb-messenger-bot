@@ -18,7 +18,6 @@
   "author": "Maximiliano \"Mex\" Delgado <mdelgado@tresdoce.com.ar>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
     "babel-plugin-idx": "^2.4.0",
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
@@ -26,6 +25,8 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "idx": "^2.5.6",
+    "node-uuid": "^1.4.8",
+    "request": "^2.88.2",
     "signale-logger": "^1.5.0",
     "swagger-jsdoc": "^3.2.9",
     "swagger-ui-express": "^4.0.2"

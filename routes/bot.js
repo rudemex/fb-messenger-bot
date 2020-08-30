@@ -1,63 +1,242 @@
-const MongoClient = require('mongodb').MongoClient;
 const config = require('config');
 const bodyParser = require('body-parser');
-const xss = require('xss');
+const idx = require('idx');
+const request = require('request');
+const uuid = require('node-uuid');
 const signale = require('../utils/signale');
+const functions = require('../utils/functions');
 
-module.exports = (app, redis) => {
-    const serverConfig = config.get('server');
-    const paramsConfig = config.get('params');
-    const context = serverConfig.context;
-    const expireCache = parseInt(paramsConfig.expire);
+module.exports = (app) => {
+  const sessionIds = new Map();
+  const serverConfig = config.get('server');
+  const paramsConfig = config.get('params');
+  const context = serverConfig.context;
 
-    signale.info(`Expire Cache: ${expireCache}`);
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
-    const mongoConfig = config.get('database');
-    const databaseName = mongoConfig.databaseName;
-    const mongoCollection = 'segments';
-    //signale.info('DATABASE ENVS: ', mongoConfig);
-    const mongo_url = encodeURI(
-        `mongodb://${mongoConfig.username}:${mongoConfig.password}@${mongoConfig.server}:${mongoConfig.port}/${databaseName}`
-    );
+  const handleEvent = (event) => {
+    signale.info({
+      prefix: '[handleEvent] EVENT: ',
+      message: event,
+    });
 
-    const mongo_options = {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+    const senderId = idx(event, (_) => _.sender.id);
+
+    if (!sessionIds.has(senderId)) {
+      sessionIds.set(senderId, uuid.v4());
+    }
+
+    if (event.message) {
+      signale.info('EVENT MESSAGE');
+      handleMessage(senderId, event.message);
+    } else if (event.postback) {
+      signale.info('EVENT POSTBACK');
+      handlePostback(senderId, event.postback);
+    }
+
+    /*if ((event.message && event.message.text) || (event.postback && event.postback.payload)) {
+      const text = event.message ? event.message.text : event.postback.payload;
+      console.log('[i] TEXT: ', text);
+      // Handle a text message from this sender
+      switch (text) {
+        case 'GET_STARTED_PAYLOAD':
+          console.log('[i] STARTED PAYLOAD');
+          break;
+        default:
+          /!*if(event.message.quick_reply){
+                        console.log('[i] QUICK REPLY: ',event.message.quick_reply.payload);
+
+                        if(event.message.quick_reply.payload == 'RECIPE_SOUP'){
+                            console.log('[i] RUN RECIPE SOUP');
+                            startRecipeSoup(sender)
+                        }else if(event.message.quick_reply.payload == 'CUSTOMER_SERVICE'){
+                            console.log('[i] CALL TO CUSTOMER SERVICE');
+                            callCustomerService(sender);
+                        }else if( event.message.quick_reply.payload == 'YES_CELIAC_SOUP'){
+                            console.log('[i] CUSTOM SOUP FROM CELIAC');
+
+                            customSoup[sender]['celiac'] = 1;
+
+                            request({
+                                url: API_URL+'/recipes/custom/celiac',
+                                method: 'POST',
+                                form: {
+                                    'id_sender': sender,
+                                    'celiac' : 1
+                                }
+                            }, function(error, response, body) {
+                                var response = JSON.parse(body);
+                                console.log('[r] RESP:',response);
+
+                                setCustomSoupMain(sender)
+
+                            });
+                        }else if( event.message.quick_reply.payload == 'NO_CELIAC_SOUP'){
+                            console.log('[i] CUSTOM SOUP NO CELIAC');
+
+                            customSoup[sender]['celiac'] = 0;
+
+                            request({
+                                url: API_URL+'/recipes/custom/celiac',
+                                method: 'POST',
+                                form: {
+                                    'id_sender': sender,
+                                    'celiac' : 0
+                                }
+                            }, function(error, response, body) {
+                                var response = JSON.parse(body);
+                                console.log('[r] RESP:',response);
+
+                                setCustomSoupMain(sender);
+
+                            });
+                        }else if( event.message.quick_reply.payload == 'VEGETARIAN_SOUP'){
+                            console.log('[i] CUSTOM SOUP VEGETARIAN');
+
+                            customSoup[sender]['main_ingredient'] = 'vegetales';
+
+                            request({
+                                url: API_URL+'/recipes/custom/main',
+                                method: 'POST',
+                                form: {
+                                    'id_sender': sender,
+                                    'main_ingredient' : 'vegetales'
+                                }
+                            }, function(error, response, body) {
+                                var response = JSON.parse(body);
+                                console.log('[r] RESP:',response);
+
+                                setCustomSoupOther(sender);
+
+                            });
+                        }else if( event.message.quick_reply.payload == 'WITH_EAT_SOUP'){
+                            console.log('[i] CUSTOM SOUP EAT');
+
+                            customSoup[sender]['main_ingredient'] = 'carne';
+
+                            request({
+                                url: API_URL+'/recipes/custom/main',
+                                method: 'POST',
+                                form: {
+                                    'id_sender': sender,
+                                    'main_ingredient' : 'carne'
+                                }
+                            }, function(error, response, body) {
+                                var response = JSON.parse(body);
+                                console.log('[r] RESP:',response);
+
+                                setCustomSoupOther(sender);
+
+                            });
+                        }
+
+                    }else{
+
+                    }*!/
+          break;
+      }
+    } else {
+      // ATTACHSMENTS ----------------------------------- //
+
+      if (event.message.attachments) {
+        console.log('[i] ATTACHMENTS IN MSG');
+        console.log(event.message.text);
+        console.log(event.message.attachments[0]);
+        console.log(event.message.attachments[0].type);
+        console.log(event.message.attachments[0].title);
+        console.log(event.message.attachments[0].url);
+        console.log(event.message.attachments[0].payload);
+      }
+
+      if (event.message.attachments[0]) {
+        console.log('[i] ATTACHMENTS');
+        console.log(event.message.attachments[0]);
+
+        //LOCATION
+        if (event.message.attachments[0].type === 'location') {
+          let lat = event.message.attachments[0].payload.coordinates.lat;
+          let lng = event.message.attachments[0].payload.coordinates.long;
+
+          getTodaySoup(sender, lat, lng);
+        }
+      }
+      // ----------------------------------------------- //
+    }*/
+  };
+
+  const handleMessage = (senderId, event) => {
+    if (event.text) {
+      defaultMessage(senderId);
+    } else if (event.attachments) {
+      handleAttachments(senderId, event);
+    }
+  };
+
+  const defaultMessage = (senderId) => {
+    const messageData = {
+      recipient: {
+        id: senderId,
+      },
+      message: {
+        text:
+          'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
+        quick_replies: [
+          {
+            content_type: 'text',
+            title: 'Opcion 1',
+            payload: 'OPTION_1_PAYLOAD',
+          },
+          {
+            content_type: 'text',
+            title: 'Opcion 2',
+            payload: 'OPTION_2_PAYLOAD',
+          },
+        ],
+      },
     };
+    functions.sendMessage(messageData);
+  };
 
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+  const handlePostback = (senderId, event) => {
+    const payload = idx(event, (_) => _.payload);
 
-    const checkCache = (req, res, next) => {
-        const code = encodeURI(req.params.code);
+    switch (payload) {
+      case 'GET_STARTED_PAYLOAD':
+        console.log('[i] STARTED PAYLOAD');
+        break;
+      default:
+        console.log('default');
+        break;
+    }
+  };
 
-        redis.get(code, (err, data) => {
-            if (err) {
-                signale.error({
-                    prefix: '[redis] GET ERROR',
-                    message: err,
-                });
-                res.status(500).send(err);
-            }
-            //if no match found
-            if (data != null) {
-                signale.success({
-                    prefix: '[redis] GET CACHE',
-                    message: data,
-                });
-                res.status(200).send(data);
-            } else {
-                //proceed to next middleware function
-                signale.info({
-                    prefix: '[redis] GET CACHE',
-                    message: `Doesen't exist ${code} in the Redis`,
-                });
-                next();
-            }
-        });
-    };
+  const handleAttachments = (senderId, event) => {
+    let attachment_type = event.attachments[0].type;
+    switch (attachment_type.toLowerCase()) {
+      case 'image':
+        signale.info(attachment_type);
+        break;
+      case 'video':
+        signale.info(attachment_type);
+        break;
+      case 'audio':
+        signale.info(attachment_type);
+        break;
+      case 'file':
+        console.log(attachment_type);
+        break;
+      case 'location':
+        signale.info(attachment_type);
+        break;
+      default:
+        signale.info(attachment_type);
+        break;
+    }
+  };
 
-    /**
+  /*
+    /!**
      * @swagger
      * definitions:
      *   segments:
@@ -67,8 +246,8 @@ module.exports = (app, redis) => {
      *              type: string
      *          name:
      *              type: string
-     */
-    /**
+     *!/
+    /!**
      * @swagger
      * /segments:
      *   get:
@@ -91,257 +270,52 @@ module.exports = (app, redis) => {
      *          description: Error generico.
      *       '5xx':
      *          description: Error generico en el servidor
-     */
+     *!/
     app.get(encodeURI(context + '/segments'), async (req, res) => {
         signale.note('GET ALL SEGMENTS');
-
-        const client = await MongoClient.connect(mongo_url, mongo_options).catch(
-            (error) => {
-                signale.error({
-                    prefix: '[mongoClient] ERROR',
-                    message: error,
-                });
-                res.status(409).send({ error_message: `Error inesperado: ${error}` });
-            }
-        );
-
-        if (!client) {
-            signale.error({
-                prefix: '[mongoClient] ERROR',
-                message: 'Error inesperado: not client',
-            });
-            res.status(409).send({ error_message: 'Error inesperado: not client' });
-            return;
-        }
+        functions.doSubscribeRequest();
 
         try {
-            const db = client.db(databaseName); // seteo de base de datos
-            let collection = db.collection(mongoCollection);
-
-            collection.find().toArray((err, items) => {
-                signale.success({
-                    prefix: '[mongo] FIND ITEMS',
-                    message: items,
-                });
-                res.status(200).send(xss(JSON.stringify(items)));
-                client.close();
-            });
+            signale.success("SUCCESS");
         } catch (error) {
-            signale.error({
-                prefix: '[mongo] ERROR',
-                message: error,
-            });
-            res.status(409).send({ error_message: `Error inesperado: ${error}` });
+            signale.error('ERROR');
         }
-    });
+    });*/
 
-    /**
-     * @swagger
-     * /segments/{code}:
-     *   get:
-     *     tags:
-     *       - Segments
-     *     name: Obtención del segmento por código.
-     *     summary: Obtención del segmento por código
-     *     security:
-     *       - bearerAuth: []
-     *     consumes:
-     *       - application/json
-     *     produces:
-     *       - application/json
-     *     parameters:
-     *       - name: code
-     *         in: path
-     *         type: string
-     *         required: false
-     *     responses:
-     *       '200':
-     *          description: Consulta satisfactoria.
-     *          schema:
-     *              $ref: '#/definitions/segments'
-     *       '409':
-     *          description: Error generico.
-     *       '5xx':
-     *          description: Error generico en el servidor
-     */
-    app.get(encodeURI(context + '/segments/:code'), checkCache, async (req, res) => {
-            signale.note('GET SEGMENT BY CODE');
+  app.get(encodeURI('/webhook/'), (req, res) => {
+    if (req.query['hub.verify_token'] === paramsConfig.verifyToken) {
+      res.send(req.query['hub.challenge']);
+      setTimeout(() => {
+        functions.doSubscribeRequest();
+      }, 3000);
+    } else {
+      signale.error({
+        prefix: '[webhook]',
+        message: 'Error, wrong validation token',
+      });
+      res.send('Error, wrong validation token');
+    }
+  });
 
-            const code = req.params.code;
-
-            const client = await MongoClient.connect(mongo_url, mongo_options).catch((error) => {
-                signale.error({
-                    prefix: '[mongoClient] ERROR',
-                    message: error,
-                });
-                res.status(409).send({ error_message: `Error inesperado: ${error}` });
-            });
-
-            if (!client) {
-                signale.error({
-                    prefix: '[mongoClient] ERROR',
-                    message: 'Error inesperado: not client',
-                });
-                res.status(409).send({ error_message: 'Error inesperado: not client' });
-                return;
-            }
-
-            try {
-                const db = client.db(databaseName); // seteo de base de datos
-                let collection = db.collection(mongoCollection);
-
-                collection.findOne({ code: code }, (err, item) => {
-                    if (!err) {
-                        if (item) {
-                            signale.success({
-                                prefix: '[mongo] FIND ITEM',
-                                message: item,
-                            });
-
-                            const saveInRedis = redis.setex(code, expireCache || 2592000, JSON.stringify(item));
-
-                            if(saveInRedis){
-                                signale.success({
-                                    prefix: '[redis] SAVE',
-                                    message: `Save data of ${code} in redis`,
-                                });
-                            }else{
-                                signale.error({
-                                    prefix: '[redis] ERROR',
-                                    message: `Don't save data of ${code} in redis`,
-                                });
-                            }
-
-                            res.status(200).send(xss(JSON.stringify(item)));
-                        } else {
-                            signale.error({
-                                prefix: '[mongo] ERROR',
-                                message: "Doesen't exist",
-                            });
-                            res.status(404).send(null);
-                        }
-                    } else {
-                        signale.error({
-                            prefix: '[mongo] ERROR',
-                            message: err,
-                        });
-                        res.status(409).send({ error_message: `Error inesperado: ${err}` });
-                    }
-
-                    client.close();
-                });
-            } catch (error) {
-                signale.error({
-                    prefix: '[mongo] ERROR',
-                    message: error,
-                });
-                res.status(409).send({ error_message: `Error inesperado: ${error}` });
-            }
-        }
-    );
-
-    /**
-     * @swagger
-     * /segments/{code}:
-     *   put:
-     *     tags:
-     *       - Segments
-     *     name: Update del segmento por código.
-     *     summary: Update del segmento por código
-     *     security:
-     *       - bearerAuth: []
-     *     consumes:
-     *       - application/json
-     *     produces:
-     *       - application/json
-     *     parameters:
-     *       - name: code
-     *         in: path
-     *         type: string
-     *         required: false
-     *     responses:
-     *       '200':
-     *          description: Consulta satisfactoria.
-     *          schema:
-     *              $ref: '#/definitions/segments'
-     *       '409':
-     *          description: Error generico.
-     *       '5xx':
-     *          description: Error generico en el servidor
-     */
-    app.put(encodeURI(context + '/segments/:code'), async (req, res) => {
-        signale.note('UPDATE SEGMENT BY CODE');
-        const code = req.params.code;
-
-        const client = await MongoClient.connect(mongo_url, mongo_options).catch((error) => {
-            signale.error({
-                prefix: '[mongoClient] ERROR',
-                message: error,
-            });
-            res.status(409).send({ error_message: `Error inesperado: ${error}` })
+  app.post(encodeURI('/webhook/'), (req, res) => {
+    try {
+      const webhook_event = req.body.entry[0];
+      if (webhook_event.messaging) {
+        webhook_event.messaging.forEach((event) => {
+          handleEvent(event);
         });
-
-        if (!client) {
-            signale.error({
-                prefix: '[mongoClient] ERROR',
-                message: 'Error inesperado: not client',
-            });
-            res.status(409).send({ error_message: 'Error inesperado: not client' });
-            return;
-        }
-
-        try {
-            const db = client.db(databaseName); // seteo de base de datos
-            let collection = db.collection(mongoCollection);
-
-            collection.findOne({ code: code }, (err, item) => {
-                if (!err) {
-                    if (item) {
-                        signale.success({
-                            prefix: '[mongo] FIND ITEM',
-                            message: item,
-                        });
-
-                        const saveInRedis = redis.setex(code, expireCache || 2592000, JSON.stringify(item));
-
-                        if(saveInRedis){
-                            signale.success({
-                                prefix: '[redis] SAVE',
-                                message: `Save data of ${code} in redis`,
-                            });
-                        }else{
-                            signale.error({
-                                prefix: '[redis] ERROR',
-                                message: `Don't save data of${code} in redis`,
-                            });
-                        }
-
-                        res.status(200).send(xss(JSON.stringify(item)));
-
-                    } else {
-                        signale.error({
-                            prefix: '[mongo] ERROR',
-                            message: "Doesen't exist",
-                        });
-                        res.status(404).send(null);
-                    }
-                } else {
-                    signale.error({
-                        prefix: '[mongo] ERROR',
-                        message: err,
-                    });
-                    res.status(409).send({ error_message: `Error inesperado: ${err}` });
-                }
-
-                client.close();
-            });
-        } catch (error) {
-            signale.error({
-                prefix: '[mongo] ERROR',
-                message: error,
-            });
-            res.status(409).send({ error_message: `Error inesperado: ${error}` });
-        }
-    });
-
+      }
+      signale.success({
+        prefix: '[webhook]',
+        message: 'ok',
+      });
+      res.status(200).json({ status: 'ok' });
+    } catch (err) {
+      signale.error({
+        prefix: '[webhook] ERROR',
+        message: err,
+      });
+      res.status(400).json({ status: 'error', error: err });
+    }
+  });
 };
