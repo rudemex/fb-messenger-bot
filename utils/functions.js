@@ -39,6 +39,25 @@ const doSubscribeRequest = () => {
   );
 };
 
+const eventType = (event) => {
+  let eventType;
+
+  /*
+  Atachment: event.message.attachments
+  quick reply: event.message.quick_reply.payload
+  text: event.message.text
+  Postback: event.postback.payload
+  */
+  if(event.message){
+    eventType = event.message.text ? 'text' : event.message.quick_reply ? 'quick_reply' : 'attachments';
+  }else{
+    // Delivery, read, optin and others, you must configure it in the webhook of the app administration and enable the subscription in the request (env)
+    eventType = event.postback ? 'postback': event.read ? 'read' : event.delivery ? 'delivery' : event.optin ? 'optin': null;
+  }
+
+  return eventType;
+};
+
 const typingOn = (senderId) => {
   request(
     {
@@ -59,7 +78,7 @@ const typingOn = (senderId) => {
       } else {
         signale.success({
           prefix: `[typingOn] RESPONSE`,
-          message: response.body,
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -76,7 +95,8 @@ const typingOff = (senderId) => {
         recipient: { id: senderId },
         sender_action: 'typing_off',
       },
-    }, (error, response, body) => {
+    },
+    (error, response, body) => {
       if (error) {
         signale.error({
           prefix: `[typingOff] ERROR`,
@@ -85,7 +105,7 @@ const typingOff = (senderId) => {
       } else {
         signale.success({
           prefix: `[typingOff] RESPONSE`,
-          message: response.body,
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -93,16 +113,17 @@ const typingOff = (senderId) => {
 };
 
 const sendMessage = (data) => {
-  console.log(data)
-  typingOn(data.recipient.id);
+  //signale.info(JSON.stringify(data));
+  //typingOn(data.recipient.id);
   request(
     {
       url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
       qs: { access_token: paramsConfig.accessToken },
       method: 'POST',
       json: data,
-    }, (error, response, body) => {
-      typingOff(data.recipient.id);
+    },
+    (error, response, body) => {
+      //typingOff(data.recipient.id);
       if (error) {
         signale.error({
           prefix: `[sendMessage] ERROR`,
@@ -111,7 +132,7 @@ const sendMessage = (data) => {
       } else {
         signale.success({
           prefix: `[sendMessage] RESPONSE`,
-          message: response.body,
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -121,6 +142,7 @@ const sendMessage = (data) => {
 module.exports = {
   isDefined,
   doSubscribeRequest,
+  eventType,
   typingOn,
   typingOff,
   sendMessage,

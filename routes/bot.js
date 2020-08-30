@@ -17,170 +17,50 @@ module.exports = (app) => {
 
   const handleEvent = (event) => {
     signale.info({
-      prefix: '[handleEvent] EVENT: ',
-      message: event,
+      prefix: '[handleEvent] EVENT',
+      message: JSON.stringify(event),
     });
 
     const senderId = idx(event, (_) => _.sender.id);
+    const eventType = functions.eventType(event);
+
+    signale.info({
+      prefix: '[handleEvent] EVENT TYPE',
+      message: eventType
+    });
 
     if (!sessionIds.has(senderId)) {
       sessionIds.set(senderId, uuid.v4());
     }
 
-    if (event.message) {
-      signale.info('EVENT MESSAGE');
-      handleMessage(senderId, event.message);
-    } else if (event.postback) {
-      signale.info('EVENT POSTBACK');
-      handlePostback(senderId, event.postback);
+    switch (eventType) {
+      case 'postback':
+        handlePostback(senderId, event.postback);
+        break;
+      case 'quick_reply':
+        handleQuickReply(senderId, event.message.quick_reply);
+        break;
+      case 'attachments':
+        handleAttachments(senderId, event.message);
+        break;
+      case 'text':
+        handleMessage(senderId, event.message);
+        break;
+      default:
+        // Event delivery and read
+        break;
     }
-
-    /*if ((event.message && event.message.text) || (event.postback && event.postback.payload)) {
-      const text = event.message ? event.message.text : event.postback.payload;
-      console.log('[i] TEXT: ', text);
-      // Handle a text message from this sender
-      switch (text) {
-        case 'GET_STARTED_PAYLOAD':
-          console.log('[i] STARTED PAYLOAD');
-          break;
-        default:
-          /!*if(event.message.quick_reply){
-                        console.log('[i] QUICK REPLY: ',event.message.quick_reply.payload);
-
-                        if(event.message.quick_reply.payload == 'RECIPE_SOUP'){
-                            console.log('[i] RUN RECIPE SOUP');
-                            startRecipeSoup(sender)
-                        }else if(event.message.quick_reply.payload == 'CUSTOMER_SERVICE'){
-                            console.log('[i] CALL TO CUSTOMER SERVICE');
-                            callCustomerService(sender);
-                        }else if( event.message.quick_reply.payload == 'YES_CELIAC_SOUP'){
-                            console.log('[i] CUSTOM SOUP FROM CELIAC');
-
-                            customSoup[sender]['celiac'] = 1;
-
-                            request({
-                                url: API_URL+'/recipes/custom/celiac',
-                                method: 'POST',
-                                form: {
-                                    'id_sender': sender,
-                                    'celiac' : 1
-                                }
-                            }, function(error, response, body) {
-                                var response = JSON.parse(body);
-                                console.log('[r] RESP:',response);
-
-                                setCustomSoupMain(sender)
-
-                            });
-                        }else if( event.message.quick_reply.payload == 'NO_CELIAC_SOUP'){
-                            console.log('[i] CUSTOM SOUP NO CELIAC');
-
-                            customSoup[sender]['celiac'] = 0;
-
-                            request({
-                                url: API_URL+'/recipes/custom/celiac',
-                                method: 'POST',
-                                form: {
-                                    'id_sender': sender,
-                                    'celiac' : 0
-                                }
-                            }, function(error, response, body) {
-                                var response = JSON.parse(body);
-                                console.log('[r] RESP:',response);
-
-                                setCustomSoupMain(sender);
-
-                            });
-                        }else if( event.message.quick_reply.payload == 'VEGETARIAN_SOUP'){
-                            console.log('[i] CUSTOM SOUP VEGETARIAN');
-
-                            customSoup[sender]['main_ingredient'] = 'vegetales';
-
-                            request({
-                                url: API_URL+'/recipes/custom/main',
-                                method: 'POST',
-                                form: {
-                                    'id_sender': sender,
-                                    'main_ingredient' : 'vegetales'
-                                }
-                            }, function(error, response, body) {
-                                var response = JSON.parse(body);
-                                console.log('[r] RESP:',response);
-
-                                setCustomSoupOther(sender);
-
-                            });
-                        }else if( event.message.quick_reply.payload == 'WITH_EAT_SOUP'){
-                            console.log('[i] CUSTOM SOUP EAT');
-
-                            customSoup[sender]['main_ingredient'] = 'carne';
-
-                            request({
-                                url: API_URL+'/recipes/custom/main',
-                                method: 'POST',
-                                form: {
-                                    'id_sender': sender,
-                                    'main_ingredient' : 'carne'
-                                }
-                            }, function(error, response, body) {
-                                var response = JSON.parse(body);
-                                console.log('[r] RESP:',response);
-
-                                setCustomSoupOther(sender);
-
-                            });
-                        }
-
-                    }else{
-
-                    }*!/
-          break;
-      }
-    } else {
-      // ATTACHSMENTS ----------------------------------- //
-
-      if (event.message.attachments) {
-        console.log('[i] ATTACHMENTS IN MSG');
-        console.log(event.message.text);
-        console.log(event.message.attachments[0]);
-        console.log(event.message.attachments[0].type);
-        console.log(event.message.attachments[0].title);
-        console.log(event.message.attachments[0].url);
-        console.log(event.message.attachments[0].payload);
-      }
-
-      if (event.message.attachments[0]) {
-        console.log('[i] ATTACHMENTS');
-        console.log(event.message.attachments[0]);
-
-        //LOCATION
-        if (event.message.attachments[0].type === 'location') {
-          let lat = event.message.attachments[0].payload.coordinates.lat;
-          let lng = event.message.attachments[0].payload.coordinates.long;
-
-          getTodaySoup(sender, lat, lng);
-        }
-      }
-      // ----------------------------------------------- //
-    }*/
   };
 
+  // HANDLE MESSAGE
   const handleMessage = (senderId, event) => {
-    if (event.text) {
-      defaultMessage(senderId);
-    } else if (event.attachments) {
-      handleAttachments(senderId, event);
-    }
-  };
-
-  const defaultMessage = (senderId) => {
+    signale.note('HANDLE TEXT: ', event.text);
     const messageData = {
       recipient: {
         id: senderId,
       },
       message: {
-        text:
-          'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
+        text: 'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
         quick_replies: [
           {
             content_type: 'text',
@@ -198,39 +78,76 @@ module.exports = (app) => {
     functions.sendMessage(messageData);
   };
 
+  // HANDLE POSTBACK
   const handlePostback = (senderId, event) => {
+    signale.note('HANDLE POSTBACK');
     const payload = idx(event, (_) => _.payload);
 
     switch (payload) {
       case 'GET_STARTED_PAYLOAD':
-        console.log('[i] STARTED PAYLOAD');
+        signale.note('STARTED PAYLOAD');
         break;
       default:
-        console.log('default');
+        signale.info('default postback');
         break;
     }
   };
 
-  const handleAttachments = (senderId, event) => {
-    let attachment_type = event.attachments[0].type;
-    switch (attachment_type.toLowerCase()) {
-      case 'image':
-        signale.info(attachment_type);
+  // HANDLE QUICK REPLY
+  const handleQuickReply = (senderId, event) => {
+    signale.note('HANDLE QUICK-REPLY');
+    const payload = idx(event, (_) => _.payload);
+
+    switch (payload) {
+      case 'OPTION_1_PAYLOAD':
+        signale.info('OPCION 1');
         break;
-      case 'video':
-        signale.info(attachment_type);
-        break;
-      case 'audio':
-        signale.info(attachment_type);
-        break;
-      case 'file':
-        console.log(attachment_type);
-        break;
-      case 'location':
-        signale.info(attachment_type);
+      case 'OPTION_2_PAYLOAD':
+        signale.info('OPCION 2');
         break;
       default:
-        signale.info(attachment_type);
+        signale.info('default quick reply');
+        break;
+    }
+  };
+
+  // HANDLE ATTACHMENTS
+  const handleAttachments = (senderId, event) => {
+    signale.note('HANDLE ATTACHMENTS');
+    /*console.log(event.text);
+    console.log(event.attachments[0]);
+    console.log(event.attachments[0].type);
+    console.log(event.attachments[0].title);
+    console.log(event.attachments[0].url);
+    console.log(event.attachments[0].payload);*/
+
+    let attachmentType = idx(event, (_) => _.attachments[0].type);
+    let attachmentUrl = idx(event, (_) => _.attachments[0].payload.url);
+
+    switch (attachmentType.toLowerCase()) {
+      case 'image':
+        signale.info(attachmentType);
+        signale.info(attachmentUrl);
+        break;
+      case 'video':
+        signale.info(attachmentType);
+        signale.info(attachmentUrl);
+        break;
+      case 'audio':
+        signale.info(attachmentType);
+        signale.info(attachmentUrl);
+        break;
+      case 'file':
+        signale.info(attachmentType);
+        console.log(attachmentUrl);
+        break;
+      case 'location':
+        signale.info(attachmentType);
+        signale.info(attachmentUrl);
+        break;
+      default:
+        signale.info(attachmentType);
+        signale.info(event.message.attachments[0].url);
         break;
     }
   };

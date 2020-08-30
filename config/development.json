@@ -12,7 +12,7 @@
     "fbApiVersion": "v8.0",
     "verifyToken": "my_awesome_bot",
     "accessToken": "EAAKiEPeMqIsBAEal8PjoBGczJuocaRc8K3gu3VfrWPk4aUh12wskbbobYt93pUf5PuFZCVUCszISZCIjhU8DZA6Kjs5zUqFK9XLSwvwrU2aUBA43hZCS1v9umaBan4ZBvU4lbaNRGb60GPW0qxZAEElTAlEOqnGM7AcmsBWiLIxAZDZD",
-    "subscribedFields": "messages,messaging_postbacks,messaging_optins,message_deliveries,message_reads"
+    "subscribedFields": "messages,messaging_postbacks,messaging_optins"
   },
   "services": {
     "fbApiUrl": "https://graph.facebook.com"
