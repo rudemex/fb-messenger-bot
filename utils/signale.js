@@ -8,10 +8,10 @@ const {Signale} = require('signale-logger');
 * success, error, info, note
 * */
 
-const [SENDER_ID, RECEIVER_ID] = ['3172896426164477','102854611541230','100054364543925','1220895001581500','101843218318136'];
+const secureID = ['3172896426164477','102854611541230','100054364543925','1220895001581500','101843218318136'];
 
 const options = {
-    secrets: [SENDER_ID, RECEIVER_ID],
+    secrets: [...secureID],
     types: {
         santa: {
             badge: '🎅',
