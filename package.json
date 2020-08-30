@@ -1,0 +1,50 @@
+{
+  "name": "fb-messenger-bot",
+  "version": "1.0.0",
+  "description": "Starter Bot Facebook Messenger",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --inspect=0.0.0.0:9228 ./server.js",
+    "build": "node -v",
+    "test": "node -v",
+    "lint": "node -v"
+  },
+  "keywords": [
+    "facebook",
+    "messenger",
+    "bot",
+    "node"
+  ],
+  "author": "Maximiliano \"Mex\" Delgado <mdelgado@tresdoce.com.ar>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "babel-plugin-idx": "^2.4.0",
+    "body-parser": "^1.18.3",
+    "config": "^3.0.1",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "idx": "^2.5.6",
+    "signale-logger": "^1.5.0",
+    "swagger-jsdoc": "^3.2.9",
+    "swagger-ui-express": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "prettier": "^2.1.0"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "singleQuote": true
+  },
+  "signale-logger": {
+    "displayFilename": true,
+    "displayTimestamp": true,
+    "displayDate": true,
+    "displayLine": true,
+    "timeZone": "America/Argentina/Buenos_Aires",
+    "formatDate": "YYYY-MM-DD",
+    "formatTime": "HH:mm:ss a"
+  }
+}
