@@ -27,16 +27,8 @@ const doSubscribeRequest = () => {
           try {
             response.body = JSON.parse(response.body);
             if (response.body.success) {
-              /*signale.success({
-                prefix: `[subscribe] RESPONSE`,
-                message: `Subscription result: ${response.body.success}`,
-              });*/
               resolve(response.body);
             } else {
-              /*signale.error({
-                prefix: `[subscribe] ERROR`,
-                message: response.body.error.message,
-              });*/
               reject(response.body.error);
             }
           } catch (error) {
@@ -125,7 +117,6 @@ const typingOff = (senderId) => {
 };
 
 const sendMessage = (data) => {
-  //signale.info(JSON.stringify(data));
   typingOn(data.recipient.id);
   request(
     {

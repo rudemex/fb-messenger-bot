@@ -1,9 +1,9 @@
 const config = require('config');
 const bodyParser = require('body-parser');
 const idx = require('idx');
-const request = require('request');
 const uuid = require('node-uuid');
 const signale = require('../utils/signale');
+const handle = require('../utils/handles');
 const functions = require('../utils/functions');
 
 module.exports = (app) => {
@@ -16,11 +16,6 @@ module.exports = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   const handleEvent = (event) => {
-    signale.info({
-      prefix: '[handleEvent] EVENT',
-      message: JSON.stringify(event),
-    });
-
     const senderId = idx(event, (_) => _.sender.id);
     const eventType = functions.eventType(event);
 
@@ -35,16 +30,16 @@ module.exports = (app) => {
 
     switch (eventType) {
       case 'postback':
-        handlePostback(senderId, event.postback);
+        handle.postback(senderId, event.postback);
         break;
       case 'quick_reply':
-        handleQuickReply(senderId, event.message.quick_reply);
+        handle.quickReply(senderId, event.message.quick_reply);
         break;
       case 'attachments':
-        handleAttachments(senderId, event.message);
+        handle.attachments(senderId, event.message);
         break;
       case 'text':
-        handleMessage(senderId, event.message);
+        handle.message(senderId, event.message);
         break;
       default:
         // Event delivery and read
@@ -52,116 +47,26 @@ module.exports = (app) => {
     }
   };
 
-  // HANDLE MESSAGE
-  const handleMessage = (senderId, event) => {
-    signale.note('HANDLE TEXT: ', event.text);
-    const messageData = {
-      recipient: {
-        id: senderId,
-      },
-      message: {
-        text:
-          'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
-        quick_replies: [
-          {
-            content_type: 'text',
-            title: 'Opcion 1',
-            payload: 'OPTION_1_PAYLOAD',
-          },
-          {
-            content_type: 'text',
-            title: 'Opcion 2',
-            payload: 'OPTION_2_PAYLOAD',
-          },
-        ],
-      },
-    };
-    functions.sendMessage(messageData);
-  };
-
-  // HANDLE POSTBACK
-  const handlePostback = (senderId, event) => {
-    signale.note('HANDLE POSTBACK');
-    const payload = idx(event, (_) => _.payload);
-
-    switch (payload) {
-      case 'GET_STARTED_PAYLOAD':
-        signale.note('STARTED PAYLOAD');
-        break;
-      default:
-        signale.info('default postback');
-        break;
-    }
-  };
-
-  // HANDLE QUICK REPLY
-  const handleQuickReply = (senderId, event) => {
-    signale.note('HANDLE QUICK-REPLY');
-    const payload = idx(event, (_) => _.payload);
-
-    switch (payload) {
-      case 'OPTION_1_PAYLOAD':
-        signale.info('OPCION 1');
-        break;
-      case 'OPTION_2_PAYLOAD':
-        signale.info('OPCION 2');
-        break;
-      default:
-        signale.info('default quick reply');
-        break;
-    }
-  };
-
-  // HANDLE ATTACHMENTS
-  const handleAttachments = (senderId, event) => {
-    signale.note('HANDLE ATTACHMENTS');
-    /*console.log(event.text);
-    console.log(event.attachments[0]);
-    console.log(event.attachments[0].type);
-    console.log(event.attachments[0].title);
-    console.log(event.attachments[0].url);
-    console.log(event.attachments[0].payload);*/
-
-    let attachmentType = idx(event, (_) => _.attachments[0].type);
-    let attachmentUrl = idx(event, (_) => _.attachments[0].payload.url);
-
-    switch (attachmentType.toLowerCase()) {
-      case 'image':
-        signale.info(attachmentType);
-        signale.info(attachmentUrl);
-        break;
-      case 'video':
-        signale.info(attachmentType);
-        signale.info(attachmentUrl);
-        break;
-      case 'audio':
-        signale.info(attachmentType);
-        signale.info(attachmentUrl);
-        break;
-      case 'file':
-        signale.info(attachmentType);
-        console.log(attachmentUrl);
-        break;
-      case 'location':
-        signale.info(attachmentType);
-        signale.info(attachmentUrl);
-        break;
-      default:
-        signale.info(attachmentType);
-        signale.info(event.message.attachments[0].url);
-        break;
-    }
-  };
-
   /**
    * @swagger
    * definitions:
-   *   webhook:
+   *   get-webhook-400:
    *      type: object
    *      properties:
-   *          code:
+   *          message:
    *              type: string
-   *          name:
+   *          code:
+   *              type: number
+   *   get-webhook-409:
+   *      type: object
+   *      properties:
+   *          message:
+   *              type: string
+   *          type:
+   *              type: string
+   *          code:
+   *              type: number
+   *          fbtrace_id:
    *              type: string
    */
   /**
@@ -182,40 +87,49 @@ module.exports = (app) => {
    *       - name: hub.verify_token
    *         in: query
    *         type: string
+   *         default: my_awesome_bot
    *         required: true
    *         description: Token of verification.
    *     responses:
    *       '200':
-   *          description: Consulta satisfactoria.
+   *          description: Consulta satisfactoria - hub.challenge - Generated by the Messenger Platform. Contains the expected response.
+   *       '400':
+   *          description: Error token.
    *          schema:
-   *              $ref: '#/definitions/webhook'
+   *              $ref: '#/definitions/get-webhook-400'
    *       '409':
-   *          description: Error generico.
+   *          description: Error subscription.
+   *          schema:
+   *              $ref: '#/definitions/get-webhook-409'
    *       '5xx':
    *          description: Error generico en el servidor
    */
   app.get(encodeURI(`${context}/webhook/`), (req, res) => {
     if (req.query['hub.verify_token'] === paramsConfig.verifyToken) {
-      res.send(req.query['hub.challenge']);
       setTimeout(() => {
-        functions.doSubscribeRequest().then( response => {
-          signale.success({
-            prefix: `[subscribe] RESPONSE`,
-            message: `Subscription result: ${response.success}`,
+        functions
+          .doSubscribeRequest()
+          .then((response) => {
+            signale.success({
+              prefix: `[subscribe] RESPONSE`,
+              message: `Subscription result: ${response.success}`,
+            });
+            res.status(200).send(req.query['hub.challenge']);
+          })
+          .catch((error) => {
+            signale.error({
+              prefix: `[subscribe] ERROR`,
+              message: error.message,
+            });
+            res.status(409).send(error);
           });
-        }).catch( error => {
-          signale.error({
-            prefix: `[subscribe] ERROR`,
-            message: error.message,
-          });
-        });
       }, 3000);
     } else {
       signale.error({
         prefix: '[webhook]',
         message: 'Error, wrong validation token',
       });
-      res.status(400).send({ error_message: 'Error, wrong validation token' });
+      res.status(400).send({ code: 400, message: 'Error, wrong validation token' });
     }
   });
 
@@ -224,20 +138,20 @@ module.exports = (app) => {
       const webhook_event = req.body.entry[0];
       if (webhook_event.messaging) {
         webhook_event.messaging.forEach((event) => {
+          signale.success({
+            prefix: '[webhook] EVENT RECEIVED',
+            message: JSON.stringify(event),
+          });
           handleEvent(event);
         });
       }
-      signale.success({
-        prefix: '[webhook]',
-        message: 'ok',
-      });
-      res.status(200).json({ status: 'ok' });
+      res.status(200).send({ status: 'success' });
     } catch (err) {
       signale.error({
         prefix: '[webhook] ERROR',
         message: err,
       });
-      res.status(400).json({ status: 'error', error: err });
+      res.status(400).send({ code: 400, message: err });
     }
   });
 };
