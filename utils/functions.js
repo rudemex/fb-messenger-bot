@@ -18,25 +18,37 @@ const isDefined = (obj) => {
 };
 
 const doSubscribeRequest = () => {
-  request(
-    {
-      method: 'POST',
-      uri: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/subscribed_apps?access_token=${paramsConfig.accessToken}&subscribed_fields=${paramsConfig.subscribedFields}`,
-    },
-    (error, response, body) => {
-      if (error) {
-        signale.error({
-          prefix: `[subscribe] ERROR`,
-          message: `Error while subscription: ${error}`,
-        });
-      } else {
-        signale.success({
-          prefix: `[subscribe] RESPONSE`,
-          message: `Subscription result: ${response.body}`,
-        });
-      }
-    }
-  );
+  return new Promise((resolve, reject) => {
+    request(
+        {
+          method: 'POST',
+          uri: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/subscribed_apps?access_token=${paramsConfig.accessToken}&subscribed_fields=${paramsConfig.subscribedFields}`,
+        }, (error, response, body) => {
+          try {
+            response.body = JSON.parse(response.body);
+            if (response.body.success) {
+              /*signale.success({
+                prefix: `[subscribe] RESPONSE`,
+                message: `Subscription result: ${response.body.success}`,
+              });*/
+              resolve(response.body);
+            } else {
+              /*signale.error({
+                prefix: `[subscribe] ERROR`,
+                message: response.body.error.message,
+              });*/
+              reject(response.body.error);
+            }
+          } catch (error) {
+            signale.error({
+              prefix: `[subscribe] ERROR`,
+              message: `Error while subscription: ${error}`,
+            });
+            reject(error);
+          }
+        }
+    );
+  });
 };
 
 const eventType = (event) => {
@@ -114,7 +126,7 @@ const typingOff = (senderId) => {
 
 const sendMessage = (data) => {
   //signale.info(JSON.stringify(data));
-  //typingOn(data.recipient.id);
+  typingOn(data.recipient.id);
   request(
     {
       url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
@@ -123,7 +135,7 @@ const sendMessage = (data) => {
       json: data,
     },
     (error, response, body) => {
-      //typingOff(data.recipient.id);
+      typingOff(data.recipient.id);
       if (error) {
         signale.error({
           prefix: `[sendMessage] ERROR`,

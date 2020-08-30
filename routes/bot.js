@@ -26,7 +26,7 @@ module.exports = (app) => {
 
     signale.info({
       prefix: '[handleEvent] EVENT TYPE',
-      message: eventType
+      message: eventType,
     });
 
     if (!sessionIds.has(senderId)) {
@@ -60,7 +60,8 @@ module.exports = (app) => {
         id: senderId,
       },
       message: {
-        text: 'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
+        text:
+          'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
         quick_replies: [
           {
             content_type: 'text',
@@ -152,69 +153,73 @@ module.exports = (app) => {
     }
   };
 
-  /*
-    /!**
-     * @swagger
-     * definitions:
-     *   segments:
-     *      type: object
-     *      properties:
-     *          code:
-     *              type: string
-     *          name:
-     *              type: string
-     *!/
-    /!**
-     * @swagger
-     * /segments:
-     *   get:
-     *     tags:
-     *       - Segments
-     *     name: Obtención de todos los segmentos.
-     *     summary: Obtención de todos los segmentos.
-     *     security:
-     *       - bearerAuth: []
-     *     consumes:
-     *       - application/json
-     *     produces:
-     *       - application/json
-     *     responses:
-     *       '200':
-     *          description: Consulta satisfactoria.
-     *          schema:
-     *              $ref: '#/definitions/segments'
-     *       '409':
-     *          description: Error generico.
-     *       '5xx':
-     *          description: Error generico en el servidor
-     *!/
-    app.get(encodeURI(context + '/segments'), async (req, res) => {
-        signale.note('GET ALL SEGMENTS');
-        functions.doSubscribeRequest();
-
-        try {
-            signale.success("SUCCESS");
-        } catch (error) {
-            signale.error('ERROR');
-        }
-    });*/
-
-  app.get(encodeURI('/webhook/'), (req, res) => {
+  /**
+   * @swagger
+   * definitions:
+   *   webhook:
+   *      type: object
+   *      properties:
+   *          code:
+   *              type: string
+   *          name:
+   *              type: string
+   */
+  /**
+   * @swagger
+   * /webhook:
+   *   get:
+   *     tags:
+   *       - Webhook
+   *     name: Webhook to validate message.
+   *     summary: Webhook to validate message.
+   *     security:
+   *       - bearerAuth: []
+   *     consumes:
+   *       - application/json
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: hub.verify_token
+   *         in: query
+   *         type: string
+   *         required: true
+   *         description: Token of verification.
+   *     responses:
+   *       '200':
+   *          description: Consulta satisfactoria.
+   *          schema:
+   *              $ref: '#/definitions/webhook'
+   *       '409':
+   *          description: Error generico.
+   *       '5xx':
+   *          description: Error generico en el servidor
+   */
+  app.get(encodeURI(`${context}/webhook/`), (req, res) => {
     if (req.query['hub.verify_token'] === paramsConfig.verifyToken) {
       res.send(req.query['hub.challenge']);
       setTimeout(() => {
-        functions.doSubscribeRequest();
+        functions.doSubscribeRequest().then( response => {
+          signale.success({
+            prefix: `[subscribe] RESPONSE`,
+            message: `Subscription result: ${response.success}`,
+          });
+        }).catch( error => {
+          signale.error({
+            prefix: `[subscribe] ERROR`,
+            message: error.message,
+          });
+        });
       }, 3000);
     } else {
       signale.error({
         prefix: '[webhook]',
         message: 'Error, wrong validation token',
       });
-      res.send('Error, wrong validation token');
+      res.status(400).send({ error_message: 'Error, wrong validation token' });
     }
   });
 
-  app.post(encodeURI('/webhook/'), (req, res) => {
+  app.post(encodeURI(`${context}/webhook/`), (req, res) => {
     try {
       const webhook_event = req.body.entry[0];
       if (webhook_event.messaging) {
