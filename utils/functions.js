@@ -62,6 +62,33 @@ const eventType = (event) => {
   return eventType;
 };
 
+const markSeen = (senderId) => {
+  request(
+      {
+        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
+        qs: { access_token: paramsConfig.accessToken },
+        method: 'POST',
+        json: {
+          recipient: { id: senderId },
+          sender_action: 'mark_seen',
+        },
+      },
+      (error, response, body) => {
+        if (error) {
+          signale.error({
+            prefix: `[markSeen] ERROR`,
+            message: error,
+          });
+        } else {
+          signale.success({
+            prefix: `[markSeen] RESPONSE`,
+            message: JSON.stringify(response.body),
+          });
+        }
+      }
+  );
+};
+
 const typingOn = (senderId) => {
   request(
     {
@@ -146,6 +173,7 @@ module.exports = {
   isDefined,
   doSubscribeRequest,
   eventType,
+  markSeen,
   typingOn,
   typingOff,
   sendMessage,
