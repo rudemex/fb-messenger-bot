@@ -1,5 +1,7 @@
 const {Signale} = require('signale-logger');
+const config = require('config');
 
+const secrets = config.get('params').secrets;
 /*
 * Signale Types:
 * error, fatal, fav, info, star, success, wait, warn, complete, pending, note, start, pause, debug, await, watch, log
@@ -8,10 +10,8 @@ const {Signale} = require('signale-logger');
 * success, error, info, note
 * */
 
-const secureID = ['3172896426164477','102854611541230','100054364543925','1220895001581500','101843218318136'];
-
 const options = {
-    secrets: [...secureID],
+    secrets: secrets ? secrets.split(',') : [],
     types: {
         santa: {
             badge: '🎅',

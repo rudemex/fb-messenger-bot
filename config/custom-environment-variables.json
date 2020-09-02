@@ -12,7 +12,8 @@
     "fbApiVersion": "FB_API_VERSION",
     "verifyToken": "VERIFY_TOKEN",
     "accessToken": "ACCESS_TOKEN",
-    "subscribedFields": "FB_SUBSCRIBED_FIELDS"
+    "subscribedFields": "FB_SUBSCRIBED_FIELDS",
+    "secrets": "SECRETS"
   },
   "services": {
     "fbApiUrl": "FB_API_URL"
