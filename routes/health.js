@@ -6,7 +6,7 @@ module.exports = (app) => {
     const context = serverConfig.context;
 
     app.get(encodeURI(context + '/health'), (req, res) => {
-        signale.info('API HEALTH');
+        //signale.info('API HEALTH');
         res.json({ status: 'UP' });
     });
 }

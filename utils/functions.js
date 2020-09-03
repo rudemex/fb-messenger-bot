@@ -52,7 +52,11 @@ const eventType = (event) => {
   quick reply: event.message.quick_reply.payload
   text: event.message.text
   Postback: event.postback.payload
+  read: event.read
+  delivery: event.delivery
+  optin: event.optin
   */
+
   if (event.message) {
     eventType = event.message.text
       ? 'text'

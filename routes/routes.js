@@ -1,6 +1,7 @@
 const appRouter = (app, version) => {
 
     require('./health')(app);
+    require('./message')(app);
     require('./bot')(app);
 
     app.get("/", (req, res) => {
