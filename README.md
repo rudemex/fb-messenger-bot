@@ -2,7 +2,7 @@
 
 Facebook recently opened up their Messenger platform to enable bots to converse with users through Facebook Apps and on Facebook Pages.
 
-You can read the  [documentation](https://developers.facebook.com/docs/messenger-platform/quickstart) the Messenger team prepared but it's not very clear for beginners and intermediate hackers.
+You can read the [documentation](https://developers.facebook.com/docs/messenger-platform) the Messenger team prepared but it's not very clear for beginners and intermediate hackers.
 
 So instead here is how to create your own messenger bot in 15 minutes.
 
@@ -34,7 +34,7 @@ You can also skip the whole thing by git cloning this repository, running npm in
     npm install express request body-parser --save
     ```
 
-5. Create an index.js file in the folder and copy this into it. We will start by authenticating the bot.
+5. Create an _index.js file in the folder and copy this into it. We will start by authenticating the bot.
 
     ```javascript
     'use strict'
@@ -74,7 +74,7 @@ You can also skip the whole thing by git cloning this repository, running npm in
 6. Make a file called Procfile and copy this. This is so Heroku can know what file to run.
 
     ```
-    web: node index.js
+    web: node _index.js
     ```
 
 7. Commit all the code with Git then create a new Heroku instance and push the code to the cloud.
@@ -111,7 +111,7 @@ You can also skip the whole thing by git cloning this repository, running npm in
 
 Now that Facebook and Heroku can talk to each other we can code out the bot.
 
-1. Add an API endpoint to index.js to process messages. Remember to also include the token we got earlier.
+1. Add an API endpoint to _index.js to process messages. Remember to also include the token we got earlier.
 
     ```javascript
     app.post('/webhook/', function (req, res) {
@@ -200,7 +200,7 @@ Facebook Messenger can send messages structured as cards or buttons.
 
 ![Alt text](/demo/shot5.jpg)
 
-1. Copy the code below to index.js to send an test message back as two cards.
+1. Copy the code below to _index.js to send an test message back as two cards.
 
     ```javascript
     function sendGenericMessage(sender) {

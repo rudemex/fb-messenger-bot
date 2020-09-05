@@ -1,8 +1,24 @@
 const config = require('config');
 const bodyParser = require('body-parser');
-const path = require('path');
 const signale = require('../utils/signale');
 const functions = require('../utils/functions');
+
+// Templates
+const { TemplateMessage } = require('../templates/message');
+const {
+  TemplateAttachmentImage,
+  TemplateAttachmentVideo,
+  TemplateAttachmentAudio,
+  TemplateAttachmentFile,
+} = require('../templates/attachment');
+const { TemplateQuickReply } = require('../templates/quickReply');
+const { TemplateGeneric } = require('../templates/generic');
+const { TemplateButton } = require('../templates/button');
+const {
+  TemplateMediaImage,
+  TemplateMediaVideo,
+} = require('../templates/media');
+const { TemplateReceipt } = require('../templates/receipt');
 
 module.exports = (app) => {
   const serverConfig = config.get('server');
@@ -80,7 +96,7 @@ module.exports = (app) => {
    *         type: string
    *         required: true
    *         description: type message to send.
-   *         enum: [ "text", "attachment", "quickReply", "template-generic", "template-button", "template-media-image", "template-media-video", "template-receipt"]
+   *         enum: [ "text", "attachment-image", "attachment-video", "attachment-audio", "attachment-file", "quickReply", "template-generic", "template-button", "template-media-image", "template-media-video", "template-receipt"]
    *     responses:
    *       '200':
    *          description: Consulta satisfactoria.
@@ -107,25 +123,39 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            text: 'Hola mundo!',
-          },
+          message: TemplateMessage,
         };
         break;
-      case 'attachment':
+      case 'attachment-image':
         messageData = {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'image',
-              payload: {
-                url: `${serverConfig.url}/static/assets/images/robot.jpg`,
-                is_reusable: true,
-              },
-            },
+          message: TemplateAttachmentImage,
+        };
+        break;
+      case 'attachment-video':
+        messageData = {
+          recipient: {
+            id: recipientId,
           },
+          message: TemplateAttachmentVideo,
+        };
+        break;
+      case 'attachment-audio':
+        messageData = {
+          recipient: {
+            id: recipientId,
+          },
+          message: TemplateAttachmentAudio,
+        };
+        break;
+      case 'attachment-file':
+        messageData = {
+          recipient: {
+            id: recipientId,
+          },
+          message: TemplateAttachmentFile,
         };
         break;
       case 'quickReply':
@@ -133,27 +163,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            text: 'Seleccione una opción',
-            quick_replies: [
-              {
-                content_type: 'text',
-                title: 'Opc 1',
-                payload: 'OPC_1_PAYLOAD',
-              },
-              {
-                content_type: 'text',
-                title: 'Opc 2',
-                payload: 'OPC_2_PAYLOAD',
-                image_url: `${serverConfig.url}/static/assets/images/emoji-smile.jpeg`,
-              },
-              {
-                content_type: 'text',
-                title: 'Opc 3 🍀',
-                payload: 'OPC_3_PAYLOAD',
-              },
-            ],
-          },
+          message: TemplateQuickReply,
         };
         break;
       case 'template-generic':
@@ -161,50 +171,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'template',
-              payload: {
-                template_type: 'generic',
-                elements: [
-                  {
-                    title: 'Cool T-shirt',
-                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
-                    subtitle: 'this is a t-shirt very awesome',
-                    buttons: [
-                      {
-                        type: 'postback',
-                        title: 'Buy',
-                        payload: 'DEVELOPER_DEFINED_PAYLOAD',
-                      },
-                      {
-                        type: 'postback',
-                        title: 'Start Chatting',
-                        payload: 'DEVELOPER_DEFINED_PAYLOAD',
-                      },
-                    ],
-                  },
-                  {
-                    title: 'Cool T-shirt',
-                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
-                    subtitle: 'this is a t-shirt very awesome',
-                    buttons: [
-                      {
-                        type: 'postback',
-                        title: 'Buy',
-                        payload: 'DEVELOPER_DEFINED_PAYLOAD',
-                      },
-                      {
-                        type: 'postback',
-                        title: 'Start Chatting',
-                        payload: 'DEVELOPER_DEFINED_PAYLOAD',
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-          },
+          message: TemplateGeneric,
         };
         break;
       case 'template-button':
@@ -212,32 +179,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'template',
-              payload: {
-                template_type: 'button',
-                text: 'What do you want to do next?',
-                buttons: [
-                  {
-                    type: 'web_url',
-                    url: 'https://www.messenger.com',
-                    title: 'Visit Messenger',
-                  },
-                  {
-                    type: 'postback',
-                    title: 'Btn postback',
-                    payload: 'BTN_POSTBACK_PAYLOAD',
-                  },
-                  {
-                    type: 'phone_number',
-                    title: 'Call Representative',
-                    payload: '+15105551234',
-                  },
-                ],
-              },
-            },
-          },
+          message: TemplateButton,
         };
         break;
       case 'template-media-image':
@@ -245,28 +187,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'template',
-              payload: {
-                template_type: 'media',
-                elements: [
-                  {
-                    media_type: 'image',
-                    url:
-                      'https://www.facebook.com/enespanol/photos/a.398784743469240/857414157606294',
-                    buttons: [
-                      {
-                        type: 'web_url',
-                        url: 'https://www.facebook.com/enespanol',
-                        title: 'View Website',
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-          },
+          message: TemplateMediaImage,
         };
         break;
       case 'template-media-video':
@@ -274,28 +195,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'template',
-              payload: {
-                template_type: 'media',
-                elements: [
-                  {
-                    media_type: 'video',
-                    url:
-                      'https://www.facebook.com/185150934832623/videos/1131916223489418',
-                    buttons: [
-                      {
-                        type: 'web_url',
-                        url: 'https://www.facebook.com/enespanol',
-                        title: 'View Website',
-                      },
-                    ],
-                  },
-                ],
-              },
-            },
-          },
+          message: TemplateMediaVideo,
         };
         break;
       case 'template-receipt':
@@ -303,62 +203,7 @@ module.exports = (app) => {
           recipient: {
             id: recipientId,
           },
-          message: {
-            attachment: {
-              type: 'template',
-              payload: {
-                template_type: 'receipt',
-                recipient_name: 'Stephane Crozatier',
-                order_number: '12345678902',
-                currency: 'USD',
-                payment_method: 'Visa 2345',
-                order_url: 'https://mystore.com/order?order_id=123456',
-                timestamp: '1428444852',
-                address: {
-                  street_1: '1 Hacker Way',
-                  street_2: '',
-                  city: 'Menlo Park',
-                  postal_code: '94025',
-                  state: 'CA',
-                  country: 'US',
-                },
-                summary: {
-                  subtotal: 75.0,
-                  shipping_cost: 4.95,
-                  total_tax: 6.19,
-                  total_cost: 56.14,
-                },
-                adjustments: [
-                  {
-                    name: 'New Customer Discount',
-                    amount: 20,
-                  },
-                  {
-                    name: '$10 Off Coupon',
-                    amount: 10,
-                  },
-                ],
-                elements: [
-                  {
-                    title: 'Classic White T-Shirt',
-                    subtitle: '100% Soft and Luxurious Cotton',
-                    quantity: 2,
-                    price: 50,
-                    currency: 'USD',
-                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
-                  },
-                  {
-                    title: 'Classic Gray T-Shirt',
-                    subtitle: '100% Soft and Luxurious Cotton',
-                    quantity: 1,
-                    price: 25,
-                    currency: 'USD',
-                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
-                  },
-                ],
-              },
-            },
-          },
+          message: TemplateReceipt,
         };
         break;
     }
