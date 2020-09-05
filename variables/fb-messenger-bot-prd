@@ -1,3 +1,4 @@
+SERVER_URL=http://bot.domain.com
 SERVER_PORT=8080
 CONTEXT_NAME=/api
 ORIGINS_ALLOWED=

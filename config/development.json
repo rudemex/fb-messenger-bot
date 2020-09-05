@@ -1,5 +1,6 @@
 {
   "server": {
+    "url": "https://82f667456feb.ngrok.io",
     "port": 8080,
     "context": "/api",
     "origins": "http://localhost:3000,http://localhost:3001,http://localhost:8080",

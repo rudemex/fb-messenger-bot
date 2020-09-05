@@ -121,7 +121,7 @@ module.exports = (app) => {
             attachment: {
               type: 'image',
               payload: {
-                url: `https://images.unsplash.com/photo-1527430253228-e93688616381?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=891&q=80`,
+                url: `${serverConfig.url}/static/assets/images/robot.jpg`,
                 is_reusable: true,
               },
             },
@@ -145,8 +145,7 @@ module.exports = (app) => {
                 content_type: 'text',
                 title: 'Opc 2',
                 payload: 'OPC_2_PAYLOAD',
-                image_url:
-                  'https://www.lavanguardia.com/r/GODO/LV/p5/WebSite/2018/06/22/Recortada/img_melies_20180622-173809_imagenes_lv_terceros_img_0691-knNG--656x656@LaVanguardia-Web.jpeg',
+                image_url: `${serverConfig.url}/static/assets/images/emoji-smile.jpeg`,
               },
               {
                 content_type: 'text',
@@ -170,8 +169,7 @@ module.exports = (app) => {
                 elements: [
                   {
                     title: 'Cool T-shirt',
-                    image_url:
-                      'https://cdn11.bigcommerce.com/s-rxzabllq/images/stencil/1280x1280/products/910/18045/Kids-Plain-Poly-Fit-Quick_Dry-Tshirt-red__13799.1567089094.jpg?c=2',
+                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
                     subtitle: 'this is a t-shirt very awesome',
                     buttons: [
                       {
@@ -188,8 +186,7 @@ module.exports = (app) => {
                   },
                   {
                     title: 'Cool T-shirt',
-                    image_url:
-                      'https://cdn11.bigcommerce.com/s-rxzabllq/images/stencil/1280x1280/products/910/18045/Kids-Plain-Poly-Fit-Quick_Dry-Tshirt-red__13799.1567089094.jpg?c=2',
+                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
                     subtitle: 'this is a t-shirt very awesome',
                     buttons: [
                       {
@@ -348,8 +345,7 @@ module.exports = (app) => {
                     quantity: 2,
                     price: 50,
                     currency: 'USD',
-                    image_url:
-                      'https://cdn11.bigcommerce.com/s-rxzabllq/images/stencil/1280x1280/products/910/18045/Kids-Plain-Poly-Fit-Quick_Dry-Tshirt-red__13799.1567089094.jpg?c=2',
+                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
                   },
                   {
                     title: 'Classic Gray T-Shirt',
@@ -357,8 +353,7 @@ module.exports = (app) => {
                     quantity: 1,
                     price: 25,
                     currency: 'USD',
-                    image_url:
-                      'https://cdn11.bigcommerce.com/s-rxzabllq/images/stencil/1280x1280/products/910/18045/Kids-Plain-Poly-Fit-Quick_Dry-Tshirt-red__13799.1567089094.jpg?c=2',
+                    image_url:`${serverConfig.url}/static/assets/images/tshirt-red.png`,
                   },
                 ],
               },
