@@ -169,8 +169,7 @@ const sendMessage = (data) => {
         qs: { access_token: paramsConfig.accessToken },
         method: 'POST',
         json: data,
-      },
-      (error, response, body) => {
+      },(error, response, body) => {
         typingOff(data.recipient.id);
         if (response.error) {
           signale.error({
