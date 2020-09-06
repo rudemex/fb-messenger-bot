@@ -18,11 +18,13 @@
   <br />
 </p>
 
-Facebook recently opened up their Messenger platform to enable bots to converse with users through Facebook Apps and on Facebook Pages.
-
-You can read the [documentation](https://developers.facebook.com/docs/messenger-platform) the Messenger team prepared but it's not very clear for beginners and intermediate hackers.
-
-So instead here is how to create your own messenger bot in 15 minutes.
+> 💬 **Note from developer**
+>
+> This application is a starter for the creation of bots for Facebook Messenger and WorkChat (Workplace) for demonstration and education purposes. Its configuration is robust and scalable and can be used in a productive environment. Use this application to learn, experiment, retouch and practice the different options offered by the Facebook API.
+>
+>For more information about the Facebook API you can read the [documentation](https://developers.facebook.com/docs/messenger-platform) that the Messenger team prepared.
+>
+---
 
 ## 🙌 Get set
 
