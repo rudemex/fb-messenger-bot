@@ -44,7 +44,7 @@
 - [Badges/Shields Generator](#badges-shields-generator)
 - [Authors](#authors)
 
-<a name="#how-does-the-messenger-platform-work"></a>
+<a name="how-does-the-messenger-platform-work"></a>
 ## 🤔 How does the Messenger platform work?
 
 Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
