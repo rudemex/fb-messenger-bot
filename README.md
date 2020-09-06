@@ -43,85 +43,14 @@ Before starting to work on our bot, we must have installed some tools in our com
 #### Basic requirements
  - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
  - NPM v6.4.1 or higher
- - [Ngrok](https://ngrok.com/download) will allow us to create a connection tunnel between our local server and the facebook server
+ - [Ngrok](https://ngrok.com/download) will allow us to create a connection tunnel between our local server and the facebook server.
  - [Account on Facebook developers](https://developers.facebook.com/)
  - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
 
-### *Build the server*
 
-1. Install the Heroku toolbelt from here https://toolbelt.heroku.com to launch, stop and monitor instances. Sign up for free at https://www.heroku.com if you don't have an account yet.
 
-2. Install Node from here https://nodejs.org, this will be the server environment. Then open up Terminal or Command Line Prompt and make sure you've got the very most recent version of npm by installing it again:
 
-    ```
-    sudo npm install npm -g
-    ```
-
-3. Create a new folder somewhere and let's create a new Node project. Hit Enter to accept the defaults.
-
-    ```
-    npm init
-    ```
-
-4. Install the additional Node dependencies. Express is for the server, request is for sending out messages and body-parser is to process messages.
-
-    ```
-    npm install express request body-parser --save
-    ```
-
-5. Create an _index.js file in the folder and copy this into it. We will start by authenticating the bot.
-
-    ```javascript
-    'use strict'
-
-    const express = require('express')
-    const bodyParser = require('body-parser')
-    const request = require('request')
-    const app = express()
-
-    app.set('port', (process.env.PORT || 5000))
-
-    // Process application/x-www-form-urlencoded
-    app.use(bodyParser.urlencoded({extended: false}))
-
-    // Process application/json
-    app.use(bodyParser.json())
-
-    // Index route
-    app.get('/', function (req, res) {
-    	res.send('Hello world, I am a chat bot')
-    })
-
-    // for Facebook verification
-    app.get('/webhook/', function (req, res) {
-    	if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
-    		res.send(req.query['hub.challenge'])
-    	}
-    	res.send('Error, wrong token')
-    })
-
-    // Spin up the server
-    app.listen(app.get('port'), function() {
-    	console.log('running on port', app.get('port'))
-    })
-    ```
-
-6. Make a file called Procfile and copy this. This is so Heroku can know what file to run.
-
-    ```
-    web: node _index.js
-    ```
-
-7. Commit all the code with Git then create a new Heroku instance and push the code to the cloud.
-
-    ```
-    git init
-    git add .
-    git commit --message 'hello world'
-    heroku create
-    git push heroku master
-    ```
 
 ### *Setup the Facebook App*
 
