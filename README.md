@@ -29,6 +29,10 @@
 ## Glossary
 
 - [🤔 How does the Messenger platform work?](#how-does-the-messenger-platform-work)
+- [🙌 Let's start](#lets-start)
+    - [📝 Basic requirements](#basic-requirements)
+    - [💻 Install dependencies](#install-dependencies)
+    - [🛠 Configurations](#configurations)
 
 - [Dependencies and libraries](#dependencies-and-libraries)
 - [Setup workspace](#setup-workspace)
@@ -42,7 +46,7 @@
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [Badges/Shields Generator](#badges-shields-generator)
-- [Authors](#authors)
+- [👨‍💻 Author](#author)
 
 <a name="how-does-the-messenger-platform-work"></a>
 ## 🤔 How does the Messenger platform work?
@@ -55,25 +59,29 @@ When a person sends a message to a company in Messenger, the following happens, 
   <img alt="Workflow API Messenger" src="./.readme-static/api-messenger-workflow.png" />
 </p>
 
+<a name="lets-start"></a>
 ## 🙌 Let's start
 
 Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and be able to test some functionalities that the starter has available, and I will take for granted some basic concepts so as not to go into detail and extend the documentation.
 
-#### Basic requirements
+<a name="basic-requirements"></a>
+#### 📝 Basic requirements
  - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
  - NPM v6.4.1 or higher
  - [Ngrok](https://ngrok.com/download) will allow us to create a connection tunnel between our local server and the facebook server.
  - [Account on Facebook developers](https://developers.facebook.com/)
  - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
-#### Install dependencies 
+<a name="install-dependencies"></a>
+#### 💻 Install dependencies 
  When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
 
 ```
  npm install
 ```
 
-## Configurations
+<a name="configurations"></a>
+## 🛠 Configurations
 
 ### *Setup the Facebook App*
 
@@ -487,7 +495,6 @@ curl -X DELETE -H "Content-Type: application/json" -d '{
   },
 }
 ```
-
-## Author
-
+<a name="author"></a>
+## 👨‍💻 Author
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar "Send email to Mex")
