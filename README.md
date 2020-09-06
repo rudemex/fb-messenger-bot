@@ -26,6 +26,16 @@
 >
 ---
 
+## 🤔 How does the Messenger platform work?
+
+Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
+
+When a person sends a message to a company in Messenger, the following happens, as long as the page uses an app to partially or completely automate the conversations. The Facebook server sends webhooks to the URL of the company's server where the message app is hosted. That app can then reply to the person in Messenger using the Send API. This allows developers to create guided conversations for people to perform an automated process or develop an app that serves as a link between your agents and your company's Messenger presence.
+
+<p align="center">
+  <img alt="Workflow API Messenger" src="./.readme-static/api-messenger-workflow.png" />
+</p>
+
 ## 🙌 Get set
 
 Messenger bots uses a web server to process messages it receives or to figure out what messages to send. You also need to have the bot be authenticated to speak with the web server and the bot approved by Facebook to speak with the public.
