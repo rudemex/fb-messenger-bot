@@ -36,11 +36,17 @@ When a person sends a message to a company in Messenger, the following happens, 
   <img alt="Workflow API Messenger" src="./.readme-static/api-messenger-workflow.png" />
 </p>
 
-## 🙌 Get set
+## 🙌 Let's start
 
-Messenger bots uses a web server to process messages it receives or to figure out what messages to send. You also need to have the bot be authenticated to speak with the web server and the bot approved by Facebook to speak with the public.
+Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and to be able to test some functionalities that the starter has available.
 
-You can also skip the whole thing by git cloning this repository, running npm install, and run a server somewhere.
+#### Basic requirements
+ - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
+ - NPM v6.4.1 or higher
+ - [Ngrok](https://ngrok.com/download) will allow us to create a connection tunnel between our local server and the facebook server
+ - [Account on Facebook developers](https://developers.facebook.com/)
+ - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
+
 
 ### *Build the server*
 
