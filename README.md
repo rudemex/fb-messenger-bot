@@ -1,4 +1,6 @@
-# 🤖 Create your own bot for FB Messenger or Workplce 2020
+<p align="center">
+  <img style='width: 100%' alt="Guidelines to create your bot - Facebook Workplace" src="./.readme-static/header.png" />
+</p>
 
 Facebook recently opened up their Messenger platform to enable bots to converse with users through Facebook Apps and on Facebook Pages.
 
