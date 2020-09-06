@@ -26,6 +26,25 @@
 >
 ---
 
+## Glossary
+
+- [🤔 How does the Messenger platform work?](#how-does-the-messenger-platform-work)
+
+- [Dependencies and libraries](#dependencies-and-libraries)
+- [Setup workspace](#setup-workspace)
+- [Scripts of run](#scripts-of-run)
+  - [End-2-End testing](#end-2-end-testing)
+  - [Generate reports](#generate-reports)
+- [Custom configuration](#custom-configuration)
+- [Custom environment variables](#custom-environment-variables)
+- [Access Redux Store](#access-redux-store)
+- [To Do/Features](#features)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Badges/Shields Generator](#badges-shields-generator)
+- [Authors](#authors)
+
+<a href="#how-does-the-messenger-platform-work"></a>
 ## 🤔 How does the Messenger platform work?
 
 Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
@@ -38,7 +57,7 @@ When a person sends a message to a company in Messenger, the following happens, 
 
 ## 🙌 Let's start
 
-Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and to be able to test some functionalities that the starter has available.
+Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and be able to test some functionalities that the starter has available, and I will take for granted some basic concepts so as not to go into detail and extend the documentation.
 
 #### Basic requirements
  - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
@@ -47,10 +66,14 @@ Before starting to work on our bot, we must have installed some tools in our com
  - [Account on Facebook developers](https://developers.facebook.com/)
  - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
+#### Install dependencies 
+ When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
 
+```
+ npm install
+```
 
-
-
+## Configurations
 
 ### *Setup the Facebook App*
 
