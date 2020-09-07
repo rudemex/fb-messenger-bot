@@ -177,7 +177,39 @@ If you need to add another type of data to consume, like the connection to a dat
 - Type: `String`
 - Default: `v8.0`
 
+`verifyToken`: It is the verification token required by the application when invoked by facebook, this token is private and should not be exposed.
 
+- Type: `String`
+- Default: `my_awesome_bot`
+
+`accessToken`: The access token is the alphanumeric hash that is generated when you create the application on **Fecebook** or **Workplace**.
+
+- Type: `String`
+- Default: ``
+
+`subscribedFields`: Are the permissions required to subscribe to the application in order to interact with the user. These permissions are only required for Facebook bots and must be typed separately by comma.
+
+- Type: `String`
+- Default: `messages,messaging_postbacks,messaging_optins`
+
+`secrets`: Here you can enter any value you want to hide in the server logs of the bot, for example the id of the sender or the id of the sender. The values to hide must be written separated by comma.
+
+- Type: `String`
+- Default: ``
+
+#### services
+
+`fbApiUrl`: It is the url of the Graph API of Feacebook
+
+- Type: `String`
+- Default: `https://graph.facebook.com`
+
+#### swagger
+
+`enabled`: Enable or disable the documentation of the bot's server endpoints with swagger.
+
+- Type: `Boolean`
+- Default: `true`
 
 </details>
 
