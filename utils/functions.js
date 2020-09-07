@@ -58,22 +58,10 @@ const eventType = (event) => {
   */
 
   if (event.message) {
-    eventType = event.message.text
-      ? 'text'
-      : event.message.quick_reply
-      ? 'quick_reply'
-      : 'attachments';
+    eventType = event.message.text ? 'text' : event.message.quick_reply ? 'quick_reply' : 'attachments';
   } else {
     // Delivery, read, optin and others, you must configure it in the webhook of the app administration and enable the subscription in the request (env)
-    eventType = event.postback
-      ? 'postback'
-      : event.read
-      ? 'read'
-      : event.delivery
-      ? 'delivery'
-      : event.optin
-      ? 'optin'
-      : null;
+    eventType = event.postback ? 'postback' : event.read ? 'read' : event.delivery ? 'delivery' : event.optin ? 'optin' : null;
   }
 
   return eventType;

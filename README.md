@@ -88,6 +88,8 @@ When we have the basic requirements, we clone the repository, go to the project 
  npm install
 ```
 
+We download the latest version of [Ngrok](https://ngrok.com/download) compatible with our operating system, and decompress it in the server root.
+
 <a name="configurations"></a>
 ## 🛠 Configurations
 
@@ -103,7 +105,7 @@ If you need to add another type of data to consume, like the connection to a dat
 ```json5
 {
   server: {
-    url: 'https://<id_tunel>.ngrok.io',
+    url: '',
     port: 8080,
     context: '/api',
     origins: 'http://localhost:3000,http://localhost:3001,http://localhost:8080',
@@ -115,7 +117,7 @@ If you need to add another type of data to consume, like the connection to a dat
   params: {
     fbApiVersion: 'v8.0',
     verifyToken: 'my_awesome_bot_verify_token',
-    accessToken: '<access_token_of_facebook_app_or_workplace>',
+    accessToken: '',
     subscribedFields: 'messages,messaging_postbacks,messaging_optins',
     secrets: '',
   },
@@ -136,7 +138,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `url`: It is the url of the server deployed in some environment, in the case of running it locally, you enter the url with `ssl` provided by **ngrok**.
 
 - Type: `String`
-- Default: `https://<id_tunel>.ngrok.io`
+- Default: 
 
 `port`: Is the port in which the application is deployed.
 
@@ -188,7 +190,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `accessToken`: The access token is the alphanumeric hash that is generated when you create the application on **Fecebook** or **Workplace**.
 
 - Type: `String`
-- Default: ``
+- Default:
 
 `subscribedFields`: Are the permissions required to subscribe to the application in order to interact with the user. These permissions are only required for Facebook bots and must be typed separately by comma.
 
@@ -198,7 +200,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `secrets`: Here you can enter any value you want to hide in the server logs of the bot, for example the id of the sender or the id of the sender. The values to hide must be written separated by comma.
 
 - Type: `String`
-- Default: ``
+- Default:
 
 #### services
 
@@ -219,6 +221,27 @@ If you need to add another type of data to consume, like the connection to a dat
 <a name="run-server"></a>
 ## ⚙ Run server
 
+We start the bot's server.
+```
+npm run start
+```
+
+<p align="center">
+  <img alt="Server Bot running in terminal" src="./.readme-static/server-bot-run-terminal.png" />
+</p>
+
+Once the server is started, we must start **ngrok** to create the connection tunnel between the bot's local server and the Facebook server.
+
+```
+./ngrok http 8080
+```
+
+###### Windows
+```
+./ngrok.exe http 8080
+```
+
+To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 ### _Setup the Facebook App_
 
