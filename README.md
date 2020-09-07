@@ -241,6 +241,10 @@ Once the server is started, we must start **ngrok** to create the connection tun
 ./ngrok.exe http 8080
 ```
 
+<p align="center">
+  <img style='width: 100%' alt="Server ngrok in terminal" src="./.readme-static/run-ngrok-terminal.png" />
+</p>
+
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 ### _Setup the Facebook App_
