@@ -34,6 +34,7 @@
   - [📝 Basic requirements](#basic-requirements)
   - [💻 Install dependencies](#install-dependencies)
   - [🛠 Configurations](#configurations)
+  - [⚙ Run server](#run-server)
 
 - [Dependencies and libraries](#dependencies-and-libraries)
 - [Setup workspace](#setup-workspace)
@@ -97,10 +98,12 @@ In the path `./config` you will find a file called `development.json` which cont
 Basically the file works as an object that is exported and can be consumed by invoking it in the file that requires consuming the loaded information.
 If you need to add another type of data to consume, like the connection to a database, the url of some microservice, etc. you just have to add it to both files keeping the scheme.
 
+>You may find that you can't configure some values for now, but that's not a problem, when using the `nodemon` dependency, the server is in a watching state that at the slightest change of code, the server will run again.
+
 ```json5
 {
   server: {
-    url: 'https://<id_tunel_or_server_name>.ngrok.io',
+    url: 'https://<id_tunel>.ngrok.io',
     port: 8080,
     context: '/api',
     origins: 'http://localhost:3000,http://localhost:3001,http://localhost:8080',
@@ -133,7 +136,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `url`: It is the url of the server deployed in some environment, in the case of running it locally, you enter the url with `ssl` provided by **ngrok**.
 
 - Type: `String`
-- Default: `https://<id_tunel_or_server_name>.ngrok.io`
+- Default: `https://<id_tunel>.ngrok.io`
 
 `port`: Is the port in which the application is deployed.
 
@@ -180,7 +183,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `verifyToken`: It is the verification token required by the application when invoked by facebook, this token is private and should not be exposed.
 
 - Type: `String`
-- Default: `my_awesome_bot`
+- Default: `my_awesome_bot_verify_token`
 
 `accessToken`: The access token is the alphanumeric hash that is generated when you create the application on **Fecebook** or **Workplace**.
 
@@ -212,6 +215,9 @@ If you need to add another type of data to consume, like the connection to a dat
 - Default: `true`
 
 </details>
+
+<a name="run-server"></a>
+## ⚙ Run server
 
 
 ### _Setup the Facebook App_
