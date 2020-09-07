@@ -59,7 +59,7 @@ Messaging bots use a web server to process the messages they receive or to find 
 When a person sends a message to a company in Messenger, the following happens, as long as the page uses an app to partially or completely automate the conversations. The Facebook server sends webhooks to the URL of the company's server where the message app is hosted. That app can then reply to the person in Messenger using the Send API. This allows developers to create guided conversations for people to perform an automated process or develop an app that serves as a link between your agents and your company's Messenger presence.
 
 <p align="center">
-  <img alt="Workflow API Messenger" src="./.readme-static/api-messenger-workflow.png" />
+  <img style='width: 100%' alt="Workflow API Messenger" src="./.readme-static/api-messenger-workflow.png" />
 </p>
 
 <a name="lets-start"></a>
@@ -227,7 +227,7 @@ npm run start
 ```
 
 <p align="center">
-  <img alt="Server Bot running in terminal" src="./.readme-static/server-bot-run-terminal.png" />
+  <img style='width: 100%' alt="Server Bot running in terminal" src="./.readme-static/server-bot-run-terminal.png" />
 </p>
 
 Once the server is started, we must start **ngrok** to create the connection tunnel between the bot's local server and the Facebook server.
