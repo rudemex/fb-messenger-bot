@@ -130,70 +130,52 @@ If you need to add another type of data to consume, like the connection to a dat
 
 #### Server
 
-##### `url`
+`url`: It is the url of the server deployed in some environment, in the case of running it locally, you enter the url with `ssl` provided by **ngrok**.
 
 - Type: `String`
 - Default: `https://<id_tunel_or_server_name>.ngrok.io`
 
-It is the url of the server deployed in some environment, in the case of running it locally, you enter the url with `ssl` provided by **ngrok**.
-
-##### `port`
+`port`: Is the port in which the application is deployed.
 
 - Type: `Number`
 - Default: `8080`
 
-Is the port in which the application is deployed.
-
-##### `context`
+`context`: It is the context from which the server's api can be accessed, this way the routes in the main path of the application are not exposed.
 
 - Type: `String`
 - Default: `/api`
 
-It is the context from which the server's api can be accessed, this way the routes in the main path of the application are not exposed.
-
-##### `origins`
+`origins`: The origins serve so that the application can only be consumed by reliable urls and avoid any kind of unwanted and malicious requests. You should write the urls separated with comma.
 
 - Type: `String`
 - Default: `http://localhost:3000,http://localhost:3001,http://localhost:8080`
 
-The origins serve so that the application can only be consumed by reliable urls and avoid any kind of unwanted and malicious requests. You should write the urls separated with comma.
-
-##### `originsReadOnly`
+`originsReadOnly`: It is the configuration of the urls for CORS, which allows you to validate who can consume the server.
 
 - Type: `String`
 - Default: `http://localhost:3001`
 
-It is the configuration of the urls for CORS, which allows you to validate who can consume the server.
-
-##### `corsEnabled`
+`corsEnabled`: Enables or disables the use of CORS on the bot's server.
 
 - Type: `Boolean`
 - Default: `false`
 
-Enables or disables the use of CORS on the bot's server.
-
-##### `tz`
+`tz`: It is the configuration of the time zone. [List of time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
 
 - Type: `String`
 - Default: `America/Argentina/Buenos_Aires`
 
-It is the configuration of the time zone. [List of time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
-
-##### `showLogInterceptor`
+`showLogInterceptor`: Enables the display of the request interceptors in the logs.
 
 - Type: `Boolean`
 - Default: `false`
 
-Enables the display of the request interceptors in the logs.
-
 #### Params
 
-##### `fbApiVersion`
+`fbApiVersion`: Is the api version of facebook
 
 - Type: `String`
 - Default: `v8.0`
-
-Is the api version of facebook
 
 
 
