@@ -251,9 +251,9 @@ With the local server and the connection tunnel initialized, we will configure t
 > 💬 Remember that the bot's server is in watch mode, and any changes made will be re-initialized and take the changes made.
 
 1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app, it will open a mode to select the type of application, in our case we will create an application type "**Manage business integrations**".
-    <p align="center">
-      <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
-    </p>
+<p align="center">
+  <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
+</p>
 
 2. Now we will have to make some basic settings for the application.
 
@@ -265,12 +265,12 @@ With the local server and the connection tunnel initialized, we will configure t
     </p>
 
 3. Then we look for **Messenger** in the app's product list, and hit the configure button.
-    <p align="center">
-      <img style='width: 100%' alt="Settings new app on facebook 1" src="./.readme-static/settings-new-app-on-facebook-1.png" />
-    </p>
+<p align="center">
+  <img style='width: 100%' alt="Settings new app on facebook 1" src="./.readme-static/settings-new-app-on-facebook-1.png" />
+</p>
 
 4. Now we are going to make the two necessary and essential configurations to be able to connect Facebook with our bot server.
-    
+
     <p align="center">
       <img style='width: 100%' alt="Settings new app on facebook 2" src="./.readme-static/settings-new-app-on-facebook-2.png" />
     </p>
@@ -348,19 +348,90 @@ With the local server and the connection tunnel initialized, we will configure t
       ...
     }
     ```
+
+5. These are the last settings to be made and are optional.
+   It consists in executing a curl script in the terminal to implement some options, don't forget to put the access token to make it work.
+
+   #### Add button Get Started
+
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+        "get_started": {
+            "payload": "GET_STARTED_PAYLOAD"
+        }
+   }' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=<access_token>"
+   ```
+
+   #### Add greeting
+
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+   "greeting": [
+        {
+            "locale": "default",
+            "text": "Hi {{user_first_name}}, i'm a bot!"
+        }
+   ]
+   }' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=<access_token>"
+   ```
+
+   #### Add persistent menu
+
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+      "persistent_menu":[
+         {
+            "locale":"default",
+            "composer_input_disabled":false,
+            "call_to_actions":[
+               {
+                  "title":"About us",
+                  "type":"postback",
+                  "payload":"ABOUT_US_PAYLOAD"
+               },
+               {
+                  "title":"Contact",
+                  "type":"postback",
+                  "payload":"CONTACT_PAYLOAD"
+               },
+               {
+                  "type":"web_url",
+                  "title":"💻 Visit my Website",
+                  "url":"http://misite.com/",
+                  "webview_height_ratio":"full"
+               }
+            ]
+         }
+      ]
+   }' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=<access_token>"
+   ```
+
+   #### Remove persistent menu
+
+   ```bash
+   curl -X DELETE -H "Content-Type: application/json" -d '{
+       "fields":[
+            "persistent_menu"
+       ]
+   }' "https://graph.facebook.com/v8.0/me/messenger_profile?access_token=<access_token>"
+   ```
+
 ### 🙌 End of configuration
 
 We have finished configuring the app so that Facebook connects to the bot's server, now we have to test it, to do this we can enter the chat page and perform a test to verify that everything is working properly.
 
 <a name="create-a-shortlink"></a>
+
 #### 🖇 Create a shortlink
 
 You can use page username to have someone start a chat.
+
 ```
 https://m.me/<PAGE_USERNAME>
 ```
-    
+
 <a name="author"></a>
+
 ## 👨‍💻 Author
 
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar 'Send email to Mex')
