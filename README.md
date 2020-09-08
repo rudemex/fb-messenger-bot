@@ -243,7 +243,7 @@ With the local server and the connection tunnel initialized, we will configure t
 1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app
 
 <p align="center">
-  <img style='width: 100%' alt="Create app on facebook" src="./.readme-static/create-app-on-facebook.png" />
+  <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
 </p>
 
 
