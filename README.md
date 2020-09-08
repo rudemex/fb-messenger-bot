@@ -289,9 +289,21 @@ With the local server and the connection tunnel initialized, we will configure t
     <p align="center">
         <img style='width: 100%' alt="Settings new app on facebook 4" src="./.readme-static/settings-new-app-on-facebook-4.png" />
     </p>
-
+    
+    #### Webhooks
+    Now we have to configure the connection between Facebook and our server through **Webhook**, for this, you must have at hand the `verifyToken` that you configured and the bot's server url, in this case, we will use the one provided by **ngrok** with ssl.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on facebook 5" src="./.readme-static/settings-new-app-on-facebook-5.png" />
+    </p>
+    
+    Then click on **Verify and Save**, and if everything goes well, in the server terminal you should see the successful subscription message.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Config webhook subscription response terminal" src="./.readme-static/config-webhook-subscription-response-terminal.png" />
+    </p>
+        
 <a name="author"></a>
-
 ## 👨‍💻 Author
 
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar 'Send email to Mex')
