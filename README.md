@@ -281,6 +281,14 @@ With the local server and the connection tunnel initialized, we will configure t
     <p align="center">
       <img style='width: 100%' alt="Settings new app on facebook 3" src="./.readme-static/settings-new-app-on-facebook-3.png" />
     </p>
+    
+    Once the page is linked to the app, we have to generate the token by clicking on the button **Generate Token**, and a window will open where you give us some instructions about the token. 
+    
+    We must check accept in order to view the full hash, then copy it and place it in the configuration of our server, if it is for development it is put in the json of `./config/development.json` in the key of `accessToken`, and if it is for a productive environment, we must put it in the envs file in `./variables`.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on facebook 4" src="./.readme-static/settings-new-app-on-facebook-4.png" />
+    </p>
 
 <a name="author"></a>
 
