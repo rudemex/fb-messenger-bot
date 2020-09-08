@@ -240,8 +240,7 @@ With the local server and the connection tunnel initialized, we will configure t
 
 > 💬 Remember that the bot's server is in watch mode, and any changes made will be re-initialized and take the changes made.
 
-1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app
-
+1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app, it will open a mode to select the type of application, in our case we will create an application type "**Manage business integrations**".
 <p align="center">
   <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
 </p>
