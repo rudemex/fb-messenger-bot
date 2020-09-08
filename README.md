@@ -35,6 +35,7 @@
   - [🛠 Configurations](#configurations)
   - [⚙ Run server](#run-server)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
+  - [🖇 Create a shortlink](#create-a-shortlink)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
@@ -351,7 +352,8 @@ With the local server and the connection tunnel initialized, we will configure t
 
 We have finished configuring the app so that Facebook connects to the bot's server, now we have to test it, to do this we can enter the chat page and perform a test to verify that everything is working properly.
 
-##### Create a shortlink
+<a name="create-a-shortlink"></a>
+#### 🖇 Create a shortlink
 
 You can use page username to have someone start a chat.
 ```
