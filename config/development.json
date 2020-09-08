@@ -12,7 +12,7 @@
   "params": {
     "fbApiVersion": "v8.0",
     "verifyToken": "my_awesome_bot_verify_token",
-    "accessToken": "DQVJ2ZAHhKaGIwX0hDUUpLRlVWUHA5WGtJZAThlVnFwcDEzOGdLQmUwaDBXc0ppSnh4Vmp5aDdxWUljZA0s0ZAmNLeG5IeWhQV1NOeFFEalBPaVVVZADVSakhycjZAQOWgtVEFFY1ZAqR0NVZAjluOW9WMDJoXzdHUXdYcm5OeVpJeEZAzY1pfMVFWdExEZAHRuTzYxcjFCTGZAhbDJCT0VCSXVTYzFuUmd5M3BzVzFjUDdid3JwWWxoSXVpQWxPd1gzTDk5N0ZABMWJQU2hUblBrUW9GcFk1dQZDZD",
+    "accessToken": "",
     "subscribedFields": "messages,messaging_postbacks",
     "secrets": ""
   },
