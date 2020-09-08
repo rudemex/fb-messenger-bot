@@ -290,6 +290,18 @@ With the local server and the connection tunnel initialized, we will configure t
         <img style='width: 100%' alt="Settings new app on facebook 4" src="./.readme-static/settings-new-app-on-facebook-4.png" />
     </p>
     
+    ```json5
+    {
+      ...
+      params: {
+        ...
+        accessToken: '<access_token>',
+        ...
+      },
+     ...
+    }
+    ```
+    
     #### Webhooks
     Now we have to configure the connection between Facebook and our server through **Webhook**, for this, you must have at hand the `verifyToken` that you configured and the bot's server url, in this case, we will use the one provided by **ngrok** with ssl.
     ```
