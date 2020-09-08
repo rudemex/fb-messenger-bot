@@ -448,7 +448,7 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
         <img style='width: 100%' alt="Settings new app on workplace 2" src="./.readme-static/settings-new-app-on-workplace-2.png" />
     </p>
      
-     #### Access tokens
+     #### Access token
    
      Now we are going to generate an access token and then configure it in our config, as mentioned in the configuration of the Facebook app.
      
@@ -456,6 +456,36 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
         <img style='width: 100%' alt="Settings new app on workplace 3" src="./.readme-static/settings-new-app-on-workplace-3.png" />
     </p>
     
+3. Now let's select the permissions for our bot.
+    
+    #### Permissions
+    In our case we are interested in the option of **Sending a message to any member**.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on workplace 4" src="./.readme-static/settings-new-app-on-workplace-4.png" />
+    </p>
+    
+4. Now we are going to **grant the integration access to groups**, in this case it is going to be to a specific group.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on workplace 5" src="./.readme-static/settings-new-app-on-workplace-5.png" />
+    </p>
+    
+5.  And finally, we have to configure the **Webhook** and the **verify token** and select the **subscriptions** we need, as we did with the Facebook app.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on workplace 6" src="./.readme-static/settings-new-app-on-workplace-6.png" />
+    </p>
+    
+    > 💬 Note: depending on the webhook configuration you select in the tabs, the subscriptions will change.
+    
+6. 🙌 Finally we click on the save button.
+    
+    > 💬 Note: there is an optional configuration which is the security one, where it is required to enter the ip of the bot's server, the domain, etc.
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on workplace 7" src="./.readme-static/settings-new-app-on-workplace-7.png" />
+    </p>
+ 
 <a name="author"></a>
 ## 👨‍💻 Author
 
