@@ -316,7 +316,38 @@ With the local server and the connection tunnel initialized, we will configure t
     <p align="center">
         <img style='width: 100%' alt="Config webhook subscription response terminal" src="./.readme-static/config-webhook-subscription-response-terminal.png" />
     </p>
-        
+    
+    If the url of the webhook by ngrok changes, or you want to configure the url of the productive server, you can do it by clicking on the button **Edit Callback URL** and perform again the previous steps.
+    
+    #### Add subscriptions
+    Now we have to add the subscriptions that will allow the bot to have certain permissions to perform the actions we need.
+    
+    For that we click on the button **Add subscriptions**
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on facebook 6" src="./.readme-static/settings-new-app-on-facebook-6.png" />
+    </p>
+    
+    Select from the list the basic permissions and click on **Save** 
+    
+    Then we add each permission to the configuration files separated by a comma.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on facebook 7" src="./.readme-static/settings-new-app-on-facebook-7.png" />
+    </p>
+    
+    ```json5
+    {
+      ...
+      params: {
+        ...
+        subscribedFields: 'messages,messaging_postbacks,messaging_optins',
+        ...
+      },
+      ...
+    }
+    ```
+    
 <a name="author"></a>
 ## 👨‍💻 Author
 
