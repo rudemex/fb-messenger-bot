@@ -432,6 +432,17 @@ https://m.me/<PAGE_USERNAME>
 <a name="setup-the-workplace-app"></a>
 ## 📱 Setup the Workplace App
 
+The configuration of the app for Workplace is quite similar to that of facebook, it is required to have the Workplace paid account in order to enable custom integrations.
+
+1. Login to the **Administrator Panel**, and click on the **Integrations** button, and in the Custom integrations section click on the **Create custom integration** button.
+    
+    It will open a mode where we must write the name of the application and a description, then click on **Create**.
+    
+    <p align="center">
+        <img style='width: 100%' alt="Settings new app on workplace 1" src="./.readme-static/settings-new-app-on-workplace-1.png" />
+    </p>
+
+
 <a name="author"></a>
 ## 👨‍💻 Author
 
