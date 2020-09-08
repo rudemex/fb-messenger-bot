@@ -34,6 +34,7 @@
   - [💻 Install dependencies](#install-dependencies)
   - [🛠 Configurations](#configurations)
   - [⚙ Run server](#run-server)
+  - [📱 Setup the Facebook App](#setup-the-facebook-app)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
@@ -229,6 +230,21 @@ Once the server is started, we must start **ngrok** to create the connection tun
 </p>
 
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
+
+<a name="setup-the-facebook-app"></a>
+## 📱 Setup the Facebook App
+
+The time has come to create and configure our app on Facebook.
+
+With the local server and the connection tunnel initialized, we will configure the app, and with the information that it will give us we will finish configuring the data that we are missing in the bot's server.
+
+> 💬 Remember that the bot's server is in watch mode, and any changes made will be re-initialized and take the changes made.
+
+1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app
+
+<p align="center">
+  <img style='width: 100%' alt="Create app on facebook" src="./.readme-static/create-app-on-facebook.png" />
+</p>
 
 
 <a name="author"></a>
