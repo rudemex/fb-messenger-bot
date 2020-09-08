@@ -35,12 +35,12 @@
   - [🛠 Configurations](#configurations)
   - [⚙ Run server](#run-server)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
+  - [📡 How to share your bot](#how-to-share-your-bot)
   - [🖇 Create a shortlink](#create-a-shortlink)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
 <a name="how-does-the-messenger-platform-work"></a>
-
 ## 🤔 How does the Messenger platform work?
 
 Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
@@ -52,13 +52,11 @@ When a person sends a message to a company in Messenger, the following happens, 
 </p>
 
 <a name="lets-start"></a>
-
 ## 🙌 Let's start
 
 Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and be able to test some functionalities that the starter has available, and I will take for granted some basic concepts so as not to go into detail and extend the documentation.
 
 <a name="basic-requirements"></a>
-
 #### 📝 Basic requirements
 
 - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
@@ -68,7 +66,6 @@ Before starting to work on our bot, we must have installed some tools in our com
 - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
 <a name="install-dependencies"></a>
-
 #### 💻 Install dependencies
 
 When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
@@ -80,7 +77,6 @@ When we have the basic requirements, we clone the repository, go to the project 
 We download the latest version of [Ngrok](https://ngrok.com/download) compatible with our operating system, and decompress it in the server root.
 
 <a name="configurations"></a>
-
 ## 🛠 Configurations
 
 This application uses the [config](https://www.npmjs.com/package/config) dependency to facilitate the configuration of environment variables, which makes it scalable and robust when deploying the application in different environments.
@@ -209,7 +205,6 @@ If you need to add another type of data to consume, like the connection to a dat
 </details>
 
 <a name="run-server"></a>
-
 ## ⚙ Run server
 
 We start the bot's server.
@@ -241,7 +236,6 @@ Once the server is started, we must start **ngrok** to create the connection tun
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 <a name="setup-the-facebook-app"></a>
-
 ## 📱 Setup the Facebook App
 
 The time has come to create and configure our app on Facebook.
@@ -420,8 +414,12 @@ With the local server and the connection tunnel initialized, we will configure t
 
 We have finished configuring the app so that Facebook connects to the bot's server, now we have to test it, to do this we can enter the chat page and perform a test to verify that everything is working properly.
 
-<a name="create-a-shortlink"></a>
+<a name="how-to-share-your-bot"></a>
+## 📡 How to share your bot
 
+Add a chat button to your webpage, go [here](https://developers.facebook.com/docs/messenger-platform/plugin-reference) to learn how to add a chat button your page.
+
+<a name="create-a-shortlink"></a>
 #### 🖇 Create a shortlink
 
 You can use page username to have someone start a chat.
@@ -431,7 +429,6 @@ https://m.me/<PAGE_USERNAME>
 ```
 
 <a name="author"></a>
-
 ## 👨‍💻 Author
 
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar 'Send email to Mex')
