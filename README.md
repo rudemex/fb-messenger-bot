@@ -31,12 +31,12 @@
 - [🤔 How does the Messenger platform work?](#how-does-the-messenger-platform-work)
 - [🙌 Let's start](#lets-start)
   - [📝 Basic requirements](#basic-requirements)
-  - [💻 Install dependencies](#install-dependencies)
-  - [🛠 Configurations](#configurations)
-  - [⚙ Run server](#run-server)
+  - [🛠 Install dependencies](#install-dependencies)
+  - [⚙ Configurations](#configurations)
+  - [💻 Run server](#run-server)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
     - [📡 How to share your bot](#how-to-share-your-bot)
-    - [🖇 Create a shortlink](#create-a-shortlink)
+    - [🔗 Create a shortlink](#create-a-shortlink)
   - [📱 Setup the Workplace App](#setup-the-workplace-app)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
@@ -67,7 +67,7 @@ Before starting to work on our bot, we must have installed some tools in our com
 - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
 <a name="install-dependencies"></a>
-#### 💻 Install dependencies
+#### 🛠 Install dependencies
 
 When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
 
@@ -78,7 +78,7 @@ When we have the basic requirements, we clone the repository, go to the project 
 We download the latest version of [Ngrok](https://ngrok.com/download) compatible with our operating system, and decompress it in the server root.
 
 <a name="configurations"></a>
-## 🛠 Configurations
+## ⚙ Configurations
 
 This application uses the [config](https://www.npmjs.com/package/config) dependency to facilitate the configuration of environment variables, which makes it scalable and robust when deploying the application in different environments.
 
@@ -206,7 +206,7 @@ If you need to add another type of data to consume, like the connection to a dat
 </details>
 
 <a name="run-server"></a>
-## ⚙ Run server
+## 💻 Run server
 
 We start the bot's server.
 
@@ -421,7 +421,7 @@ We have finished configuring the app so that Facebook connects to the bot's serv
 Add a chat button to your webpage, go [here](https://developers.facebook.com/docs/messenger-platform/plugin-reference) to learn how to add a chat button your page.
 
 <a name="create-a-shortlink"></a>
-#### 🖇 Create a shortlink
+#### 🔗 Create a shortlink
 
 You can use page username to have someone start a chat.
 
