@@ -496,7 +496,7 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
 ##### ❌ (#200) To subscribe to the messages field
 > (#200) To subscribe to the messages field, one of these permissions is needed: pages_messaging. To subscribe to the messaging_postbacks field, one of these permissions is needed: pages_messaging
 
->You can solve this problem by configuring the webhook without selecting the subscriptions, then saving the configuration, then re-entering the app configuration and re-validating the webhook with the selected subscriptions.
+You can solve this problem by configuring the webhook without selecting the subscriptions, then saving the configuration, then re-entering the app configuration and re-validating the webhook with the selected subscriptions.
  
 <a name="author"></a>
 ## 👨‍💻 Author
