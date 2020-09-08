@@ -39,6 +39,7 @@
 - [📜 License](#license)
 
 <a name="how-does-the-messenger-platform-work"></a>
+
 ## 🤔 How does the Messenger platform work?
 
 Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
@@ -50,11 +51,13 @@ When a person sends a message to a company in Messenger, the following happens, 
 </p>
 
 <a name="lets-start"></a>
+
 ## 🙌 Let's start
 
 Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and be able to test some functionalities that the starter has available, and I will take for granted some basic concepts so as not to go into detail and extend the documentation.
 
 <a name="basic-requirements"></a>
+
 #### 📝 Basic requirements
 
 - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
@@ -64,6 +67,7 @@ Before starting to work on our bot, we must have installed some tools in our com
 - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
 <a name="install-dependencies"></a>
+
 #### 💻 Install dependencies
 
 When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
@@ -75,6 +79,7 @@ When we have the basic requirements, we clone the repository, go to the project 
 We download the latest version of [Ngrok](https://ngrok.com/download) compatible with our operating system, and decompress it in the server root.
 
 <a name="configurations"></a>
+
 ## 🛠 Configurations
 
 This application uses the [config](https://www.npmjs.com/package/config) dependency to facilitate the configuration of environment variables, which makes it scalable and robust when deploying the application in different environments.
@@ -84,7 +89,7 @@ In the path `./config` you will find a file called `development.json` which cont
 Basically the file works as an object that is exported and can be consumed by invoking it in the file that requires consuming the loaded information.
 If you need to add another type of data to consume, like the connection to a database, the url of some microservice, etc. you just have to add it to both files keeping the scheme.
 
->You may find that you can't configure some values for now, but that's not a problem, when using the `nodemon` dependency, the server is in a watching state that at the slightest change of code, the server will run again.
+> You may find that you can't configure some values for now, but that's not a problem, when using the `nodemon` dependency, the server is in a watching state that at the slightest change of code, the server will run again.
 
 ```json5
 {
@@ -122,7 +127,7 @@ If you need to add another type of data to consume, like the connection to a dat
 `url`: It is the url of the server deployed in some environment, in the case of running it locally, you enter the url with `ssl` provided by **ngrok**.
 
 - Type: `String`
-- Default: 
+- Default:
 
 `port`: Is the port in which the application is deployed.
 
@@ -203,9 +208,11 @@ If you need to add another type of data to consume, like the connection to a dat
 </details>
 
 <a name="run-server"></a>
+
 ## ⚙ Run server
 
 We start the bot's server.
+
 ```
 npm run start
 ```
@@ -221,6 +228,7 @@ Once the server is started, we must start **ngrok** to create the connection tun
 ```
 
 ###### Windows
+
 ```
 ./ngrok.exe http 8080
 ```
@@ -232,6 +240,7 @@ Once the server is started, we must start **ngrok** to create the connection tun
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 <a name="setup-the-facebook-app"></a>
+
 ## 📱 Setup the Facebook App
 
 The time has come to create and configure our app on Facebook.
@@ -241,12 +250,40 @@ With the local server and the connection tunnel initialized, we will configure t
 > 💬 Remember that the bot's server is in watch mode, and any changes made will be re-initialized and take the changes made.
 
 1. Enter [Facebook Developers](https://developers.facebook.com/apps/) and click on create app, it will open a mode to select the type of application, in our case we will create an application type "**Manage business integrations**".
-<p align="center">
-  <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
-</p>
+    <p align="center">
+      <img style='width: 100%' alt="Create a new app on facebook" src="./.readme-static/create-a-new-app-on-facebook.png" />
+    </p>
 
+2. Now we will have to make some basic settings for the application.
+
+   We assign a name of the app to identify it, we put a contact email, we select the purpose of the app, in this case is for us, and if we have a commercial administrator account, we select one from the list, if you do not have such an account, you can create it later.
+
+   Once the information is completed, we click on **Create App identifier**
+    <p align="center">
+      <img style='width: 100%' alt="Basic settings new app on facebook" src="./.readme-static/basic-settings-new-app-on-facebook.png" />
+    </p>
+
+3. Then we look for **Messenger** in the app's product list, and hit the configure button.
+    <p align="center">
+      <img style='width: 100%' alt="Settings new app on facebook 1" src="./.readme-static/settings-new-app-on-facebook-1.png" />
+    </p>
+
+4. Now we are going to make the two necessary and essential configurations to be able to connect Facebook with our bot server.
+    
+    <p align="center">
+      <img style='width: 100%' alt="Settings new app on facebook 2" src="./.readme-static/settings-new-app-on-facebook-2.png" />
+    </p>
+    
+   #### Access tokens
+   In this part of the configuration, we will be able to manage which page or pages of facebook will have the bot available.
+   We click on **Add or Remove pages**, and select the page.
+
+    <p align="center">
+      <img style='width: 100%' alt="Settings new app on facebook 3" src="./.readme-static/settings-new-app-on-facebook-3.png" />
+    </p>
 
 <a name="author"></a>
+
 ## 👨‍💻 Author
 
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar 'Send email to Mex')
