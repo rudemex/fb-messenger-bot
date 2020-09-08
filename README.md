@@ -35,8 +35,9 @@
   - [🛠 Configurations](#configurations)
   - [⚙ Run server](#run-server)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
-  - [📡 How to share your bot](#how-to-share-your-bot)
-  - [🖇 Create a shortlink](#create-a-shortlink)
+    - [📡 How to share your bot](#how-to-share-your-bot)
+    - [🖇 Create a shortlink](#create-a-shortlink)
+  - [📱 Setup the Workplace App](#setup-the-workplace-app)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
@@ -427,6 +428,9 @@ You can use page username to have someone start a chat.
 ```
 https://m.me/<PAGE_USERNAME>
 ```
+
+<a name="setup-the-workplace-app"></a>
+## 📱 Setup the Workplace App
 
 <a name="author"></a>
 ## 👨‍💻 Author
