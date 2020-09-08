@@ -38,6 +38,7 @@
     - [📡 How to share your bot](#how-to-share-your-bot)
     - [🔗 Create a shortlink](#create-a-shortlink)
   - [📱 Setup the Workplace App](#setup-the-workplace-app)
+- [🤦‍♂️Troubleshooting](#troubleshooting)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
@@ -485,6 +486,17 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
     <p align="center">
         <img style='width: 100%' alt="Settings new app on workplace 7" src="./.readme-static/settings-new-app-on-workplace-7.png" />
     </p>
+ 
+
+<a name="troubleshooting"></a>
+## 🤦‍♂️Troubleshooting
+ 
+#### Workplace App
+
+##### ❌ (#200) To subscribe to the messages field
+> (#200) To subscribe to the messages field, one of these permissions is needed: pages_messaging. To subscribe to the messaging_postbacks field, one of these permissions is needed: pages_messaging
+
+>You can solve this problem by configuring the webhook without selecting the subscriptions, then saving the configuration, then re-entering the app configuration and re-validating the webhook with the selected subscriptions.
  
 <a name="author"></a>
 ## 👨‍💻 Author
