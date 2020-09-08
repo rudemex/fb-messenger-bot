@@ -442,16 +442,20 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
         <img style='width: 100%' alt="Settings new app on workplace 1" src="./.readme-static/settings-new-app-on-workplace-1.png" />
     </p>
 
-2. Once the application is created, it takes us to the configuration page of the application, where we will generate an access token and then configure it in our config, as mentioned in the configuration of the Facebook app.
+2. Once the application is created, it takes us to the configuration page of the application.
 
     <p align="center">
         <img style='width: 100%' alt="Settings new app on workplace 2" src="./.readme-static/settings-new-app-on-workplace-2.png" />
     </p>
-    
-    
+     
+     #### Access tokens
+   
+     Now we are going to generate an access token and then configure it in our config, as mentioned in the configuration of the Facebook app.
+     
     <p align="center">
         <img style='width: 100%' alt="Settings new app on workplace 3" src="./.readme-static/settings-new-app-on-workplace-3.png" />
     </p>
+    
 <a name="author"></a>
 ## 👨‍💻 Author
 
