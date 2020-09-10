@@ -148,6 +148,62 @@ const typingOff = (senderId) => {
   );
 };
 
+const sendConfigs = (reqMethod = 'POST', data) => {
+  return new Promise((resolve, reject) => {
+    request(
+        {
+          url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messenger_profile`,
+          qs: { access_token: paramsConfig.accessToken },
+          method: reqMethod,
+          json: data,
+        },
+        (error, response, body) => {
+          if (response.error) {
+            signale.error({
+              prefix: `[sendConfigs] ERROR`,
+              message: response.error,
+            });
+            reject(response.error);
+          } else {
+            signale.success({
+              prefix: `[sendConfigs] RESPONSE`,
+              message: JSON.stringify(response.body),
+            });
+            resolve(response.body);
+          }
+        }
+    );
+  });
+};
+
+const getUserData = (senderId) => {
+  return new Promise((resolve, reject) => {
+    request(
+        {
+          url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/${senderId}`,
+          qs: { fields: paramsConfig.userFields },
+          method: 'GET',
+          auth: { bearer: paramsConfig.accessToken },
+        },
+        (error, response, body) => {
+          if (response.error) {
+            signale.error({
+              prefix: `[getRecipientData] ERROR`,
+              message: response.error,
+            });
+            reject(response.error);
+          } else {
+            signale.success({
+              prefix: `[getRecipientData] RESPONSE`,
+              message: JSON.stringify(response.body),
+            });
+            resolve(response.body);
+          }
+        }
+    );
+  });
+};
+
 const sendMessage = (data) => {
   return new Promise((resolve, reject) => {
     typingOn(data.recipient.id);
@@ -184,5 +240,7 @@ module.exports = {
   markSeen,
   typingOn,
   typingOff,
+  sendConfigs,
+  getUserData,
   sendMessage,
 };

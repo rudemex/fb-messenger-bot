@@ -14,6 +14,7 @@
     "verifyToken": "VERIFY_TOKEN",
     "accessToken": "ACCESS_TOKEN",
     "subscribedFields": "FB_SUBSCRIBED_FIELDS",
+    "userFields": "USER_FIELDS",
     "secrets": "SECRETS"
   },
   "services": {

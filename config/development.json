@@ -14,6 +14,7 @@
     "verifyToken": "my_awesome_bot_verify_token",
     "accessToken": "",
     "subscribedFields": "messages,messaging_postbacks",
+    "userFields": "id,name,first_name,last_name,email",
     "secrets": ""
   },
   "services": {
