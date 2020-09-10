@@ -246,6 +246,13 @@ The project has a **Swagger** that has documented the most important endpoints o
 
 This documentation can be enabled or disabled from the [configuration](#configurations) files.
 
+- Default: `http://localhost:8080/api-docs`
+
+#### URL Scheme
+```
+<http|https>://<server_url><port>/api-docs
+```
+
 <a name="setup-the-facebook-app"></a>
 ## 📱 Setup the Facebook App
 
@@ -356,7 +363,9 @@ With the local server and the connection tunnel initialized, we will configure t
 
 5. These are the last settings to be made and are optional.
    It consists in executing a curl script in the terminal to implement some options, don't forget to put the access token to make it work.
-
+    
+    > 💬 Note: You can run these scripts from Swagger, but you must adjust the files that are inside the `./templates/configs` folder
+    
    #### Add button Get Started
 
    ```bash

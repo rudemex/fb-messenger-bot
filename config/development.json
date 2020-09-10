@@ -12,7 +12,7 @@
   "params": {
     "fbApiVersion": "v8.0",
     "verifyToken": "my_awesome_bot_verify_token",
-    "accessToken": "EAAFCamUGNZBQBAGNabKR5pZBvOF8ZBvdOuEI6shdZA9MXiKFowFBraik8iU0ScE7zQOZCeTrksWAiE5081dPSvQcZCv8BFgRxkOHBbpc9VOEBBiPiIoMQe4ZAZBK7bVpMXPsrPHzfeE8ZApB5tV0ZCuIoW4oJz23RQRhU2j7Cv1dDMCwZDZD",
+    "accessToken": "",
     "subscribedFields": "messages,messaging_postbacks",
     "userFields": "id,name,first_name,last_name,email",
     "secrets": ""
