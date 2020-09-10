@@ -201,7 +201,7 @@ If you need to add another type of data to consume, like the connection to a dat
 
 #### swagger
 
-`enabled`: Enable or disable the documentation of the bot's server endpoints with [swagger](#swagger).
+`enabled`: Enable or disable the documentation of the bot's server endpoints with [swagger](#swagger-info).
 
 - Type: `Boolean`
 - Default: `true`
