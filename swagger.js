@@ -1,7 +1,10 @@
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const config = require('config');
 const pjson = require('./package.json');
 const signale = require('./utils/signale');
+
+const serverConfig = config.get('server');
 
 const swagger =  (app, config) => {
 
@@ -25,7 +28,7 @@ const swagger =  (app, config) => {
         res.send(swaggerSpec);
     });
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    signale.info("Swagger is enabled in : /api-docs ");
+    signale.info(`Swagger is enabled in : ${serverConfig.url}/api-docs`);
 }
 
 module.exports = swagger;

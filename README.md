@@ -34,12 +34,13 @@
   - [🛠 Install dependencies](#install-dependencies)
   - [⚙ Configurations](#configurations)
   - [💻 Run server](#run-server)
+    - [📚 Swagger](#swagger)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
     - [📡 How to share your bot](#how-to-share-your-bot)
     - [🔗 Create a shortlink](#create-a-shortlink)
   - [📱 Setup the Workplace App](#setup-the-workplace-app)
 - [🤦‍♂️Troubleshooting](#troubleshooting)
-- [🤓 Contributing](#contributing)
+- [💡 Contributing](#contributing)
 - [👨‍💻 Author](#author)
 - [📜 License](#license)
 
@@ -200,7 +201,7 @@ If you need to add another type of data to consume, like the connection to a dat
 
 #### swagger
 
-`enabled`: Enable or disable the documentation of the bot's server endpoints with swagger.
+`enabled`: Enable or disable the documentation of the bot's server endpoints with [swagger](#swagger).
 
 - Type: `Boolean`
 - Default: `true`
@@ -237,6 +238,13 @@ Once the server is started, we must start **ngrok** to create the connection tun
 </p>
 
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
+
+<a name="swagger"></a>
+## 📚 Swagger
+
+The project has a **Swagger** that has documented the most important endpoints of the project, and facilitates the configuration of the fields for the bot, such as the **get started** button, **persistent menu** and the **greeting**.
+
+This documentation can be enabled or disabled from the [configuration](#configurations) files.
 
 <a name="setup-the-facebook-app"></a>
 ## 📱 Setup the Facebook App
@@ -500,7 +508,7 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
 You can solve this problem by configuring the webhook without selecting the subscriptions, then saving the configuration, then re-entering the app configuration and re-validating the webhook with the selected subscriptions.
  
 <a name="contributing"></a>
-## 🤓 Contributing
+## 💡 Contributing
 
 Requests are welcome. For important changes, please open a topic first to discuss what you would like to change.
 

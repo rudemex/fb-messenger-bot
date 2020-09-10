@@ -1,3 +1,8 @@
+/*
+* Docs:
+* https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/persistent-menu
+*/
+
 const persistentMenu = {
   "persistent_menu":[
     {

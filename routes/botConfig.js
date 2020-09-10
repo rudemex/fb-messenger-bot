@@ -154,13 +154,13 @@ module.exports = (app) => {
       .then((response) => {
         if (!response.error) {
           signale.success({
-            prefix: `[sendConfigs] RESPONSE`,
+            prefix: `[sendConfigs] RESPONSE ${configType}`,
             message: response,
           });
           res.status(200).send(response);
         } else {
           signale.error({
-            prefix: '[sendConfigs] ERROR',
+            prefix: `[sendConfigs] ERROR ${configType}`,
             message: response.error,
           });
           res.status(400).send(response.error);
@@ -168,7 +168,7 @@ module.exports = (app) => {
       })
       .catch((error) => {
         signale.error({
-          prefix: `[sendConfigs] ERROR`,
+          prefix: `[sendConfigs] ERROR ${configType}`,
           message: error,
         });
         res.status(409).send(error);
@@ -237,13 +237,13 @@ module.exports = (app) => {
       .then((response) => {
         if (!response.error) {
           signale.success({
-            prefix: `[sendConfigs] RESPONSE`,
+            prefix: `[deleteConfigs] RESPONSE ${configType}`,
             message: response,
           });
           res.status(200).send(response);
         } else {
           signale.error({
-            prefix: '[sendConfigs] ERROR',
+            prefix: `[deleteConfigs] ERROR ${configType}`,
             message: response.error,
           });
           res.status(400).send(response.error);
@@ -251,7 +251,7 @@ module.exports = (app) => {
       })
       .catch((error) => {
         signale.error({
-          prefix: `[sendConfigs] ERROR`,
+          prefix: `[deleteConfigs] ERROR ${configType}`,
           message: error,
         });
         res.status(409).send(error);

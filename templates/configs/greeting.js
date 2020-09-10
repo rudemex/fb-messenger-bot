@@ -1,3 +1,8 @@
+/*
+* Docs:
+* https://developers.facebook.com/docs/messenger-platform/reference/messenger-profile-api/greeting
+*/
+
 const greeting = {
   greeting: [
     {
