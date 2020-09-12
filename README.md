@@ -264,7 +264,7 @@ This documentation can be enabled or disabled from the [configuration](#configur
 #### URL Scheme
 
 ```
-<http|https>://<server_url><port>/api-docs
+<http|https>://<server_url><:port>/api-docs
 ```
 
 <a name="setup-the-facebook-app"></a>
