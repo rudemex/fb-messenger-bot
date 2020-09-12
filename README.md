@@ -45,6 +45,7 @@
 - [📜 License](#license)
 
 <a name="how-does-the-messenger-platform-work"></a>
+
 ## 🤔 How does the Messenger platform work?
 
 Messaging bots use a web server to process the messages they receive or to find out which messages to send. It is also necessary for the bot to be authenticated to talk to the web server and for the bot to be approved by Facebook to talk to the public.
@@ -56,11 +57,13 @@ When a person sends a message to a company in Messenger, the following happens, 
 </p>
 
 <a name="lets-start"></a>
+
 ## 🙌 Let's start
 
 Before starting to work on our bot, we must have installed some tools in our computer that will facilitate us to work locally and be able to test some functionalities that the starter has available, and I will take for granted some basic concepts so as not to go into detail and extend the documentation.
 
 <a name="basic-requirements"></a>
+
 #### 📝 Basic requirements
 
 - Node.js v10.15.3 or higher ([Download](https://nodejs.org/es/download/))
@@ -70,6 +73,7 @@ Before starting to work on our bot, we must have installed some tools in our com
 - [A test page on facebook ](https://www.facebook.com/pages/creation/?ref_type=comet_home)
 
 <a name="install-dependencies"></a>
+
 #### 🛠 Install dependencies
 
 When we have the basic requirements, we clone the repository, go to the project folder and install its dependencies.
@@ -81,6 +85,7 @@ When we have the basic requirements, we clone the repository, go to the project 
 We download the latest version of [Ngrok](https://ngrok.com/download) compatible with our operating system, and decompress it in the server root.
 
 <a name="configurations"></a>
+
 ## ⚙ Configurations
 
 This application uses the [config](https://www.npmjs.com/package/config) dependency to facilitate the configuration of environment variables, which makes it scalable and robust when deploying the application in different environments.
@@ -109,6 +114,7 @@ If you need to add another type of data to consume, like the connection to a dat
     verifyToken: 'my_awesome_bot_verify_token',
     accessToken: '',
     subscribedFields: 'messages,messaging_postbacks,messaging_optins',
+    userFields: 'id,name,first_name,last_name,email',
     secrets: '',
   },
   services: {
@@ -187,6 +193,11 @@ If you need to add another type of data to consume, like the connection to a dat
 - Type: `String`
 - Default: `messages,messaging_postbacks,messaging_optins`
 
+`userFields`: It is a comma-separated list to obtain the user's information.[Documentation](https://developers.facebook.com/docs/graph-api/reference/user/)
+
+- Type: `String`
+- Default: `id,name,first_name,last_name,email`
+
 `secrets`: Here you can enter any value you want to hide in the server logs of the bot, for example the id of the sender or the id of the sender. The values to hide must be written separated by comma.
 
 - Type: `String`
@@ -209,6 +220,7 @@ If you need to add another type of data to consume, like the connection to a dat
 </details>
 
 <a name="run-server"></a>
+
 ## 💻 Run server
 
 We start the bot's server.
@@ -240,6 +252,7 @@ Once the server is started, we must start **ngrok** to create the connection tun
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 <a name="swagger-info"></a>
+
 ## 📚 Swagger
 
 The project has a **Swagger** that has documented the most important endpoints of the project, and facilitates the configuration of the fields for the bot, such as the **get started** button, **persistent menu** and the **greeting**.
@@ -249,11 +262,13 @@ This documentation can be enabled or disabled from the [configuration](#configur
 - Default: `http://localhost:8080/api-docs`
 
 #### URL Scheme
+
 ```
 <http|https>://<server_url><port>/api-docs
 ```
 
 <a name="setup-the-facebook-app"></a>
+
 ## 📱 Setup the Facebook App
 
 The time has come to create and configure our app on Facebook.
@@ -363,9 +378,9 @@ With the local server and the connection tunnel initialized, we will configure t
 
 5. These are the last settings to be made and are optional.
    It consists in executing a curl script in the terminal to implement some options, don't forget to put the access token to make it work.
-    
-    > 💬 Note: You can run these scripts from Swagger, but you must adjust the files that are inside the `./templates/configs` folder
-    
+
+   > 💬 Note: You can run these scripts from Swagger, but you must adjust the files that are inside the `./templates/configs` folder
+
    #### Add button Get Started
 
    ```bash
@@ -435,11 +450,13 @@ With the local server and the connection tunnel initialized, we will configure t
 We have finished configuring the app so that Facebook connects to the bot's server, now we have to test it, to do this we can enter the chat page and perform a test to verify that everything is working properly.
 
 <a name="how-to-share-your-bot"></a>
+
 ## 📡 How to share your bot
 
 Add a chat button to your webpage, go [here](https://developers.facebook.com/docs/messenger-platform/plugin-reference) to learn how to add a chat button your page.
 
 <a name="create-a-shortlink"></a>
+
 #### 🔗 Create a shortlink
 
 You can use page username to have someone start a chat.
@@ -449,81 +466,87 @@ https://m.me/<PAGE_USERNAME>
 ```
 
 <a name="setup-the-workplace-app"></a>
+
 ## 📱 Setup the Workplace App
 
 The configuration of the app for Workplace is quite similar to that of Facebook, it is required to have the Workplace paid account in order to enable custom integrations.
 
 1. Go to the **Administrator Panel**, and click on the **Integrations** button, and in the Custom integrations section click on the **Create custom integration** button.
-    
-    It will open a modal where we must write the name of the application and a description, then click on **Create**.
-    
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 1" src="./.readme-static/settings-new-app-on-workplace-1.png" />
-    </p>
+
+   It will open a modal where we must write the name of the application and a description, then click on **Create**.
+
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 1" src="./.readme-static/settings-new-app-on-workplace-1.png" />
+   </p>
 
 2. Once the application is created, it takes us to the configuration page of the application.
 
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 2" src="./.readme-static/settings-new-app-on-workplace-2.png" />
-    </p>
-     
-     #### Access token
-   
-     Now we are going to generate an access token and then configure it in our config, as mentioned in the configuration of the Facebook app.
-     
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 3" src="./.readme-static/settings-new-app-on-workplace-3.png" />
-    </p>
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 2" src="./.readme-static/settings-new-app-on-workplace-2.png" />
+   </p>
     
+    #### Access token
+
+   Now we are going to generate an access token and then configure it in our config, as mentioned in the configuration of the Facebook app.
+
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 3" src="./.readme-static/settings-new-app-on-workplace-3.png" />
+   </p>
+
 3. Now let's select the permissions for our bot.
-    
-    #### Permissions
-    In our case we are interested in the option of **Sending a message to any member**.
-    
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 4" src="./.readme-static/settings-new-app-on-workplace-4.png" />
-    </p>
-    
+
+   #### Permissions
+
+   In our case we are interested in the option of **Sending a message to any member**.
+
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 4" src="./.readme-static/settings-new-app-on-workplace-4.png" />
+   </p>
+
 4. Now we are going to **grant the integration access to groups**, in this case it is going to be to a specific group.
-    
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 5" src="./.readme-static/settings-new-app-on-workplace-5.png" />
-    </p>
-    
-5.  And finally, we have to configure the **Webhook** and the **verify token** and select the **subscriptions** we need, as we did with the Facebook app.
-    
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 6" src="./.readme-static/settings-new-app-on-workplace-6.png" />
-    </p>
-    
-    > 💬 Note: depending on the webhook configuration you select in the tabs, the subscriptions will change.
-    
+
+<p align="center">
+    <img style='width: 100%' alt="Settings new app on workplace 5" src="./.readme-static/settings-new-app-on-workplace-5.png" />
+</p>
+
+5. And finally, we have to configure the **Webhook** and the **verify token** and select the **subscriptions** we need, as we did with the Facebook app.
+
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 6" src="./.readme-static/settings-new-app-on-workplace-6.png" />
+   </p>
+
+   > 💬 Note: depending on the webhook configuration you select in the tabs, the subscriptions will change.
+
 6. 🙌 Finally we click on the save button.
-    
-    > 💬 Note: there is an optional configuration which is the security one, where it is required to enter the ip of the bot's server, the domain, etc.
-    <p align="center">
-        <img style='width: 100%' alt="Settings new app on workplace 7" src="./.readme-static/settings-new-app-on-workplace-7.png" />
-    </p>
- 
+
+   > 💬 Note: there is an optional configuration which is the security one, where it is required to enter the ip of the bot's server, the domain, etc.
+
+   <p align="center">
+       <img style='width: 100%' alt="Settings new app on workplace 7" src="./.readme-static/settings-new-app-on-workplace-7.png" />
+   </p>
 
 <a name="troubleshooting"></a>
+
 ## 🤦‍♂️Troubleshooting
- 
+
 #### Workplace App
 
 ##### ❌ (#200) To subscribe to the messages field
+
 > (#200) To subscribe to the messages field, one of these permissions is needed: pages_messaging. To subscribe to the messaging_postbacks field, one of these permissions is needed: pages_messaging
 
 You can solve this problem by configuring the webhook without selecting the subscriptions, then saving the configuration, then re-entering the app configuration and re-validating the webhook with the selected subscriptions.
- 
+
 <a name="contributing"></a>
+
 ## 💡 Contributing
 
 Requests are welcome. For important changes, please open a topic first to discuss what you would like to change.
 
 Please be sure to update the tests and documentation as appropriate.
- 
+
 <a name="author"></a>
+
 ## 👨‍💻 Author
 
 [![badge](https://img.shields.io/static/v1.svg?style=flat-square&label=Mex%20Delgado&message=Sr.%20Fullstack%20Developer&labelColor=1A1A1A&color=999999&logo=hackaday)](mailto:mdelgado@tresdoce.com.ar 'Send email to Mex')

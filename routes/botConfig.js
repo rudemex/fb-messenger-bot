@@ -4,15 +4,15 @@ const signale = require('../utils/signale');
 const functions = require('../utils/functions');
 
 // Templates
-const { btnGetStarted } = require('../templates/configs/btnGetStarted');
-const { greeting } = require('../templates/configs/greeting');
-const { persistentMenu } = require('../templates/configs/persistentMenu');
+const { btnGetStarted } = require('../docs/templates/configs/btnGetStarted');
+const { greeting } = require('../docs/templates/configs/greeting');
+const { persistentMenu } = require('../docs/templates/configs/persistentMenu');
 const {
   deleteGetStarted,
   deleteGreeting,
   deletePersistentMenu,
   deleteAll
-} = require('../templates/configs/deleteConfigs');
+} = require('../docs/templates/configs/deleteConfigs');
 
 module.exports = (app) => {
   const serverConfig = config.get('server');
@@ -150,29 +150,29 @@ module.exports = (app) => {
     }
 
     functions
-      .sendConfigs(reqMethod, configData)
-      .then((response) => {
-        if (!response.error) {
-          signale.success({
-            prefix: `[sendConfigs] RESPONSE ${configType}`,
-            message: response,
-          });
-          res.status(200).send(response);
-        } else {
+        .sendConfigs(reqMethod, configData)
+        .then((response) => {
+          if (!response.error) {
+            signale.success({
+              prefix: `[sendConfigs] RESPONSE ${configType}`,
+              message: response,
+            });
+            res.status(200).send(response);
+          } else {
+            signale.error({
+              prefix: `[sendConfigs] ERROR ${configType}`,
+              message: response.error,
+            });
+            res.status(400).send(response.error);
+          }
+        })
+        .catch((error) => {
           signale.error({
             prefix: `[sendConfigs] ERROR ${configType}`,
-            message: response.error,
+            message: error,
           });
-          res.status(400).send(response.error);
-        }
-      })
-      .catch((error) => {
-        signale.error({
-          prefix: `[sendConfigs] ERROR ${configType}`,
-          message: error,
+          res.status(409).send(error);
         });
-        res.status(409).send(error);
-      });
   });
 
   /**
@@ -233,28 +233,28 @@ module.exports = (app) => {
     }
 
     functions
-      .sendConfigs(reqMethod, configData)
-      .then((response) => {
-        if (!response.error) {
-          signale.success({
-            prefix: `[deleteConfigs] RESPONSE ${configType}`,
-            message: response,
-          });
-          res.status(200).send(response);
-        } else {
+        .sendConfigs(reqMethod, configData)
+        .then((response) => {
+          if (!response.error) {
+            signale.success({
+              prefix: `[deleteConfigs] RESPONSE ${configType}`,
+              message: response,
+            });
+            res.status(200).send(response);
+          } else {
+            signale.error({
+              prefix: `[deleteConfigs] ERROR ${configType}`,
+              message: response.error,
+            });
+            res.status(400).send(response.error);
+          }
+        })
+        .catch((error) => {
           signale.error({
             prefix: `[deleteConfigs] ERROR ${configType}`,
-            message: response.error,
+            message: error,
           });
-          res.status(400).send(response.error);
-        }
-      })
-      .catch((error) => {
-        signale.error({
-          prefix: `[deleteConfigs] ERROR ${configType}`,
-          message: error,
+          res.status(409).send(error);
         });
-        res.status(409).send(error);
-      });
   });
 };

@@ -4,21 +4,21 @@ const signale = require('../utils/signale');
 const functions = require('../utils/functions');
 
 // Templates
-const { TemplateMessage } = require('../templates/message');
+const { TemplateMessage } = require('../docs/templates/message');
 const {
   TemplateAttachmentImage,
   TemplateAttachmentVideo,
   TemplateAttachmentAudio,
   TemplateAttachmentFile,
-} = require('../templates/attachment');
-const { TemplateQuickReply } = require('../templates/quickReply');
-const { TemplateGeneric } = require('../templates/generic');
-const { TemplateButton } = require('../templates/button');
+} = require('../docs/templates/attachment');
+const { TemplateQuickReply } = require('../docs/templates/quickReply');
+const { TemplateGeneric } = require('../docs/templates/generic');
+const { TemplateButton } = require('../docs/templates/button');
 const {
   TemplateMediaImage,
   TemplateMediaVideo,
-} = require('../templates/media');
-const { TemplateReceipt } = require('../templates/receipt');
+} = require('../docs/templates/media');
+const { TemplateReceipt } = require('../docs/templates/receipt');
 
 module.exports = (app) => {
   const serverConfig = config.get('server');
@@ -209,28 +209,28 @@ module.exports = (app) => {
     }
 
     functions
-      .sendMessage(messageData)
-      .then((response) => {
-        if (!response.error) {
-          signale.success({
-            prefix: `[sendMessage] RESPONSE`,
-            message: response,
-          });
-          res.status(200).send(response);
-        } else {
+        .sendMessage(messageData)
+        .then((response) => {
+          if (!response.error) {
+            signale.success({
+              prefix: `[sendMessage] RESPONSE`,
+              message: response,
+            });
+            res.status(200).send(response);
+          } else {
+            signale.error({
+              prefix: '[sendMessage] ERROR',
+              message: response.error,
+            });
+            res.status(400).send(response.error);
+          }
+        })
+        .catch((error) => {
           signale.error({
-            prefix: '[sendMessage] ERROR',
-            message: response.error,
+            prefix: `[sendMessage] ERROR`,
+            message: error,
           });
-          res.status(400).send(response.error);
-        }
-      })
-      .catch((error) => {
-        signale.error({
-          prefix: `[sendMessage] ERROR`,
-          message: error,
+          res.status(409).send(error);
         });
-        res.status(409).send(error);
-      });
   });
 };
