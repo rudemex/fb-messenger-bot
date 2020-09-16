@@ -4,7 +4,8 @@
   "description": "Starter Bot Facebook Messenger",
   "main": "server.js",
   "scripts": {
-    "start": "$PORT=8080 nodemon --inspect=0.0.0.0:9228 ./server.js",
+    "start": "node ./server.js",
+    "start:test": "nodemon --inspect=0.0.0.0:9228 ./server.js",
     "build": "node -v",
     "test": "node -v",
     "lint": "node -v"
