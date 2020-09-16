@@ -4,8 +4,7 @@
   "description": "Starter Bot Facebook Messenger",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server.js",
-    "start:test": "nodemon --inspect=0.0.0.0:9228 ./server.js",
+    "start": "nodemon --inspect=0.0.0.0:9228 ./server.js",
     "build": "node -v",
     "test": "node -v",
     "lint": "node -v"
@@ -49,5 +48,8 @@
     "timeZone": "America/Argentina/Buenos_Aires",
     "formatDate": "YYYY-MM-DD",
     "formatTime": "HH:mm:ss a"
+  },
+  "engines": {
+    "node": "10.x"
   }
 }
