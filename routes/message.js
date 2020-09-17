@@ -88,7 +88,6 @@ module.exports = (app) => {
    *       - name: recipientId
    *         in: query
    *         type: string
-   *         default: 3172896426164477
    *         required: true
    *         description: id recipient.
    *       - name: messageType

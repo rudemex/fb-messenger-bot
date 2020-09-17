@@ -87,7 +87,6 @@ module.exports = (app) => {
    *       - name: hub.verify_token
    *         in: query
    *         type: string
-   *         default: my_awesome_bot
    *         required: true
    *         description: Token of verification.
    *     responses:
