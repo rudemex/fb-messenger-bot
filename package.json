@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon --inspect=0.0.0.0:9228 ./server.js",
+    "heroku:envs": "bash heroku-envs.sh",
     "build": "node -v",
     "test": "node -v",
     "lint": "node -v"
