@@ -1,6 +1,6 @@
 {
   "name": "fb-messenger-bot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Starter Bot Facebook Messenger",
   "main": "server.js",
   "scripts": {
