@@ -35,6 +35,7 @@
   - [⚙ Configurations](#configurations)
   - [💻 Run server](#run-server)
     - [📚 Swagger](#swagger-info)
+  - [🖥️ Deploy server in heroku (free)](#deploy-in-heroku)
   - [📱 Setup the Facebook App](#setup-the-facebook-app)
     - [📡 How to share your bot](#how-to-share-your-bot)
     - [🔗 Create a shortlink](#create-a-shortlink)
@@ -251,8 +252,10 @@ Once the server is started, we must start **ngrok** to create the connection tun
 
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
-<a name="swagger-info"></a>
+<a name="deploy-in-heroku"></a>
+## 🖥️ Deploy server in heroku (free)
 
+<a name="swagger-info"></a>
 ## 📚 Swagger
 
 The project has a **Swagger** that has documented the most important endpoints of the project, and facilitates the configuration of the fields for the bot, such as the **get started** button, **persistent menu** and the **greeting**.
