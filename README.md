@@ -252,9 +252,6 @@ Once the server is started, we must start **ngrok** to create the connection tun
 
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
-<a name="deploy-in-heroku"></a>
-## 🖥️ Deploy server in heroku (free)
-
 <a name="swagger-info"></a>
 ## 📚 Swagger
 
@@ -269,6 +266,11 @@ This documentation can be enabled or disabled from the [configuration](#configur
 ```
 <http|https>://<server_url><:port>/api-docs
 ```
+
+<a name="deploy-in-heroku"></a>
+## 🖥️ Deploy server in heroku (free)
+
+https://signup.heroku.com/
 
 <a name="setup-the-facebook-app"></a>
 
