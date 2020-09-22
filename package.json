@@ -8,7 +8,8 @@
     "heroku:envs": "bash heroku-envs.sh",
     "build": "node -v",
     "test": "node -v",
-    "lint": "node -v"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   },
   "keywords": [
     "facebook",
@@ -35,10 +36,19 @@
     "swagger-ui-express": "^4.0.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.9.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "prettier": "^2.1.0"
   },
   "prettier": {
     "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
     "singleQuote": true
   },
   "signale-logger": {

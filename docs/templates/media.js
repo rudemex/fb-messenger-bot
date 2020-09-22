@@ -12,13 +12,13 @@ const TemplateMediaImage = {
             {
               type: 'web_url',
               url: 'https://www.facebook.com/enespanol',
-              title: 'View Website',
-            },
-          ],
-        },
-      ],
-    },
-  },
+              title: 'View Website'
+            }
+          ]
+        }
+      ]
+    }
+  }
 };
 
 const TemplateMediaVideo = {
@@ -34,16 +34,16 @@ const TemplateMediaVideo = {
             {
               type: 'web_url',
               url: 'https://www.facebook.com/enespanol',
-              title: 'View Website',
-            },
-          ],
-        },
-      ],
-    },
-  },
+              title: 'View Website'
+            }
+          ]
+        }
+      ]
+    }
+  }
 };
 
 module.exports = {
   TemplateMediaImage,
-  TemplateMediaVideo,
+  TemplateMediaVideo
 };

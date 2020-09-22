@@ -21,7 +21,7 @@ module.exports = (app) => {
 
     signale.info({
       prefix: '[handleEvent] EVENT TYPE',
-      message: eventType,
+      message: eventType
     });
 
     if (!sessionIds.has(senderId)) {
@@ -29,21 +29,21 @@ module.exports = (app) => {
     }
 
     switch (eventType) {
-      case 'postback':
-        handle.postback(senderId, event.postback);
-        break;
-      case 'quick_reply':
-        handle.quickReply(senderId, event.message.quick_reply);
-        break;
-      case 'attachments':
-        handle.attachments(senderId, event.message);
-        break;
-      case 'text':
-        handle.message(senderId, event.message);
-        break;
-      default:
-        // Event delivery and read
-        break;
+    case 'postback':
+      handle.postback(senderId, event.postback);
+      break;
+    case 'quick_reply':
+      handle.quickReply(senderId, event.message.quick_reply);
+      break;
+    case 'attachments':
+      handle.attachments(senderId, event.message);
+      break;
+    case 'text':
+      handle.message(senderId, event.message);
+      break;
+    default:
+      // Event delivery and read
+      break;
     }
   };
 
@@ -107,23 +107,23 @@ module.exports = (app) => {
     if (req.query['hub.verify_token'] === paramsConfig.verifyToken) {
       setTimeout(() => {
         functions.doSubscribeRequest().then((response) => {
-            signale.success({
-              prefix: `[subscribe] RESPONSE`,
-              message: `Subscription result: ${response.success}`,
-            });
-            res.status(200).send(req.query['hub.challenge']);
-          }).catch((error) => {
-            signale.error({
-              prefix: `[subscribe] ERROR`,
-              message: error.message,
-            });
-            res.status(409).send(error);
+          signale.success({
+            prefix: '[subscribe] RESPONSE',
+            message: `Subscription result: ${response.success}`
           });
+          res.status(200).send(req.query['hub.challenge']);
+        }).catch((error) => {
+          signale.error({
+            prefix: '[subscribe] ERROR',
+            message: error.message
+          });
+          res.status(409).send(error);
+        });
       }, 3000);
     } else {
       signale.error({
         prefix: '[webhook]',
-        message: 'Error, wrong validation token',
+        message: 'Error, wrong validation token'
       });
       res.status(400).send({ code: 400, message: 'Error, wrong validation token' });
     }
@@ -136,7 +136,7 @@ module.exports = (app) => {
         webhook_event.messaging.forEach((event) => {
           signale.success({
             prefix: '[webhook] EVENT RECEIVED',
-            message: JSON.stringify(event),
+            message: JSON.stringify(event)
           });
           handleEvent(event);
         });
@@ -145,10 +145,9 @@ module.exports = (app) => {
     } catch (err) {
       signale.error({
         prefix: '[webhook] ERROR',
-        message: err,
+        message: err
       });
       res.status(400).send({ code: 400, message: err });
     }
   });
-
 };

@@ -19,42 +19,42 @@ const cors_options_enabled = {
   methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   credentials: true,
   allowedHeaders:
-    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel',
+    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel'
 };
 const cors_options_disabled = {
   origin: '*',
   methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   credentials: false,
   allowedHeaders:
-    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel',
+    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel'
 };
 
-//signale.info("Using config: ", config);
+// signale.info("Using config: ", config);
 
 const app = express();
 
-app.set("port", port);
+app.set('port', port);
 app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
   const output_reqHeaders = {
-    output: req.headers,
+    output: req.headers
   };
 
   const output_reqBody = {
-    output: req.body,
+    output: req.body
   };
 
   if (serverConfig.showLogInterceptor == 'true') {
-    signale.info(`Interceptor: REQUEST to `, encodeURI(req.url));
-    signale.info(`Interceptor: REQUEST HEADERS `, output_reqHeaders);
-    signale.info(`Interceptor: REQUEST BODY `, output_reqBody);
+    signale.info('Interceptor: REQUEST to ', encodeURI(req.url));
+    signale.info('Interceptor: REQUEST HEADERS ', output_reqHeaders);
+    signale.info('Interceptor: REQUEST BODY ', output_reqBody);
   }
 
-  let whitelist = serverConfig.origins;
-  let origin = req.headers.origin;
+  const whitelist = serverConfig.origins;
+  const origin = req.headers.origin;
 
   if (serverConfig.corsEnabled == 'true' && whitelist.indexOf(origin) > -1) {
     res.header('Access-Control-Allow-Origin', req.headers.origin);
@@ -87,13 +87,13 @@ if (swaggerConfig.enabled == 'true') {
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: true
   })
 );
 
 routes(app, pjson.version);
 
-app.listen(app.get("port"), () => {
+app.listen(app.get('port'), () => {
   signale.info(`Version: ${pjson.version}`);
-  signale.success(`App running on port: ${app.get("port")}`);
+  signale.success(`App running on port: ${app.get('port')}`);
 });

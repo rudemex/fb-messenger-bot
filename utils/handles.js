@@ -7,7 +7,7 @@ const message = (senderId, event) => {
   signale.note('HANDLE TEXT: ', event.text);
   const messageData = {
     recipient: {
-      id: senderId,
+      id: senderId
     },
     message: {
       text: 'Hola soy un bot de messenger y te invito a utilizar nuestro menu',
@@ -15,15 +15,15 @@ const message = (senderId, event) => {
         {
           content_type: 'text',
           title: 'Opcion 1',
-          payload: 'OPTION_1_PAYLOAD',
+          payload: 'OPTION_1_PAYLOAD'
         },
         {
           content_type: 'text',
           title: 'Opcion 2',
-          payload: 'OPTION_2_PAYLOAD',
-        },
-      ],
-    },
+          payload: 'OPTION_2_PAYLOAD'
+        }
+      ]
+    }
   };
   functions.sendMessage(messageData);
 };
@@ -34,18 +34,18 @@ const postback = (senderId, event) => {
   const payload = idx(event, (_) => _.payload);
 
   switch (payload) {
-    case 'GET_STARTED_PAYLOAD':
-      signale.note('STARTED PAYLOAD');
-      break;
-    case 'OPTION_1_PAYLOAD':
-      signale.note('OPTION 1 PAYLOAD');
-      break;
-    case 'OPTION_2_PAYLOAD':
-      signale.note('OPTION 2 PAYLOAD');
-      break;
-    default:
-      signale.info('default postback');
-      break;
+  case 'GET_STARTED_PAYLOAD':
+    signale.note('STARTED PAYLOAD');
+    break;
+  case 'OPTION_1_PAYLOAD':
+    signale.note('OPTION 1 PAYLOAD');
+    break;
+  case 'OPTION_2_PAYLOAD':
+    signale.note('OPTION 2 PAYLOAD');
+    break;
+  default:
+    signale.info('default postback');
+    break;
   }
 };
 
@@ -55,56 +55,56 @@ const quickReply = (senderId, event) => {
   const payload = idx(event, (_) => _.payload);
 
   switch (payload) {
-    case 'OPTION_1_PAYLOAD':
-      signale.info('OPCION 1');
-      break;
-    case 'OPTION_2_PAYLOAD':
-      signale.info('OPCION 2');
-      break;
-    default:
-      signale.info('default quick reply');
-      break;
+  case 'OPTION_1_PAYLOAD':
+    signale.info('OPCION 1');
+    break;
+  case 'OPTION_2_PAYLOAD':
+    signale.info('OPCION 2');
+    break;
+  default:
+    signale.info('default quick reply');
+    break;
   }
 };
 
 // HANDLE ATTACHMENTS
 const attachments = (senderId, event) => {
   signale.note('HANDLE ATTACHMENTS');
-  /*console.log(event.text);
+  /* console.log(event.text);
     console.log(event.attachments[0]);
     console.log(event.attachments[0].type);
     console.log(event.attachments[0].title);
     console.log(event.attachments[0].url);
-    console.log(event.attachments[0].payload);*/
+    console.log(event.attachments[0].payload); */
 
-  let attachmentType = idx(event, (_) => _.attachments[0].type);
-  let attachmentUrl = idx(event, (_) => _.attachments[0].payload.url);
+  const attachmentType = idx(event, (_) => _.attachments[0].type);
+  const attachmentUrl = idx(event, (_) => _.attachments[0].payload.url);
 
   switch (attachmentType.toLowerCase()) {
-    case 'image':
-      signale.info(attachmentType);
-      signale.info(attachmentUrl);
-      break;
-    case 'video':
-      signale.info(attachmentType);
-      signale.info(attachmentUrl);
-      break;
-    case 'audio':
-      signale.info(attachmentType);
-      signale.info(attachmentUrl);
-      break;
-    case 'file':
-      signale.info(attachmentType);
-      signale.info(attachmentUrl);
-      break;
-    case 'location':
-      signale.info(attachmentType);
-      signale.info(attachmentUrl);
-      break;
-    default:
-      signale.info(attachmentType);
-      signale.info(encodeURI(event.message.attachments[0].url));
-      break;
+  case 'image':
+    signale.info(attachmentType);
+    signale.info(attachmentUrl);
+    break;
+  case 'video':
+    signale.info(attachmentType);
+    signale.info(attachmentUrl);
+    break;
+  case 'audio':
+    signale.info(attachmentType);
+    signale.info(attachmentUrl);
+    break;
+  case 'file':
+    signale.info(attachmentType);
+    signale.info(attachmentUrl);
+    break;
+  case 'location':
+    signale.info(attachmentType);
+    signale.info(attachmentUrl);
+    break;
+  default:
+    signale.info(attachmentType);
+    signale.info(encodeURI(event.message.attachments[0].url));
+    break;
   }
 };
 
@@ -112,5 +112,5 @@ module.exports = {
   message,
   postback,
   quickReply,
-  attachments,
+  attachments
 };

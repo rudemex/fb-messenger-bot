@@ -6,7 +6,7 @@ const servicesConfig = config.get('services');
 const paramsConfig = config.get('params');
 
 const isDefined = (obj) => {
-  if (typeof obj == 'undefined') {
+  if (typeof obj === 'undefined') {
     return false;
   }
 
@@ -22,9 +22,9 @@ const doSubscribeRequest = () => {
     request(
       {
         method: 'POST',
-        uri: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/subscribed_apps?access_token=${paramsConfig.accessToken}&subscribed_fields=${paramsConfig.subscribedFields}`,
+        uri: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/subscribed_apps?access_token=${paramsConfig.accessToken}&subscribed_fields=${paramsConfig.subscribedFields}`
       },
-      (error, response, body) => {
+      (error, response) => {
         try {
           response.body = JSON.parse(response.body);
           if (response.body.success) {
@@ -34,8 +34,8 @@ const doSubscribeRequest = () => {
           }
         } catch (error) {
           signale.error({
-            prefix: `[subscribe] ERROR`,
-            message: `Error while subscription: ${error}`,
+            prefix: '[subscribe] ERROR',
+            message: `Error while subscription: ${error}`
           });
           reject(error);
         }
@@ -58,10 +58,22 @@ const eventType = (event) => {
   */
 
   if (event.message) {
-    eventType = event.message.text ? 'text' : event.message.quick_reply ? 'quick_reply' : 'attachments';
+    eventType = event.message.text
+      ? 'text'
+      : event.message.quick_reply
+        ? 'quick_reply'
+        : 'attachments';
   } else {
     // Delivery, read, optin and others, you must configure it in the webhook of the app administration and enable the subscription in the request (env)
-    eventType = event.postback ? 'postback' : event.read ? 'read' : event.delivery ? 'delivery' : event.optin ? 'optin' : null;
+    eventType = event.postback
+      ? 'postback'
+      : event.read
+        ? 'read'
+        : event.delivery
+          ? 'delivery'
+          : event.optin
+            ? 'optin'
+            : null;
   }
 
   return eventType;
@@ -75,19 +87,19 @@ const markSeen = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'mark_seen',
-      },
+        sender_action: 'mark_seen'
+      }
     },
-    (error, response, body) => {
+    (error, response) => {
       if (error) {
         signale.error({
-          prefix: `[markSeen] ERROR`,
-          message: error,
+          prefix: '[markSeen] ERROR',
+          message: error
         });
       } else {
         signale.success({
-          prefix: `[markSeen] RESPONSE`,
-          message: JSON.stringify(response.body),
+          prefix: '[markSeen] RESPONSE',
+          message: JSON.stringify(response.body)
         });
       }
     }
@@ -102,19 +114,19 @@ const typingOn = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'typing_on',
-      },
+        sender_action: 'typing_on'
+      }
     },
-    (error, response, body) => {
+    (error, response) => {
       if (error) {
         signale.error({
-          prefix: `[typingOn] ERROR`,
-          message: error,
+          prefix: '[typingOn] ERROR',
+          message: error
         });
       } else {
         signale.success({
-          prefix: `[typingOn] RESPONSE`,
-          message: JSON.stringify(response.body),
+          prefix: '[typingOn] RESPONSE',
+          message: JSON.stringify(response.body)
         });
       }
     }
@@ -129,19 +141,19 @@ const typingOff = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'typing_off',
-      },
+        sender_action: 'typing_off'
+      }
     },
-    (error, response, body) => {
+    (error, response) => {
       if (error) {
         signale.error({
-          prefix: `[typingOff] ERROR`,
-          message: error,
+          prefix: '[typingOff] ERROR',
+          message: error
         });
       } else {
         signale.success({
-          prefix: `[typingOff] RESPONSE`,
-          message: JSON.stringify(response.body),
+          prefix: '[typingOff] RESPONSE',
+          message: JSON.stringify(response.body)
         });
       }
     }
@@ -151,27 +163,27 @@ const typingOff = (senderId) => {
 const sendConfigs = (reqMethod = 'POST', data) => {
   return new Promise((resolve, reject) => {
     request(
-        {
-          url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messenger_profile`,
-          qs: { access_token: paramsConfig.accessToken },
-          method: reqMethod,
-          json: data,
-        },
-        (error, response, body) => {
-          if (response.error) {
-            signale.error({
-              prefix: `[sendConfigs] ERROR`,
-              message: response.error,
-            });
-            reject(response.error);
-          } else {
-            signale.success({
-              prefix: `[sendConfigs] RESPONSE`,
-              message: JSON.stringify(response.body),
-            });
-            resolve(response.body);
-          }
+      {
+        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messenger_profile`,
+        qs: { access_token: paramsConfig.accessToken },
+        method: reqMethod,
+        json: data
+      },
+      (error, response) => {
+        if (response.error) {
+          signale.error({
+            prefix: '[sendConfigs] ERROR',
+            message: response.error
+          });
+          reject(response.error);
+        } else {
+          signale.success({
+            prefix: '[sendConfigs] RESPONSE',
+            message: JSON.stringify(response.body)
+          });
+          resolve(response.body);
         }
+      }
     );
   });
 };
@@ -179,27 +191,27 @@ const sendConfigs = (reqMethod = 'POST', data) => {
 const getUserData = (senderId) => {
   return new Promise((resolve, reject) => {
     request(
-        {
-          url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/${senderId}`,
-          qs: { fields: paramsConfig.userFields },
-          method: 'GET',
-          auth: { bearer: paramsConfig.accessToken },
-        },
-        (error, response, body) => {
-          if (response.error) {
-            signale.error({
-              prefix: `[getRecipientData] ERROR`,
-              message: response.error,
-            });
-            reject(response.error);
-          } else {
-            signale.success({
-              prefix: `[getRecipientData] RESPONSE`,
-              message: JSON.stringify(response.body),
-            });
-            resolve(response.body);
-          }
+      {
+        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/${senderId}`,
+        qs: { fields: paramsConfig.userFields },
+        method: 'GET',
+        auth: { bearer: paramsConfig.accessToken }
+      },
+      (error, response) => {
+        if (response.error) {
+          signale.error({
+            prefix: '[getRecipientData] ERROR',
+            message: response.error
+          });
+          reject(response.error);
+        } else {
+          signale.success({
+            prefix: '[getRecipientData] RESPONSE',
+            message: JSON.stringify(response.body)
+          });
+          resolve(response.body);
         }
+      }
     );
   });
 };
@@ -212,19 +224,20 @@ const sendMessage = (data) => {
         url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
         qs: { access_token: paramsConfig.accessToken },
         method: 'POST',
-        json: data,
-      },(error, response, body) => {
+        json: data
+      },
+      (error, response) => {
         typingOff(data.recipient.id);
         if (response.error) {
           signale.error({
-            prefix: `[sendMessage] ERROR`,
-            message: response.error,
+            prefix: '[sendMessage] ERROR',
+            message: response.error
           });
           reject(response.error);
         } else {
           signale.success({
-            prefix: `[sendMessage] RESPONSE`,
-            message: JSON.stringify(response.body),
+            prefix: '[sendMessage] RESPONSE',
+            message: JSON.stringify(response.body)
           });
           resolve(response.body);
         }
@@ -242,5 +255,5 @@ module.exports = {
   typingOff,
   sendConfigs,
   getUserData,
-  sendMessage,
+  sendMessage
 };

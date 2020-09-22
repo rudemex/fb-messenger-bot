@@ -1,4 +1,4 @@
-const {Signale} = require('signale-logger');
+const { Signale } = require('signale-logger');
 const config = require('config');
 
 const secrets = config.get('params').secrets;
@@ -11,15 +11,15 @@ const secrets = config.get('params').secrets;
 * */
 
 const options = {
-    secrets: secrets ? secrets.split(',') : [],
-    types: {
-        santa: {
-            badge: '🎅',
-            color: 'red',
-            label: 'santa',
-            logLevel: 'info'
-        }
-    },
+  secrets: secrets ? secrets.split(',') : [],
+  types: {
+    santa: {
+      badge: '🎅',
+      color: 'red',
+      label: 'santa',
+      logLevel: 'info'
+    }
+  }
 };
 
 module.exports = new Signale(options);

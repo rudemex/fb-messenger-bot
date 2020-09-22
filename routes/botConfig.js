@@ -133,46 +133,46 @@ module.exports = (app) => {
    *          description: Error generico en el servidor
    */
   app.post(encodeURI(`${context}/config`), (req, res) => {
-    let configType = encodeURI(req.query.configType);
-    let reqMethod = 'POST';
+    const configType = encodeURI(req.query.configType);
+    const reqMethod = 'POST';
     let configData;
 
     switch (configType) {
-      case 'btn_get_started':
-        configData = btnGetStarted;
-        break;
-      case 'greeting':
-        configData = greeting;
-        break;
-      case 'persistent_menu':
-        configData = persistentMenu;
-        break;
+    case 'btn_get_started':
+      configData = btnGetStarted;
+      break;
+    case 'greeting':
+      configData = greeting;
+      break;
+    case 'persistent_menu':
+      configData = persistentMenu;
+      break;
     }
 
     functions
-        .sendConfigs(reqMethod, configData)
-        .then((response) => {
-          if (!response.error) {
-            signale.success({
-              prefix: `[sendConfigs] RESPONSE ${configType}`,
-              message: response,
-            });
-            res.status(200).send(response);
-          } else {
-            signale.error({
-              prefix: `[sendConfigs] ERROR ${configType}`,
-              message: response.error,
-            });
-            res.status(400).send(response.error);
-          }
-        })
-        .catch((error) => {
+      .sendConfigs(reqMethod, configData)
+      .then((response) => {
+        if (!response.error) {
+          signale.success({
+            prefix: `[sendConfigs] RESPONSE ${configType}`,
+            message: response
+          });
+          res.status(200).send(response);
+        } else {
           signale.error({
             prefix: `[sendConfigs] ERROR ${configType}`,
-            message: error,
+            message: response.error
           });
-          res.status(409).send(error);
+          res.status(400).send(response.error);
+        }
+      })
+      .catch((error) => {
+        signale.error({
+          prefix: `[sendConfigs] ERROR ${configType}`,
+          message: error
         });
+        res.status(409).send(error);
+      });
   });
 
   /**
@@ -213,48 +213,48 @@ module.exports = (app) => {
    *          description: Error generico en el servidor
    */
   app.delete(encodeURI(`${context}/config`), (req, res) => {
-    let configType = encodeURI(req.query.configType);
-    let reqMethod = 'DELETE';
+    const configType = encodeURI(req.query.configType);
+    const reqMethod = 'DELETE';
     let configData;
 
     switch (configType) {
-      case 'get_started':
-        configData = deleteGetStarted;
-        break;
-      case 'greeting':
-        configData = deleteGreeting;
-        break;
-      case 'persistent_menu':
-        configData = deletePersistentMenu;
-        break;
-      case 'all':
-        configData = deleteAll;
-        break;
+    case 'get_started':
+      configData = deleteGetStarted;
+      break;
+    case 'greeting':
+      configData = deleteGreeting;
+      break;
+    case 'persistent_menu':
+      configData = deletePersistentMenu;
+      break;
+    case 'all':
+      configData = deleteAll;
+      break;
     }
 
     functions
-        .sendConfigs(reqMethod, configData)
-        .then((response) => {
-          if (!response.error) {
-            signale.success({
-              prefix: `[deleteConfigs] RESPONSE ${configType}`,
-              message: response,
-            });
-            res.status(200).send(response);
-          } else {
-            signale.error({
-              prefix: `[deleteConfigs] ERROR ${configType}`,
-              message: response.error,
-            });
-            res.status(400).send(response.error);
-          }
-        })
-        .catch((error) => {
+      .sendConfigs(reqMethod, configData)
+      .then((response) => {
+        if (!response.error) {
+          signale.success({
+            prefix: `[deleteConfigs] RESPONSE ${configType}`,
+            message: response
+          });
+          res.status(200).send(response);
+        } else {
           signale.error({
             prefix: `[deleteConfigs] ERROR ${configType}`,
-            message: error,
+            message: response.error
           });
-          res.status(409).send(error);
+          res.status(400).send(response.error);
+        }
+      })
+      .catch((error) => {
+        signale.error({
+          prefix: `[deleteConfigs] ERROR ${configType}`,
+          message: error
         });
+        res.status(409).send(error);
+      });
   });
 };

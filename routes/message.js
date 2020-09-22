@@ -9,14 +9,14 @@ const {
   TemplateAttachmentImage,
   TemplateAttachmentVideo,
   TemplateAttachmentAudio,
-  TemplateAttachmentFile,
+  TemplateAttachmentFile
 } = require('../docs/templates/attachment');
 const { TemplateQuickReply } = require('../docs/templates/quickReply');
 const { TemplateGeneric } = require('../docs/templates/generic');
 const { TemplateButton } = require('../docs/templates/button');
 const {
   TemplateMediaImage,
-  TemplateMediaVideo,
+  TemplateMediaVideo
 } = require('../docs/templates/media');
 const { TemplateReceipt } = require('../docs/templates/receipt');
 
@@ -113,123 +113,123 @@ module.exports = (app) => {
    *          description: Error generico en el servidor
    */
   app.post(encodeURI(`${context}/message`), (req, res) => {
-    let recipientId = encodeURI(req.query.recipientId);
-    let messageType = encodeURI(req.query.messageType);
+    const recipientId = encodeURI(req.query.recipientId);
+    const messageType = encodeURI(req.query.messageType);
     let messageData;
     switch (messageType) {
-      case 'text':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateMessage,
-        };
-        break;
-      case 'attachment-image':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateAttachmentImage,
-        };
-        break;
-      case 'attachment-video':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateAttachmentVideo,
-        };
-        break;
-      case 'attachment-audio':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateAttachmentAudio,
-        };
-        break;
-      case 'attachment-file':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateAttachmentFile,
-        };
-        break;
-      case 'quickReply':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateQuickReply,
-        };
-        break;
-      case 'template-generic':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateGeneric,
-        };
-        break;
-      case 'template-button':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateButton,
-        };
-        break;
-      case 'template-media-image':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateMediaImage,
-        };
-        break;
-      case 'template-media-video':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateMediaVideo,
-        };
-        break;
-      case 'template-receipt':
-        messageData = {
-          recipient: {
-            id: recipientId,
-          },
-          message: TemplateReceipt,
-        };
-        break;
+    case 'text':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateMessage
+      };
+      break;
+    case 'attachment-image':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateAttachmentImage
+      };
+      break;
+    case 'attachment-video':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateAttachmentVideo
+      };
+      break;
+    case 'attachment-audio':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateAttachmentAudio
+      };
+      break;
+    case 'attachment-file':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateAttachmentFile
+      };
+      break;
+    case 'quickReply':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateQuickReply
+      };
+      break;
+    case 'template-generic':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateGeneric
+      };
+      break;
+    case 'template-button':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateButton
+      };
+      break;
+    case 'template-media-image':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateMediaImage
+      };
+      break;
+    case 'template-media-video':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateMediaVideo
+      };
+      break;
+    case 'template-receipt':
+      messageData = {
+        recipient: {
+          id: recipientId
+        },
+        message: TemplateReceipt
+      };
+      break;
     }
 
     functions
-        .sendMessage(messageData)
-        .then((response) => {
-          if (!response.error) {
-            signale.success({
-              prefix: `[sendMessage] RESPONSE`,
-              message: response,
-            });
-            res.status(200).send(response);
-          } else {
-            signale.error({
-              prefix: '[sendMessage] ERROR',
-              message: response.error,
-            });
-            res.status(400).send(response.error);
-          }
-        })
-        .catch((error) => {
-          signale.error({
-            prefix: `[sendMessage] ERROR`,
-            message: error,
+      .sendMessage(messageData)
+      .then((response) => {
+        if (!response.error) {
+          signale.success({
+            prefix: '[sendMessage] RESPONSE',
+            message: response
           });
-          res.status(409).send(error);
+          res.status(200).send(response);
+        } else {
+          signale.error({
+            prefix: '[sendMessage] ERROR',
+            message: response.error
+          });
+          res.status(400).send(response.error);
+        }
+      })
+      .catch((error) => {
+        signale.error({
+          prefix: '[sendMessage] ERROR',
+          message: error
         });
+        res.status(409).send(error);
+      });
   });
 };

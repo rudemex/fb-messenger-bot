@@ -1,7 +1,7 @@
 const TemplateMessage = {
-    text: 'Hola mundo!'
-}
+  text: 'Hola mundo!'
+};
 
 module.exports = {
-    TemplateMessage
-}
+  TemplateMessage
+};
