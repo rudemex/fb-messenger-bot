@@ -1,6 +1,9 @@
 const idx = require('idx');
+const config = require('config');
 const signale = require('./signale');
 const functions = require('./functions');
+
+const serverUrl = config.get('services.url');
 
 // HANDLE MESSAGE
 const message = (senderId, event) => {
@@ -42,6 +45,17 @@ const postback = (senderId, event) => {
     break;
   case 'OPTION_2_PAYLOAD':
     signale.note('OPTION 2 PAYLOAD');
+    break;
+  case 'GET_ID_MESSENGER_PAYLOAD':
+    const messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: `Your messenger id is *${senderId}* and you can try other functions from *${serverUrl}/api-docs*`
+      }
+    };
+    functions.sendMessage(messageData);
     break;
   default:
     signale.info('default postback');

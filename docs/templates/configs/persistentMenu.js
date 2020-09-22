@@ -10,6 +10,11 @@ const persistentMenu = {
       composer_input_disabled: false,
       call_to_actions: [
         {
+          title: 'Get ID',
+          type: 'postback',
+          payload: 'GET_ID_MESSENGER_PAYLOAD'
+        },
+        {
           title: 'About us',
           type: 'postback',
           payload: 'ABOUT_US_PAYLOAD'
