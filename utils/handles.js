@@ -47,20 +47,25 @@ const postback = (senderId, event) => {
     signale.note('OPTION 2 PAYLOAD');
     break;
   case 'GET_ID_MESSENGER_PAYLOAD':
-    const messageData = {
-      recipient: {
-        id: senderId
-      },
-      message: {
-        text: `Your messenger id is *${senderId}* and you can try other functions from *${serverUrl}/api-docs*`
-      }
-    };
-    functions.sendMessage(messageData);
+    getUserID(senderId);
     break;
   default:
     signale.info('default postback');
     break;
   }
+};
+
+// Get ID
+const getUserID = senderId => {
+  const messageData = {
+    recipient: {
+      id: senderId
+    },
+    message: {
+      text: `Your messenger id is *${senderId}* and you can try other functions from *${serverUrl}/api-docs*`
+    }
+  };
+  functions.sendMessage(messageData);
 };
 
 // HANDLE QUICK REPLY

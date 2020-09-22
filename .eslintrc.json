@@ -14,8 +14,8 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "camelcase": [1, {"properties": "never"}],
-    "eqeqeq": [1, "smart"],
-    "handle-callback-err": [1, "^(err|error|anySpecificError)$" ]
+    "camelcase": [0, {"properties": "never"}],
+    "eqeqeq": [0, "smart"],
+    "handle-callback-err": [0, "^(err|error|anySpecificError)$" ]
   }
 }
