@@ -37,6 +37,12 @@ const postback = (senderId, event) => {
     case 'GET_STARTED_PAYLOAD':
       signale.note('STARTED PAYLOAD');
       break;
+    case 'OPTION_1_PAYLOAD':
+      signale.note('OPTION 1 PAYLOAD');
+      break;
+    case 'OPTION_2_PAYLOAD':
+      signale.note('OPTION 2 PAYLOAD');
+      break;
     default:
       signale.info('default postback');
       break;
@@ -89,7 +95,7 @@ const attachments = (senderId, event) => {
       break;
     case 'file':
       signale.info(attachmentType);
-      console.log(attachmentUrl);
+      signale.info(attachmentUrl);
       break;
     case 'location':
       signale.info(attachmentType);
@@ -97,7 +103,7 @@ const attachments = (senderId, event) => {
       break;
     default:
       signale.info(attachmentType);
-      signale.info(event.message.attachments[0].url);
+      signale.info(encodeURI(event.message.attachments[0].url));
       break;
   }
 };
