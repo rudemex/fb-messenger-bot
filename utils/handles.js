@@ -3,7 +3,7 @@ const config = require('config');
 const signale = require('./signale');
 const functions = require('./functions');
 
-const serverUrl = config.get('services.url');
+const serverUrl = config.get('server.url');
 
 // HANDLE MESSAGE
 const message = (senderId, event) => {
