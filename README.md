@@ -15,6 +15,9 @@
     <a href="https://developers.facebook.com/docs/graph-api/overview">
           <img src="https://img.shields.io/static/v1.svg?style=flat-square&label=API%20Messenger&message=v8.0&labelColor=00B2FF&logoColor=FFFFFF&color=757575&logo=messenger" alt="Facebook Messenger"/>
         </a>
+        <a href="https://travis-ci.org/github/rudemex/fb-messenger-bot">
+            <img src="https://travis-ci.org/rudemex/fb-messenger-bot.svg?branch=master" alt="Travis Build"/>
+          </a>
   <br />
 </p>
 
@@ -253,6 +256,7 @@ Once the server is started, we must start **ngrok** to create the connection tun
 To see other tunnel configurations, you can check the [documentation](https://ngrok.com/docs)
 
 <a name="swagger-info"></a>
+
 ## 📚 Swagger
 
 The project has a **Swagger** that has documented the most important endpoints of the project, and facilitates the configuration of the fields for the bot, such as the **get started** button, **persistent menu** and the **greeting**.
@@ -268,15 +272,17 @@ This documentation can be enabled or disabled from the [configuration](#configur
 ```
 
 <a name="deploy-in-heroku"></a>
+
 ## 🖥️ Deploy server in heroku (free)
 
-You can run the bot server in a productive environment on any node server, in this case I will explain the steps to raise the server on the platform [Heroku](https://heroku.com/), which has a free version to deploy node servers, you can also hire a paid service which gives you more features. 
+You can run the bot server in a productive environment on any node server, in this case I will explain the steps to raise the server on the platform [Heroku](https://heroku.com/), which has a free version to deploy node servers, you can also hire a paid service which gives you more features.
 
 > 💬 If you don't have a Heroku account, you can create one by going to [https://signup.heroku.com/](https://signup.heroku.com/).
 
 We will need a file called `Procfile`, which is the one Heroku will use to initialize the server once deployed.
 
 Its content is:
+
 ```
 web: npm start
 ```
@@ -288,7 +294,7 @@ web: npm start
 </p>
 
 2. We write the name of our app, and select a region, and then click on Create App.
-> 💬 note: Remember to save the name of the app, as you will need it later to replace the value of <app_name> with the name of the app.
+   > 💬 note: Remember to save the name of the app, as you will need it later to replace the value of <app_name> with the name of the app.
 
 <p align="center">
    <img style='width: 100%' alt="Create a new app in heroku 2" src="./.readme-static/create-a-new-app-in-heroku-2.png" />
@@ -311,14 +317,19 @@ heroku login
 ```
 
 ##### Create a new Git repository
+
 Initialize a git repository in a new or existing directory
+
 ```
 cd my-project/
 git init
 heroku git:remote -a <app_name>
 ```
+
 ##### Deploy your application
+
 Commit your code to the repository and deploy it to Heroku using Git.
+
 ```
 git add .
 git commit -am "make it better"
@@ -326,12 +337,15 @@ git push heroku master
 ```
 
 ##### Deploy your application
+
 For existing repositories, simply add the heroku remote
+
 ```
 heroku git:remote -a <app_name>
 ```
 
 #### Deployment method: GitHub
+
 We click on the connect to GitHub button, if you've never connected Heroku to Github, a window will open to authorize the connection so you can continue with the step of entering the name of the repository and searching it in your GitHub account, and once you find it, we click on the Connect button.
 
 <p align="center">
@@ -345,13 +359,17 @@ Then we select the branch we want to deploy, and click on Deploy Branch, and it 
 </p>
 
 4. Now we have to configure the environment variables of the server, although we can do it manually from **Settings > Config Vars**, there is a bash script prepared that will raise the environment variables of our `.env` file that is located in the `./variables` folder.
+
 ```
 npm run heroku:envs
 ```
+
 or
+
 ```
 bash heroku-envs.sh
 ```
+
 <p align="center">
    <img style='width: 100%' alt="Create a new app in heroku 6" src="./.readme-static/create-a-new-app-in-heroku-6.png" />
 </p>
