@@ -39,6 +39,7 @@ const postback = (senderId, event) => {
   switch (payload) {
   case 'GET_STARTED_PAYLOAD':
     signale.note('STARTED PAYLOAD');
+    message(senderId, event);
     break;
   case 'OPTION_1_PAYLOAD':
     signale.note('OPTION 1 PAYLOAD');
@@ -56,7 +57,7 @@ const postback = (senderId, event) => {
 };
 
 // Get ID
-const getUserID = senderId => {
+const getUserID = (senderId) => {
   const messageData = {
     recipient: {
       id: senderId

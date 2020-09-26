@@ -26,7 +26,6 @@ const generateQS = () => {
   if (requireProof) {
     Object.assign(qs, createSecretProof());
   }
-
   return { qs };
 };
 
@@ -34,11 +33,12 @@ const doSubscribeRequest = () => {
   return new Promise((resolve, reject) => {
     const { fbApiUrl } = servicesConfig;
     const { fbApiVersion, subscribedFields } = paramsConfig;
+    const defaultQS = generateQS().qs;
     request(
       {
         method: 'POST',
         uri: `${fbApiUrl}/${fbApiVersion}/me/subscribed_apps`,
-        qs: Object.assign(generateQS(), {
+        qs: Object.assign(defaultQS, {
           subscribed_fields: subscribedFields
         })
       },
@@ -100,10 +100,11 @@ const eventType = (event) => {
 const markSeen = (senderId) => {
   const { fbApiUrl } = servicesConfig;
   const { fbApiVersion } = paramsConfig;
+  const defaultQS = generateQS().qs;
   request(
     {
       url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
-      qs: generateQS(),
+      qs: defaultQS,
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -129,10 +130,11 @@ const markSeen = (senderId) => {
 const typingOn = (senderId) => {
   const { fbApiUrl } = servicesConfig;
   const { fbApiVersion } = paramsConfig;
+  const defaultQS = generateQS().qs;
   request(
     {
       url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
-      qs: generateQS(),
+      qs: defaultQS,
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -158,10 +160,11 @@ const typingOn = (senderId) => {
 const typingOff = (senderId) => {
   const { fbApiUrl } = servicesConfig;
   const { fbApiVersion } = paramsConfig;
+  const defaultQS = generateQS().qs;
   request(
     {
       url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
-      qs: generateQS(),
+      qs: defaultQS,
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -188,10 +191,11 @@ const sendConfigs = (reqMethod = 'POST', data) => {
   return new Promise((resolve, reject) => {
     const { fbApiUrl } = servicesConfig;
     const { fbApiVersion } = paramsConfig;
+    const defaultQS = generateQS().qs;
     request(
       {
         url: `${fbApiUrl}/${fbApiVersion}/me/messenger_profile`,
-        qs: generateQS(),
+        qs: defaultQS,
         method: reqMethod,
         json: data
       },
@@ -248,11 +252,12 @@ const sendMessage = (data) => {
   return new Promise((resolve, reject) => {
     const { fbApiUrl } = servicesConfig;
     const { fbApiVersion } = paramsConfig;
+    const defaultQS = generateQS().qs;
     typingOn(data.recipient.id);
     request(
       {
         url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
-        qs: generateQS(),
+        qs: defaultQS,
         method: 'POST',
         json: data
       },

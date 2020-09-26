@@ -27,7 +27,7 @@ const persistentMenu = {
         {
           type: 'web_url',
           title: '💻 Visit my Website',
-          url: 'http://misite.com/',
+          url: 'https://github.com/rudemex/fb-messenger-bot#readme',
           webview_height_ratio: 'full'
         }
       ]
