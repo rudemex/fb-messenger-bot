@@ -1,28 +1,46 @@
 const config = require('config');
 const request = require('request');
+const CryptoJS = require('crypto-js');
 const signale = require('./signale');
 
 const servicesConfig = config.get('services');
 const paramsConfig = config.get('params');
 
-const isDefined = (obj) => {
-  if (typeof obj === 'undefined') {
-    return false;
+const createSecretProof = () => {
+  const { accessToken, appSecret } = paramsConfig;
+  const time = (new Date().getTime() / 1000) | 0;
+  const secret_proof = CryptoJS.HmacSHA256(
+    `${accessToken}|${time}`,
+    appSecret
+  ).toString(CryptoJS.enc.Hex);
+
+  return { appsecret_time: time, appsecret_proof: secret_proof };
+};
+
+const generateQS = () => {
+  const { accessToken, requireProof } = paramsConfig;
+  const qs = {
+    access_token: accessToken
+  };
+
+  if (requireProof) {
+    Object.assign(qs, createSecretProof());
   }
 
-  if (!obj) {
-    return false;
-  }
-
-  return obj != null;
+  return { qs };
 };
 
 const doSubscribeRequest = () => {
   return new Promise((resolve, reject) => {
+    const { fbApiUrl } = servicesConfig;
+    const { fbApiVersion, subscribedFields } = paramsConfig;
     request(
       {
         method: 'POST',
-        uri: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/subscribed_apps?access_token=${paramsConfig.accessToken}&subscribed_fields=${paramsConfig.subscribedFields}`
+        uri: `${fbApiUrl}/${fbApiVersion}/me/subscribed_apps`,
+        qs: Object.assign(generateQS(), {
+          subscribed_fields: subscribedFields
+        })
       },
       (error, response) => {
         try {
@@ -80,10 +98,12 @@ const eventType = (event) => {
 };
 
 const markSeen = (senderId) => {
+  const { fbApiUrl } = servicesConfig;
+  const { fbApiVersion } = paramsConfig;
   request(
     {
-      url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
-      qs: { access_token: paramsConfig.accessToken },
+      url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
+      qs: generateQS(),
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -107,10 +127,12 @@ const markSeen = (senderId) => {
 };
 
 const typingOn = (senderId) => {
+  const { fbApiUrl } = servicesConfig;
+  const { fbApiVersion } = paramsConfig;
   request(
     {
-      url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
-      qs: { access_token: paramsConfig.accessToken },
+      url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
+      qs: generateQS(),
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -134,10 +156,12 @@ const typingOn = (senderId) => {
 };
 
 const typingOff = (senderId) => {
+  const { fbApiUrl } = servicesConfig;
+  const { fbApiVersion } = paramsConfig;
   request(
     {
-      url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
-      qs: { access_token: paramsConfig.accessToken },
+      url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
+      qs: generateQS(),
       method: 'POST',
       json: {
         recipient: { id: senderId },
@@ -162,10 +186,12 @@ const typingOff = (senderId) => {
 
 const sendConfigs = (reqMethod = 'POST', data) => {
   return new Promise((resolve, reject) => {
+    const { fbApiUrl } = servicesConfig;
+    const { fbApiVersion } = paramsConfig;
     request(
       {
-        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messenger_profile`,
-        qs: { access_token: paramsConfig.accessToken },
+        url: `${fbApiUrl}/${fbApiVersion}/me/messenger_profile`,
+        qs: generateQS(),
         method: reqMethod,
         json: data
       },
@@ -190,12 +216,14 @@ const sendConfigs = (reqMethod = 'POST', data) => {
 
 const getUserData = (senderId) => {
   return new Promise((resolve, reject) => {
+    const { fbApiUrl } = servicesConfig;
+    const { fbApiVersion, userFields, accessToken } = paramsConfig;
     request(
       {
-        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/${senderId}`,
-        qs: { fields: paramsConfig.userFields },
+        url: `${fbApiUrl}/${fbApiVersion}/${senderId}`,
+        qs: { fields: userFields },
         method: 'GET',
-        auth: { bearer: paramsConfig.accessToken }
+        auth: { bearer: accessToken }
       },
       (error, response) => {
         if (response.error) {
@@ -218,11 +246,13 @@ const getUserData = (senderId) => {
 
 const sendMessage = (data) => {
   return new Promise((resolve, reject) => {
+    const { fbApiUrl } = servicesConfig;
+    const { fbApiVersion } = paramsConfig;
     typingOn(data.recipient.id);
     request(
       {
-        url: `${servicesConfig.fbApiUrl}/${paramsConfig.fbApiVersion}/me/messages`,
-        qs: { access_token: paramsConfig.accessToken },
+        url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
+        qs: generateQS(),
         method: 'POST',
         json: data
       },
@@ -247,7 +277,7 @@ const sendMessage = (data) => {
 };
 
 module.exports = {
-  isDefined,
+  generateQS,
   doSubscribeRequest,
   eventType,
   markSeen,

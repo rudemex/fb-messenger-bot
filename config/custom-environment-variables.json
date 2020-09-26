@@ -12,10 +12,12 @@
   "params": {
     "fbApiVersion": "FB_API_VERSION",
     "verifyToken": "VERIFY_TOKEN",
+    "appSecret": "APP_SECRET",
     "accessToken": "ACCESS_TOKEN",
     "subscribedFields": "FB_SUBSCRIBED_FIELDS",
     "userFields": "USER_FIELDS",
-    "secrets": "SECRETS"
+    "secrets": "SECRETS",
+    "requireProof": "REQUIRE_PROOF"
   },
   "services": {
     "fbApiUrl": "FB_API_URL"

@@ -12,10 +12,12 @@
   "params": {
     "fbApiVersion": "v8.0",
     "verifyToken": "my_awesome_bot_verify_token",
+    "appSecret": "",
     "accessToken": "",
     "subscribedFields": "messages,messaging_postbacks",
     "userFields": "id,name,first_name,last_name,email",
-    "secrets": ""
+    "secrets": "",
+    "requireProof": true
   },
   "services": {
     "fbApiUrl": "https://graph.facebook.com"
