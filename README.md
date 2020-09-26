@@ -51,6 +51,7 @@
     - [📡 How to share your bot](#how-to-share-your-bot)
     - [🔗 Create a shortlink](#create-a-shortlink)
   - [📱 Setup the Workplace App](#setup-the-workplace-app)
+  - [🔐 Security Configuration](#security-configuration)
 - [🤦‍♂️Troubleshooting](#troubleshooting)
 - [💡 Contributing](#contributing)
 - [👨‍💻 Author](#author)
@@ -659,6 +660,35 @@ The configuration of the app for Workplace is quite similar to that of Facebook,
    <p align="center">
        <img style='width: 100%' alt="Settings new app on workplace 7" src="./.readme-static/settings-new-app-on-workplace-7.png" />
    </p>
+
+<a name="security-configuration"></a>
+## 🔐 Security Configuration
+
+To give more security to the application, both for **Facebook** and **Workplace**, it is important to have completed the environment variable `appSecret` and have set `true` the `requireProof` for the bot to work properly with these new settings.
+
+```json5
+{
+  ...
+  "params": {
+    "appSecret": "<app_secret_key>",
+    ...    
+    "requireProof": true
+  }
+  ...
+}
+```
+
+#### Facebook App
+
+<p align="center">
+    <img style='width: 100%' alt="Settings new app on facebook 8" src="./.readme-static/settings-new-app-on-facebook-8.png" />
+</p>
+
+#### Workplace App
+
+<p align="center">
+    <img style='width: 100%' alt="Settings new app on workplace 8" src="./.readme-static/settings-new-app-on-workplace-8.png" />
+</p>
 
 <a name="troubleshooting"></a>
 
