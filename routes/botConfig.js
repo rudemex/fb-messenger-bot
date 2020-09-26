@@ -103,8 +103,6 @@ module.exports = (app) => {
    *       - Bot configurations
    *     name: Send configs to bot ex. button get started, persistent menu, etc.
    *     summary: Send configs to bot ex. button get started, persistent menu, etc.
-   *     security:
-   *       - bearerAuth: []
    *     consumes:
    *       - application/json
    *     produces:
@@ -183,8 +181,6 @@ module.exports = (app) => {
    *       - Bot configurations
    *     name: Delete configs to bot ex. button get started, persistent menu, etc.
    *     summary: Delete configs to bot ex. button get started, persistent menu, etc.
-   *     security:
-   *       - bearerAuth: []
    *     consumes:
    *       - application/json
    *     produces:

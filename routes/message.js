@@ -78,8 +78,6 @@ module.exports = (app) => {
    *       - Messages
    *     name: Send message.
    *     summary: Send message.
-   *     security:
-   *       - bearerAuth: []
    *     consumes:
    *       - application/json
    *     produces:

@@ -77,13 +77,17 @@ module.exports = (app) => {
    *       - Webhook
    *     name: Webhook to validate message.
    *     summary: Webhook to validate message.
-   *     security:
-   *       - bearerAuth: []
    *     consumes:
    *       - application/json
    *     produces:
    *       - application/json
    *     parameters:
+   *       - name: hub.mode
+   *         in: query
+   *         type: string
+   *         required: true
+   *         description: Mode.
+   *         "enum": [ "subscribe" ]
    *       - name: hub.verify_token
    *         in: query
    *         type: string
