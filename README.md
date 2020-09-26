@@ -678,13 +678,22 @@ To give more security to the application, both for **Facebook** and **Workplace*
 }
 ```
 
+For both cases, it is required to have the **public IP** of the server, since that way, it will only be limited to receive and send requests from a single authorized server. 
+
+If you have more than one **public IP**, or another server to balance the bot's requests, you can add it to the list.
+
 #### Facebook App
+
+In the configuration of the app, we go to the left side menu and go to **Settings > Advanced**, and then down to the **Security** section, where we will enter our **public IP**, and then we will activate the option **Require secret key of the app**.
 
 <p align="center">
     <img style='width: 100%' alt="Settings new app on facebook 8" src="./.readme-static/settings-new-app-on-facebook-8.png" />
 </p>
 
 #### Workplace App
+
+In the configuration of the app, we go down to the **Security Settings** section, where we will activate the option to **require a secret key test of the app**, and then we will enter our **public IP**.
+
 
 <p align="center">
     <img style='width: 100%' alt="Settings new app on workplace 8" src="./.readme-static/settings-new-app-on-workplace-8.png" />
