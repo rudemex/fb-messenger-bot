@@ -15,9 +15,16 @@
   <a href="https://developers.facebook.com/docs/graph-api/overview">
     <img src="https://img.shields.io/static/v1.svg?style=flat-square&label=API%20Messenger&message=v8.0&labelColor=00B2FF&logoColor=FFFFFF&color=757575&logo=messenger" alt="Facebook Messenger"/>
   </a>
+  <br/>
+  <a href="https://github.com/rudemex/fb-messenger-bot/releases/latest">
+    <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/rudemex/fb-messenger-bot?style=flat-square">
+  </a>
   <a href="https://travis-ci.org/github/rudemex/fb-messenger-bot">
     <img alt="Travis (.org)" src="https://img.shields.io/travis/rudemex/fb-messenger-bot?style=flat-square">
   </a>        
+  <a href="https://github.com/rudemex/fb-messenger-bot/blob/master/license.md">
+      <img alt="GitHub" src="https://img.shields.io/github/license/rudemex/fb-messenger-bot?style=flat-square">
+    </a> 
   <br />
 </p>
 
