@@ -110,11 +110,7 @@ module.exports = (app) => {
   app.get(encodeURI(`${context}/webhook/`), (req, res) => {
     const { verifyToken } = paramsConfig;
 
-    const mode = req.query['hub.mode '];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
-
-    if (mode === 'subscribe' && token === verifyToken) {
+    if (req.query['hub.verify_token'] === verifyToken) {
       setTimeout(() => {
         functions
           .doSubscribeRequest()
@@ -123,7 +119,7 @@ module.exports = (app) => {
               prefix: '[subscribe] RESPONSE',
               message: `Subscription result: ${response.success}`
             });
-            res.status(200).send(challenge);
+            res.status(200).send(req.query['hub.challenge']);
           })
           .catch((error) => {
             signale.error({
