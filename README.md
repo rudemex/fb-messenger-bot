@@ -134,10 +134,12 @@ If you need to add another type of data to consume, like the connection to a dat
   params: {
     fbApiVersion: 'v8.0',
     verifyToken: 'my_awesome_bot_verify_token',
+    appSecret: '',
     accessToken: '',
-    subscribedFields: 'messages,messaging_postbacks,messaging_optins',
+    subscribedFields: 'messages,messaging_postbacks',
     userFields: 'id,name,first_name,last_name,email',
     secrets: '',
+    requireProof: false
   },
   services: {
     fbApiUrl: 'https://graph.facebook.com',
@@ -205,6 +207,10 @@ If you need to add another type of data to consume, like the connection to a dat
 - Type: `String`
 - Default: `my_awesome_bot_verify_token`
 
+`appSecret`: It is the secret key to the app, it is required if you are going to use the security settings for the requests.
+- Type: `String`
+- Default: 
+
 `accessToken`: The access token is the alphanumeric hash that is generated when you create the application on **Fecebook** or **Workplace**.
 
 - Type: `String`
@@ -224,6 +230,10 @@ If you need to add another type of data to consume, like the connection to a dat
 
 - Type: `String`
 - Default:
+
+`requireProof`: Enables or disables the use of `appsecret_proof` and `appsecret_time` for security requests, it is required to have configured the secret key of the app to work.
+- Type: `Boolean`
+- Default: `false`
 
 #### services
 
