@@ -51,7 +51,7 @@
     - [📡 How to share your bot](#how-to-share-your-bot)
     - [🔗 Create a shortlink](#create-a-shortlink)
   - [📱 Setup the Workplace App](#setup-the-workplace-app)
-  - [🔐 Security Configuration](#security-configuration)
+  - [🔐 Security configuration](#security-configuration)
 - [🤦‍♂️Troubleshooting](#troubleshooting)
 - [💡 Contributing](#contributing)
 - [👨‍💻 Author](#author)
