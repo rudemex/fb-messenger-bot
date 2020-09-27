@@ -34,6 +34,7 @@ const doSubscribeRequest = () => {
     const { fbApiUrl } = servicesConfig;
     const { fbApiVersion, subscribedFields } = paramsConfig;
     const defaultQS = generateQS().qs;
+
     request(
       {
         method: 'POST',
