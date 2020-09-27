@@ -7,11 +7,11 @@ Make sure these boxes are checked before submitting your issue -- thank you!
 - [ ] Is not a programming question.
 - [ ]  You are using latest  code of Starter Kit for the creation of bots for Facebook Messenger and Workplace.
 
-### Error
+## Error
 Post your error below:
 
 
-### Debug log
+## Debug log
 Post your debug log below:
 
 ```xml
