@@ -19,14 +19,14 @@ const cors_options_enabled = {
   methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   credentials: true,
   allowedHeaders:
-    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel'
+    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel',
 };
 const cors_options_disabled = {
   origin: '*',
   methods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   credentials: false,
   allowedHeaders:
-    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel'
+    'Content-Type,Authorization,Set-Cookie,Access-Control-Allow-Origin,Cache-Control,Pragma,id_channel',
 };
 
 // signale.info("Using config: ", config);
@@ -40,11 +40,11 @@ app.use(cookieParser());
 
 app.use((req, res, next) => {
   const output_reqHeaders = {
-    output: req.headers
+    output: req.headers,
   };
 
   const output_reqBody = {
-    output: req.body
+    output: req.body,
   };
 
   if (serverConfig.showLogInterceptor == 'true') {
@@ -87,7 +87,7 @@ if (swaggerConfig.enabled == 'true') {
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
-    extended: true
+    extended: true,
   })
 );
 

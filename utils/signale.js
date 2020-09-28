@@ -17,9 +17,9 @@ const options = {
       badge: '🎅',
       color: 'red',
       label: 'santa',
-      logLevel: 'info'
-    }
-  }
+      logLevel: 'info',
+    },
+  },
 };
 
 module.exports = new Signale(options);

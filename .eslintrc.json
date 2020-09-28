@@ -10,16 +10,20 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": ["error", 2],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "camelcase": [0, {
-      "properties": "never",
-      "ignoreDestructuring": true,
-      "ignoreImports": true
+      "properties": "never"
     }],
     "eqeqeq": [0, "smart"],
-    "handle-callback-err": [0, "^(err|error|anySpecificError)$" ]
+    "handle-callback-err": [0, "^(err|error|anySpecificError)$" ],
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }]
   }
 }

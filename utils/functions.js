@@ -20,7 +20,7 @@ const createSecretProof = () => {
 const generateQS = () => {
   const { accessToken, requireProof } = paramsConfig;
   const qs = {
-    access_token: accessToken
+    access_token: accessToken,
   };
 
   if (requireProof) {
@@ -40,8 +40,8 @@ const doSubscribeRequest = () => {
         method: 'POST',
         uri: `${fbApiUrl}/${fbApiVersion}/me/subscribed_apps`,
         qs: Object.assign(defaultQS, {
-          subscribed_fields: subscribedFields
-        })
+          subscribed_fields: subscribedFields,
+        }),
       },
       (error, response) => {
         try {
@@ -54,7 +54,7 @@ const doSubscribeRequest = () => {
         } catch (error) {
           signale.error({
             prefix: '[subscribe] ERROR',
-            message: `Error while subscription: ${error}`
+            message: `Error while subscription: ${error}`,
           });
           reject(error);
         }
@@ -109,19 +109,19 @@ const markSeen = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'mark_seen'
-      }
+        sender_action: 'mark_seen',
+      },
     },
     (error, response) => {
       if (error) {
         signale.error({
           prefix: '[markSeen] ERROR',
-          message: error
+          message: error,
         });
       } else {
         signale.success({
           prefix: '[markSeen] RESPONSE',
-          message: JSON.stringify(response.body)
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -139,19 +139,19 @@ const typingOn = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'typing_on'
-      }
+        sender_action: 'typing_on',
+      },
     },
     (error, response) => {
       if (error) {
         signale.error({
           prefix: '[typingOn] ERROR',
-          message: error
+          message: error,
         });
       } else {
         signale.success({
           prefix: '[typingOn] RESPONSE',
-          message: JSON.stringify(response.body)
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -169,19 +169,19 @@ const typingOff = (senderId) => {
       method: 'POST',
       json: {
         recipient: { id: senderId },
-        sender_action: 'typing_off'
-      }
+        sender_action: 'typing_off',
+      },
     },
     (error, response) => {
       if (error) {
         signale.error({
           prefix: '[typingOff] ERROR',
-          message: error
+          message: error,
         });
       } else {
         signale.success({
           prefix: '[typingOff] RESPONSE',
-          message: JSON.stringify(response.body)
+          message: JSON.stringify(response.body),
         });
       }
     }
@@ -198,19 +198,19 @@ const sendConfigs = (reqMethod = 'POST', data) => {
         url: `${fbApiUrl}/${fbApiVersion}/me/messenger_profile`,
         qs: defaultQS,
         method: reqMethod,
-        json: data
+        json: data,
       },
       (error, response) => {
         if (response.error) {
           signale.error({
             prefix: '[sendConfigs] ERROR',
-            message: response.error
+            message: response.error,
           });
           reject(response.error);
         } else {
           signale.success({
             prefix: '[sendConfigs] RESPONSE',
-            message: JSON.stringify(response.body)
+            message: JSON.stringify(response.body),
           });
           resolve(response.body);
         }
@@ -228,19 +228,19 @@ const getUserData = (senderId) => {
         url: `${fbApiUrl}/${fbApiVersion}/${senderId}`,
         qs: { fields: userFields },
         method: 'GET',
-        auth: { bearer: accessToken }
+        auth: { bearer: accessToken },
       },
       (error, response) => {
         if (response.error) {
           signale.error({
             prefix: '[getRecipientData] ERROR',
-            message: response.error
+            message: response.error,
           });
           reject(response.error);
         } else {
           signale.success({
             prefix: '[getRecipientData] RESPONSE',
-            message: JSON.stringify(response.body)
+            message: JSON.stringify(response.body),
           });
           resolve(response.body);
         }
@@ -260,20 +260,20 @@ const sendMessage = (data) => {
         url: `${fbApiUrl}/${fbApiVersion}/me/messages`,
         qs: defaultQS,
         method: 'POST',
-        json: data
+        json: data,
       },
       (error, response) => {
         typingOff(data.recipient.id);
         if (response.error) {
           signale.error({
             prefix: '[sendMessage] ERROR',
-            message: response.error
+            message: response.error,
           });
           reject(response.error);
         } else {
           signale.success({
             prefix: '[sendMessage] RESPONSE',
-            message: JSON.stringify(response.body)
+            message: JSON.stringify(response.body),
           });
           resolve(response.body);
         }
@@ -291,5 +291,5 @@ module.exports = {
   typingOff,
   sendConfigs,
   getUserData,
-  sendMessage
+  sendMessage,
 };

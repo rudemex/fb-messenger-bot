@@ -12,29 +12,29 @@ const persistentMenu = {
         {
           title: 'Get ID',
           type: 'postback',
-          payload: 'GET_ID_MESSENGER_PAYLOAD'
+          payload: 'GET_ID_MESSENGER_PAYLOAD',
         },
         {
           title: 'About us',
           type: 'postback',
-          payload: 'ABOUT_US_PAYLOAD'
+          payload: 'ABOUT_US_PAYLOAD',
         },
         {
           title: 'Contact',
           type: 'postback',
-          payload: 'CONTACT_PAYLOAD'
+          payload: 'CONTACT_PAYLOAD',
         },
         {
           type: 'web_url',
           title: '💻 Visit my Website',
           url: 'https://github.com/rudemex/fb-messenger-bot#readme',
-          webview_height_ratio: 'full'
-        }
-      ]
-    }
-  ]
+          webview_height_ratio: 'full',
+        },
+      ],
+    },
+  ],
 };
 
 module.exports = {
-  persistentMenu
+  persistentMenu,
 };

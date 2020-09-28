@@ -12,14 +12,14 @@ const TemplateGeneric = {
             {
               type: 'postback',
               title: 'Buy',
-              payload: 'BUY_TSHIRT_PAYLOAD'
+              payload: 'BUY_TSHIRT_PAYLOAD',
             },
             {
               type: 'postback',
               title: 'Start Chatting',
-              payload: 'CALL_SUPPORT_PAYLOAD'
-            }
-          ]
+              payload: 'CALL_SUPPORT_PAYLOAD',
+            },
+          ],
         },
         {
           title: 'Cool T-shirt',
@@ -29,14 +29,14 @@ const TemplateGeneric = {
             {
               type: 'postback',
               title: 'Buy',
-              payload: 'BUY_TSHIRT_PAYLOAD'
+              payload: 'BUY_TSHIRT_PAYLOAD',
             },
             {
               type: 'postback',
               title: 'Start Chatting',
-              payload: 'CALL_SUPPORT_PAYLOAD'
-            }
-          ]
+              payload: 'CALL_SUPPORT_PAYLOAD',
+            },
+          ],
         },
         {
           title: 'Cool T-shirt',
@@ -46,20 +46,20 @@ const TemplateGeneric = {
             {
               type: 'postback',
               title: 'Buy',
-              payload: 'BUY_TSHIRT_PAYLOAD'
+              payload: 'BUY_TSHIRT_PAYLOAD',
             },
             {
               type: 'postback',
               title: 'Start Chatting',
-              payload: 'CALL_SUPPORT_PAYLOAD'
-            }
-          ]
-        }
-      ]
-    }
-  }
+              payload: 'CALL_SUPPORT_PAYLOAD',
+            },
+          ],
+        },
+      ],
+    },
+  },
 };
 
 module.exports = {
-  TemplateGeneric
+  TemplateGeneric,
 };

@@ -10,23 +10,23 @@ const TemplateButton = {
           url: 'https://www.messenger.com',
           title: 'Visit Messenger',
           webview_height_ratio: 'compact',
-          messenger_extensions: false
+          messenger_extensions: false,
         },
         {
           type: 'postback',
           title: 'Btn postback',
-          payload: 'BTN_POSTBACK_PAYLOAD'
+          payload: 'BTN_POSTBACK_PAYLOAD',
         },
         {
           type: 'phone_number',
           title: 'Call Representative',
-          payload: '+12233445566'
-        }
-      ]
-    }
-  }
+          payload: '+12233445566',
+        },
+      ],
+    },
+  },
 };
 
 module.exports = {
-  TemplateButton
+  TemplateButton,
 };

@@ -11,15 +11,15 @@ const swagger = (app, config) => {
     info: {
       title: `${pjson.name}`,
       version: `${pjson.version}`,
-      description: `Swagger - ${pjson.description}`
+      description: `Swagger - ${pjson.description}`,
     },
 
-    basePath: config.context
+    basePath: config.context,
   };
 
   const options = {
     swaggerDefinition,
-    apis: ['./routes/*.js']
+    apis: ['./routes/*.js'],
   };
   const swaggerSpec = swaggerJSDoc(options);
   app.get('/swagger.json', (req, res) => {

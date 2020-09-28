@@ -2,9 +2,15 @@ const config = require('config');
 const bodyParser = require('body-parser');
 const idx = require('idx');
 const uuid = require('node-uuid');
+const { Wit } = require('node-wit');
 const signale = require('../utils/signale');
 const handle = require('../utils/handles');
 const functions = require('../utils/functions');
+
+const witAiConfig = config.get('witAi');
+
+const { accessToken } = witAiConfig;
+const wit = new Wit({ accessToken: accessToken });
 
 module.exports = (app) => {
   const sessionIds = new Map();
@@ -21,29 +27,36 @@ module.exports = (app) => {
 
     signale.info({
       prefix: '[handleEvent] EVENT TYPE',
-      message: eventType
+      message: eventType,
     });
 
     if (!sessionIds.has(senderId)) {
       sessionIds.set(senderId, uuid.v4());
     }
 
+    wit
+      .message(event.message.text, {})
+      .then((data) => {
+        console.log('Yay, got Wit.ai response: ', JSON.stringify(data));
+      })
+      .catch(console.error);
+
     switch (eventType) {
-    case 'postback':
-      handle.postback(senderId, event.postback);
-      break;
-    case 'quick_reply':
-      handle.quickReply(senderId, event.message.quick_reply);
-      break;
-    case 'attachments':
-      handle.attachments(senderId, event.message);
-      break;
-    case 'text':
-      handle.message(senderId, event.message);
-      break;
-    default:
-      // Event delivery and read
-      break;
+      case 'postback':
+        handle.postback(senderId, event.postback);
+        break;
+      case 'quick_reply':
+        handle.quickReply(senderId, event.message.quick_reply);
+        break;
+      case 'attachments':
+        handle.attachments(senderId, event.message);
+        break;
+      case 'text':
+        handle.message(senderId, event.message);
+        break;
+      default:
+        // Event delivery and read
+        break;
     }
   };
 
@@ -105,7 +118,7 @@ module.exports = (app) => {
    *          schema:
    *              $ref: '#/definitions/get-webhook-409'
    *       '5xx':
-   *          description: Error generico en el servidor
+   *          description: Error genérico en el servidor
    */
   app.get(encodeURI(`${context}/webhook/`), (req, res) => {
     const { verifyToken } = paramsConfig;
@@ -117,14 +130,14 @@ module.exports = (app) => {
           .then((response) => {
             signale.success({
               prefix: '[subscribe] RESPONSE',
-              message: `Subscription result: ${response.success}`
+              message: `Subscription result: ${response.success}`,
             });
             res.status(200).send(req.query['hub.challenge']);
           })
           .catch((error) => {
             signale.error({
               prefix: '[subscribe] ERROR',
-              message: error.message
+              message: error.message,
             });
             res.status(409).send(error);
           });
@@ -132,11 +145,12 @@ module.exports = (app) => {
     } else {
       signale.error({
         prefix: '[webhook]',
-        message: 'Error, wrong validation token'
+        message: 'Error, wrong validation token',
       });
-      res
-        .status(400)
-        .send({ code: 400, message: 'Error, wrong validation token' });
+      res.status(400).send({
+        code: 400,
+        message: 'Error, wrong validation token',
+      });
     }
   });
 
@@ -147,7 +161,7 @@ module.exports = (app) => {
         webhook_event.messaging.forEach((event) => {
           signale.success({
             prefix: '[webhook] EVENT RECEIVED',
-            message: JSON.stringify(event)
+            message: JSON.stringify(event),
           });
           handleEvent(event);
         });
@@ -156,7 +170,7 @@ module.exports = (app) => {
     } catch (err) {
       signale.error({
         prefix: '[webhook] ERROR',
-        message: err
+        message: err,
       });
       res.status(400).send({ code: 400, message: err });
     }

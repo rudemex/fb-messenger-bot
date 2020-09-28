@@ -15,23 +15,23 @@ const TemplateReceipt = {
         city: 'Menlo Park',
         postal_code: '94025',
         state: 'CA',
-        country: 'US'
+        country: 'US',
       },
       summary: {
         subtotal: 75.0,
         shipping_cost: 4.95,
         total_tax: 6.19,
-        total_cost: 56.14
+        total_cost: 56.14,
       },
       adjustments: [
         {
           name: 'New Customer Discount',
-          amount: 20
+          amount: 20,
         },
         {
           name: '$10 Off Coupon',
-          amount: 10
-        }
+          amount: 10,
+        },
       ],
       elements: [
         {
@@ -40,7 +40,7 @@ const TemplateReceipt = {
           quantity: 2,
           price: 50,
           currency: 'USD',
-          image_url: 'https://i.imgur.com/KyyexVl.png'
+          image_url: 'https://i.imgur.com/KyyexVl.png',
         },
         {
           title: 'Classic Gray T-Shirt',
@@ -48,13 +48,13 @@ const TemplateReceipt = {
           quantity: 1,
           price: 25,
           currency: 'USD',
-          image_url: 'https://i.imgur.com/KyyexVl.png'
-        }
-      ]
-    }
-  }
+          image_url: 'https://i.imgur.com/KyyexVl.png',
+        },
+      ],
+    },
+  },
 };
 
 module.exports = {
-  TemplateReceipt
+  TemplateReceipt,
 };

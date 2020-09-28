@@ -11,7 +11,7 @@ const {
   deleteGetStarted,
   deleteGreeting,
   deletePersistentMenu,
-  deleteAll
+  deleteAll,
 } = require('../docs/templates/configs/deleteConfigs');
 
 module.exports = (app) => {
@@ -136,15 +136,15 @@ module.exports = (app) => {
     let configData;
 
     switch (configType) {
-    case 'btn_get_started':
-      configData = btnGetStarted;
-      break;
-    case 'greeting':
-      configData = greeting;
-      break;
-    case 'persistent_menu':
-      configData = persistentMenu;
-      break;
+      case 'btn_get_started':
+        configData = btnGetStarted;
+        break;
+      case 'greeting':
+        configData = greeting;
+        break;
+      case 'persistent_menu':
+        configData = persistentMenu;
+        break;
     }
 
     functions
@@ -153,13 +153,13 @@ module.exports = (app) => {
         if (!response.error) {
           signale.success({
             prefix: `[sendConfigs] RESPONSE ${configType}`,
-            message: response
+            message: response,
           });
           res.status(200).send(response);
         } else {
           signale.error({
             prefix: `[sendConfigs] ERROR ${configType}`,
-            message: response.error
+            message: response.error,
           });
           res.status(400).send(response.error);
         }
@@ -167,7 +167,7 @@ module.exports = (app) => {
       .catch((error) => {
         signale.error({
           prefix: `[sendConfigs] ERROR ${configType}`,
-          message: error
+          message: error,
         });
         res.status(409).send(error);
       });
@@ -214,18 +214,18 @@ module.exports = (app) => {
     let configData;
 
     switch (configType) {
-    case 'get_started':
-      configData = deleteGetStarted;
-      break;
-    case 'greeting':
-      configData = deleteGreeting;
-      break;
-    case 'persistent_menu':
-      configData = deletePersistentMenu;
-      break;
-    case 'all':
-      configData = deleteAll;
-      break;
+      case 'get_started':
+        configData = deleteGetStarted;
+        break;
+      case 'greeting':
+        configData = deleteGreeting;
+        break;
+      case 'persistent_menu':
+        configData = deletePersistentMenu;
+        break;
+      case 'all':
+        configData = deleteAll;
+        break;
     }
 
     functions
@@ -234,13 +234,13 @@ module.exports = (app) => {
         if (!response.error) {
           signale.success({
             prefix: `[deleteConfigs] RESPONSE ${configType}`,
-            message: response
+            message: response,
           });
           res.status(200).send(response);
         } else {
           signale.error({
             prefix: `[deleteConfigs] ERROR ${configType}`,
-            message: response.error
+            message: response.error,
           });
           res.status(400).send(response.error);
         }
@@ -248,7 +248,7 @@ module.exports = (app) => {
       .catch((error) => {
         signale.error({
           prefix: `[deleteConfigs] ERROR ${configType}`,
-          message: error
+          message: error,
         });
         res.status(409).send(error);
       });

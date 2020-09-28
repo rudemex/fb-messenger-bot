@@ -22,7 +22,7 @@
   "services": {
     "fbApiUrl": "https://graph.facebook.com"
   },
-  "witai": {
+  "witAi": {
     "appId": "374613893717683",
     "accessToken": "OT6Z3ZPWXJUC3QS2KUMGQZ6WGZOXGKZY",
     "clientAccessToken": "TBIOLOUCJIFNX65E5MQOAZ43EZ4WBUAF"
