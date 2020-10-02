@@ -12,12 +12,12 @@
   "params": {
     "fbApiVersion": "v8.0",
     "verifyToken": "my_awesome_bot_verify_token",
-    "appSecret": "",
-    "accessToken": "",
+    "appSecret": "5797c84926076b7acd2f4157897bb9fd",
+    "accessToken": "EAAK3IePXJUsBACIAPgqsCu3c90UGEf7F12HPv7vGd8wEJdXaz95VuMgaP9ucURI5vBuFqjUaLxuYUoMJSjd9MbEbTBnww4COb4xqZCKBdlfNpv3tRDWVsEAHmrEsUWIHAi7nCBzisOR4vBSSi45M3wPqd8oZC6mvuX2bIRZBwZDZD",
     "subscribedFields": "messages,messaging_postbacks",
     "userFields": "id,name,first_name,last_name,email",
     "secrets": "",
-    "requireProof": false
+    "requireProof": true
   },
   "services": {
     "fbApiUrl": "https://graph.facebook.com"

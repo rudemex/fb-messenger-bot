@@ -1,18 +1,18 @@
 const config = require('config');
 const request = require('request');
+const moment = require('moment-timezone');
 const CryptoJS = require('crypto-js');
 const signale = require('./signale');
 
+const serverConfig = config.get('server');
 const servicesConfig = config.get('services');
 const paramsConfig = config.get('params');
 
 const createSecretProof = () => {
   const { accessToken, appSecret } = paramsConfig;
-  const time = (new Date().getTime() / 1000) | 0;
-  const secret_proof = CryptoJS.HmacSHA256(
-    `${accessToken}|${time}`,
-    appSecret
-  ).toString(CryptoJS.enc.Hex);
+  const { tz } = serverConfig;
+  const time = (moment().tz(tz).format('X') | 0);
+  const secret_proof = CryptoJS.HmacSHA256(`${accessToken}|${time}`, appSecret).toString(CryptoJS.enc.Hex);
 
   return { appsecret_time: time, appsecret_proof: secret_proof };
 };
